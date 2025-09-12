@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.example.songxanh.utils.GlobalMethods" />
+        <import type="android.view.View" />
+
+        <variable
+            name="detailsVM"
+            type="com.example.songxanh.ui.screens.community_achievement_details.AchievementDetailsVM" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/ic_chevron_backward" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/achievementdetail_detailstext"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.screens.community_achievement_details.AchievementDetailsFragment">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_frame" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/achievement_detail_user_avatar_img"
+                        android:layout_gravity="center"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/achievement_detail_user_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@{detailsVM.achievement.userName}"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/achievement_detail_date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{GlobalMethods.convertDateToHyphenSplittingFormat(detailsVM.achievement.createdTime)}"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/dateGreyTextColor"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/achievement_detail_total_calories_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="@{String.valueOf(detailsVM.achievement.calories)}"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="@string/community_calotext"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:paddingHorizontal="@dimen/default_horizontal_margin"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="Các món ăn"
+                    android:textSize="16sp" />
+
+                <ProgressBar
+                    android:id="@+id/foods_progress_bar"
+                    android:visibility="@{detailsVM.isLoadingFoods ? View.VISIBLE : View.GONE }"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/food_lst"
+                    android:layout_marginTop="13dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:paddingHorizontal="@dimen/default_horizontal_margin"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:layout_gravity="start"
+                    android:text="@string/achievement_details_exercises_txt"
+                    android:textSize="16sp" />
+
+                <ProgressBar
+                    android:id="@+id/exercises_progress_bar"
+                    android:visibility="@{detailsVM.isLoadingExercises ? View.VISIBLE : View.GONE}"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:paddingHorizontal="@dimen/default_horizontal_margin"
+
+                    android:layout_marginTop="13dp"
+                    android:id="@+id/exercise_lst"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

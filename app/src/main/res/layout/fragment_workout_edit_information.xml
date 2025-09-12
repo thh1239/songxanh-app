@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+
+        <variable
+            name="WorkoutEditInformationVM"
+            type="com.example.songxanh.ui.screens.workout_edit_information.WorkoutEditInformationVM" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.screens.workout_edit_information.WorkoutEditInformationFragment">
+
+        <RelativeLayout
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/fragment_custom_app_bar" />
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/default_horizontal_margin">
+
+            <ImageView
+                android:id="@+id/exercise_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/background_primary" />
+
+            <TextView
+                android:id="@+id/exercise_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:textSize="18sp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/time_setter_layout"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/InputHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thời gian ( giây )"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="5dp"
+                android:paddingHorizontal="@dimen/default_horizontal_margin">
+
+                <EditText
+                    android:id="@+id/hour_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/primary_edittext_background"
+                    android:hint="Giờ"
+                    android:text="@={WorkoutEditInformationVM.hours}"
+                    android:textSize="14sp"
+                    android:inputType="number"
+                    android:textColor="@color/primaryTextColor"
+                    android:paddingStart="10dp"
+                    android:textColorHint="@color/primaryHintColor" />
+
+                <EditText
+                    android:id="@+id/minutes_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/primary_edittext_background"
+                    android:textSize="14sp"
+                    android:textColor="@color/primaryTextColor"
+                    android:hint="Phút"
+                    android:text="@={WorkoutEditInformationVM.minutes}"
+                    android:inputType="number"
+                    android:paddingStart="10dp"
+                    android:textColorHint="@color/primaryHintColor" />
+
+                <EditText
+                    android:id="@+id/seconds_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/primary_edittext_background"
+                    android:textSize="14sp"
+                    android:textColor="@color/primaryTextColor"
+                    android:text="@={WorkoutEditInformationVM.seconds}"
+                    android:hint="Giây"
+                    android:inputType="number"
+                    android:paddingStart="10dp"
+                    android:textColorHint="@color/primaryHintColor" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/rep_setter_layout"
+            android:orientation="vertical"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/InputHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số reps"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/rep_edt"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/primary_edittext_background"
+                android:hint="Reps"
+                android:text="@={WorkoutEditInformationVM.reps}"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:textColor="@color/primaryTextColor"
+                android:paddingStart="12dp"
+                android:textColorHint="@color/primaryHintColor" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            style="@style/InputHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Calories (kcal)"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/calories_edt"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/primary_edittext_background"
+            android:hint="Calories"
+            android:textSize="14sp"
+            android:inputType="number"
+            android:text="@={WorkoutEditInformationVM.calories}"
+            android:textColor="@color/primaryTextColor"
+            android:enabled="false"
+            android:clickable="false"
+            android:paddingStart="12dp"
+            android:textColorHint="@color/primaryHintColor" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/submit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/primary_button_background"
+            android:text="Xong" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

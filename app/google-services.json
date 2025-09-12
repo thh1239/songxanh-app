@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "207935215603",
+    "firebase_url": "https://song-xanh-3a390-default-rtdb.firebaseio.com",
+    "project_id": "song-xanh-3a390",
+    "storage_bucket": "song-xanh-3a390.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207935215603:android:c955ec448675821f03e486",
+        "android_client_info": {
+          "package_name": "com.example.songxanh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "207935215603-3utapviu5quksl5shkqmk7kdvnj3up6f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEYi2Gl1ccLBOW0my3IAxP-ibpcmwFugM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207935215603-3utapviu5quksl5shkqmk7kdvnj3up6f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

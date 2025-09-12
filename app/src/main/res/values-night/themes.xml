@@ -1,0 +1,107 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.JavaHealthify" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+<!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
+<!--        <item name="colorPrimary">@color/purple_200</item>-->
+<!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
+<!--        <item name="colorOnPrimary">@color/black</item>-->
+<!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
+<!--        <item name="colorSecondary">@color/teal_200</item>-->
+<!--        <item name="colorSecondaryVariant">@color/teal_200</item>-->
+<!--        <item name="colorOnSecondary">@color/black</item>-->
+<!--        &lt;!&ndash; Status bar color. &ndash;&gt;-->
+<!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
+        <!-- Customize your theme here. -->
+        <item name="buttonStyle">@style/PoppinsButtonStyle</item>
+        <item name="android:textViewStyle">@style/TextViewDefaultPoppinsStyle</item>
+        <item name="android:textColor">@color/primaryBackgroundColor</item>
+        <item name="android:colorBackground">@color/primaryBackgroundColor</item>
+    </style>
+
+    <style name="TextViewDefaultPoppinsStyle">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="PoppinsButtonStyle">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AuthenticationHeader" >
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textSize">30sp</item>
+        <item name="textFillColor">@color/primaryTextColor</item>
+        <item name="android:layout_marginStart">20dp</item>
+    </style>
+
+    <style name="PrimaryEditText">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColorHint">@color/primaryHintColor</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:background">@drawable/primary_edittext_background</item>
+        <item name="android:layout_marginHorizontal">20dp</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Add any other attributes or overrides for the TextInputLayout style -->
+        <item name="helperTextTextAppearance">@style/CustomHelperTextAppearance</item>
+        <item name="android:layout_marginHorizontal">20dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="errorEnabled">true</item>
+        <item name="hintEnabled">false</item>
+        <item name="passwordToggleTint">@color/primaryHintColor</item>
+        <item name="android:textColorHint">@color/primaryHintColor</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintHorizontal_bias">0.5</item>
+        <item name="helperTextTextColor">@color/design_default_color_error</item>
+    </style>
+
+    <style name="CustomHelperTextAppearance" parent="TextAppearance.Design.HelperText">
+        <!-- Set the desired padding or margin for the helper text -->
+        <item name="android:paddingStart">20dp</item> <!-- Adjust the value as needed -->
+    </style>
+
+    <style name="fill_in_information_description">
+        <item name="android:layout_marginHorizontal">@dimen/default_horizontal_margin</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14dp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="fill_in_information_section">
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="PrimaryButtonStyle">
+        <item name="android:background">@drawable/primary_button_background</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/primaryBackgroundColor</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:layout_marginHorizontal">@dimen/default_horizontal_margin</item>
+    </style>
+
+    <style name="InputHeader">
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:layout_marginHorizontal">@dimen/default_horizontal_margin</item>
+    </style>
+
+    <style name="WorkoutFinishLabel" >
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+    </style>
+</resources>

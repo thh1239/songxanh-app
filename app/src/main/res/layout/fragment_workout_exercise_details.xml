@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="exerciseDetailsVM"
+            type="com.example.songxanh.ui.screens.workout_exercise_details.WorkoutExerciseDetailsVM" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.screens.workout_exercise_details.WorkoutExerciseDetailsFragment">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/app_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <include layout="@layout/fragment_custom_app_bar" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@drawable/background_primary"
+                android:scaleType="fitCenter" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+                android:layout_marginTop="16dp">
+
+                <ImageView
+                    android:id="@+id/exercise_practicing_image"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/background_primary"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/ic_favorite"
+                    android:onClick="@{() -> exerciseDetailsVM.addToFavorite()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/exercise_details_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@{exerciseDetailsVM.exercise.name.toUpperCase()}"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/exercise_details_time_or_rep_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:textColor="@color/primaryColor"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginTop="26dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Vị trí bắt đầu"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/exercise_practicing_starting_position_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+                android:layout_marginTop="5dp"
+                android:text="@{exerciseDetailsVM.exercise.startingPosition}"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginTop="26dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Thực hiện"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/exercise_practicing_execution_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+                android:layout_marginTop="5dp"
+                android:text="@{exerciseDetailsVM.exercise.execution}"
+                android:textSize="12sp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+
+</layout>

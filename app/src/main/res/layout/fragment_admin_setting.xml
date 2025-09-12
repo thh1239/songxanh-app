@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.appcompat.widget.AppCompatButton
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/switch_mode_btn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
+        android:drawableStart="@drawable/ic_dinner"
+        android:drawablePadding="24dp"
+        android:gravity="start"
+        android:paddingLeft="24dp"
+        android:textColor="@color/primaryTextColor"
+        android:paddingTop="18dp"
+        android:paddingBottom="8dp"
+        android:text="Chuyển đổi chế độ sáng/tối"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:drawableStart="@drawable/ic_danger"
+        android:drawableTint="?attr/colorError"
+        android:drawablePadding="28dp"
+        android:gravity="start"
+        android:paddingLeft="24dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="8dp"
+        android:text="Thoát tài khoản"
+        android:textColor="?attr/colorError"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_mode_btn" />
+</androidx.constraintlayout.widget.ConstraintLayout>

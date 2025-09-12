@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.songxanh.ui.screens.admin_ingredient_screen.AdminIngredientVM" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/edit_ingredient_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/app_bar"
+                layout="@layout/fragment_custom_app_bar" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/create_ingredient_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toBottomOf="@id/edit_ingredient_toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+
+
+
+
+                <TextView
+                    android:id="@+id/tv_update_ingredient_name"
+                    style="@style/fill_in_information_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="Tên nguyên liệu"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_update_ingredient_name"
+                    style="@style/PrimaryEditText"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/primary_edittext_background"
+                    android:hint="Điền tên nguyên liệu"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_update_ingredient_name"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_update_ingredient_calories"
+                    style="@style/fill_in_information_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="Calories (kcal)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_update_ingredient_name"
+                    tools:layout_editor_absoluteY="296dp" />
+
+                <EditText
+                    android:id="@+id/et_update_ingredient_calories"
+                    style="@style/PrimaryEditText"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/primary_edittext_background"
+                    android:hint="Calories (kcal)"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_update_ingredient_calories"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_update_ingredient_protein"
+                    style="@style/fill_in_information_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="Protein (grams)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_update_ingredient_calories" />
+
+                <EditText
+                    android:id="@+id/et_update_ingredient_protein"
+                    style="@style/PrimaryEditText"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/primary_edittext_background"
+                    android:hint="Protein (grams)"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_update_ingredient_protein"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_update_ingredient_lipid"
+                    style="@style/fill_in_information_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="Lipid (grams)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_update_ingredient_protein" />
+
+                <EditText
+                    android:id="@+id/et_update_ingredient_lipid"
+                    style="@style/PrimaryEditText"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/primary_edittext_background"
+                    android:hint="Lipid (grams)"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_update_ingredient_lipid"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_update_ingredient_carbs"
+                    style="@style/fill_in_information_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="Carbs (grams)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_update_ingredient_lipid" />
+
+                <EditText
+                    android:id="@+id/et_update_ingredient_carbs"
+                    style="@style/PrimaryEditText"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/primary_edittext_background"
+                    android:hint="Carbs (grams)"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_update_ingredient_carbs"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:backgroundTint="@color/primaryBackgroundColor"
+                    android:paddingBottom="27dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_update_ingredient_carbs">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/update_ingredient_btn"
+                        style="@style/PrimaryButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+
+                        android:text="Cập nhật" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </ScrollView>
+    </LinearLayout>
+</layout>

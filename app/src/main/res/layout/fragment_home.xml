@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.songxanh.ui.screens.home.HomeVM" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="@string/Home_Hello"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/user_avt_layout"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:textColor="@color/primaryTextColor"
+
+                    android:id="@+id/user_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/textView20"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/Home_Noti"
+                    android:textColor="@color/primaryTextColor"
+                    android:textAlignment="viewStart"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/set_theme_button"
+                    app:layout_constraintStart_toEndOf="@+id/user_avt_layout"
+                    app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+
+                <FrameLayout
+                    android:id="@+id/user_avt_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" >
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@drawable/ic_frame"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/user_avatar"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/default_avatar"
+
+                        />
+                </FrameLayout>
+
+                <ImageButton
+                    android:id="@+id/set_theme_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_dinner"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/onboarding_radius_panel"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart"
+                    android:layout_width="200dp"
+                    android:layout_height="300dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp" />
+
+                <LinearLayout
+                    android:id="@+id/legendLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_toEndOf="@+id/pieChart"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/onboarding_radius_panel"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+                bind:layout_editor_absoluteX="10dp">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp" />
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+                <!-- Cân nặng ban đầu -->
+
+                <TextView
+                    android:id="@+id/startWeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="start"
+                    android:text="@string/Home_weight_Start"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textView28"
+                    app:layout_constraintStart_toEndOf="@id/textView28" />
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/Home_Weight"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="12sp"
+                    android:gravity="start"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/Home_Start"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="12sp"
+                    android:gravity="start"
+                    app:layout_constraintTop_toBottomOf="@id/textView27"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Goal Weight -->
+
+                <TextView
+                    android:id="@+id/goalWeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="start"
+                    android:text="@string/home_weight_target"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textViewTarget"
+                    app:layout_constraintStart_toEndOf="@id/textViewTarget" />
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/Home_Weight"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="12sp"
+                    android:gravity="start"
+                    app:layout_constraintTop_toBottomOf="@id/textView28"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/textViewTarget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/Home_Target"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="12sp"
+                    android:gravity="start"
+                    app:layout_constraintTop_toBottomOf="@id/textView26"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Daily Calories -->
+
+                <TextView
+                    android:id="@+id/dailyCalories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="start"
+                    android:text="@string/Home_Daily_Calories"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textView29"
+                    app:layout_constraintStart_toEndOf="@id/textView29" />
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/Home_Cal"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="12sp"
+                    android:gravity="start"
+                    app:layout_constraintTop_toBottomOf="@id/textViewTarget"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/Home_Text_CaloDaily"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="12sp"
+                    android:gravity="start"
+                    app:layout_constraintTop_toBottomOf="@id/textView25"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    bind:ignore="TextSizeCheck">
+
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/step_statistics"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/onboarding_radius_panel"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/poppins_semi_bold"
+                        android:text="@string/Home_Steps_Text"
+                        android:textColor="@color/primaryTextColor"
+
+                        android:textSize="23sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/stepCountTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="@color/primaryTextColor"
+
+                        android:text="@string/Home_Steps"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="22dp"
+                        android:fontFamily="@font/poppins_semi_bold"
+                        android:textColor="@color/primaryTextColor"
+
+                        android:text="@string/Home_Steps_Text"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@+id/stepCountTextView"
+                        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/home_runningshoes"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/Home_Goal_Text"
+                        android:textColor="@color/primaryTextColor"
+
+                        android:textSize="10sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+                        bind:ignore="SmallSp" />
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/Home_Goal_Steps"
+                        android:textSize="10sp"
+                        android:textColor="@color/primaryTextColor"
+
+                        app:layout_constraintStart_toEndOf="@+id/textView22"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+                        bind:ignore="SmallSp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/Home_Steps_Text"
+
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="10sp"
+                        app:layout_constraintStart_toEndOf="@+id/textView23"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+                        bind:ignore="SmallSp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/home_retangle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/excercise_detail"
+                    android:layout_width="165dp"
+                    android:layout_height="160dp"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/primaryTextColor"
+
+                    android:background="@drawable/onboarding_radius_panel"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.506">
+
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/poppins_semi_bold"
+                        android:text="@string/Home_Excercise_Text"
+                        android:textColor="@color/primaryTextColor"
+
+                        android:textSize="23sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/exercise_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="@color/primaryTextColor"
+                        android:text="@string/Home_Calo"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toEndOf="@+id/imageView6"
+                        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppins_semi_bold"
+                        android:text="@string/Home_Cal"
+                        android:textColor="@color/primaryTextColor"
+
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toEndOf="@+id/exercise_tv"
+                        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/home_calories"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+                    <ImageView
+                        android:id="@+id/exerciseDetailBtn"
+                        android:layout_width="26dp"
+                        android:layout_height="33dp"
+                        android:src="@drawable/ic_add_with_circle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/update_weight_btn"
+                        android:layout_width="111dp"
+                        android:layout_height="46dp"
+                        android:layout_marginBottom="4dp"
+                        android:background="@drawable/primary_button_background"
+                        android:drawableEnd="@drawable/ic_chevron_forward"
+                        android:drawablePadding="8dp"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="4dp"
+                        android:text="Cập nhật cân nặng"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

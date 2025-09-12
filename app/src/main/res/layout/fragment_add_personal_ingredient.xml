@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.songxanh.ui.screens.add_personal_ingredient.AddPersonalIngredientVM" />
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/create_ingredient_toolbar" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/fragment_custom_app_bar"
+            app:title="Add meal" />
+        </RelativeLayout>
+
+
+        <ScrollView
+            android:id="@+id/create_ingredient_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/create_ingredient_header"
+                    style="@style/AuthenticationHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Điền thông tin nguyên liệu của bạn"
+                    android:textSize="30sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                     />
+
+                <TextView
+                    android:id="@+id/create_ingredient_prompt"
+                    style="@style/fill_in_information_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:text="Chúng tôi cần bạn cung cấp các thông tin dinh dưỡng của nguyên liệu để tính toán dinh dưỡng một cách chính xác"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/create_ingredient_header" />
+
+                <TextView
+                    android:id="@+id/tv_new_ingredient_name"
+                    style="@style/fill_in_information_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="Tên nguyên liệu"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/create_ingredient_prompt" />
+
+                <EditText
+                    android:id="@+id/et_new_ingredient_name"
+                    style="@style/PrimaryEditText"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/primary_edittext_background"
+                    android:hint="nhập tên nguyên liệu"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_new_ingredient_name"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_new_ingredient_serving_size"
+                    style="@style/fill_in_information_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="Khẩu phần ăn ( tính bằng grams"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_new_ingredient_name" />
+
+                <EditText
+                    android:id="@+id/et_new_ingredient_serving_size"
+                    style="@style/PrimaryEditText"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/primary_edittext_background"
+                    android:hint="Nhập khẩu phần (grams)"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_new_ingredient_serving_size"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="20dp"
+                    android:inputType="numberDecimal"/>
+
+                <TextView
+                    android:id="@+id/tv_new_ingredient_calories"
+                    style="@style/fill_in_information_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="Calories (kcal)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_new_ingredient_serving_size" />
+
+                <EditText
+                    android:id="@+id/et_new_ingredient_calories"
+                    style="@style/PrimaryEditText"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/primary_edittext_background"
+                    android:hint="Calories (kcal)"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_new_ingredient_calories"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="20dp"
+                    android:inputType="numberDecimal"/>
+
+                <TextView
+                    android:id="@+id/tv_new_ingredient_protein"
+                    style="@style/fill_in_information_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="Protein (grams)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_new_ingredient_calories" />
+
+                <EditText
+                    android:id="@+id/et_new_ingredient_protein"
+                    style="@style/PrimaryEditText"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/primary_edittext_background"
+                    android:hint="Protein (grams)"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_new_ingredient_protein"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="20dp"
+                    android:inputType="numberDecimal"/>
+
+                <TextView
+                    android:id="@+id/tv_new_ingredient_lipid"
+                    style="@style/fill_in_information_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="Lipid (grams)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_new_ingredient_protein" />
+
+                <EditText
+                    android:id="@+id/et_new_ingredient_lipid"
+                    style="@style/PrimaryEditText"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/primary_edittext_background"
+                    android:hint="Lipid (grams)"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_new_ingredient_lipid"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="20dp"
+                    android:inputType="numberDecimal"/>
+                <TextView
+                    android:id="@+id/tv_new_ingredient_carbs"
+                    style="@style/fill_in_information_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="Carbs (grams)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_new_ingredient_lipid" />
+
+                <EditText
+                    android:id="@+id/et_new_ingredient_carbs"
+                    style="@style/PrimaryEditText"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/primary_edittext_background"
+                    android:hint="Carbs (grams)"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_new_ingredient_carbs"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="20dp"
+                    android:inputType="numberDecimal"/>
+
+                <LinearLayout
+                    android:layout_marginTop="27dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/primaryBackgroundColor"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="27dp"
+             app:layout_constraintTop_toBottomOf="@id/et_new_ingredient_carbs">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/add_new_ingredient_btn"
+                        style="@style/PrimaryButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+
+                        android:text="Thêm"/>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+</layout>

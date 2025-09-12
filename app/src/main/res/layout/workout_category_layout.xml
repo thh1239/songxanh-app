@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="10dp"
+    android:id="@+id/workout_category_item"
+    android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+    android:layout_marginBottom="@dimen/default_vertical_margin"
+    android:background="@drawable/background_primary">
+
+    <RelativeLayout
+        android:id="@+id/category_image_background"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/workout_category_image_background"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <ImageView
+            android:id="@+id/workout_category_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/category_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="15sp"
+        android:fontFamily="@font/poppins_semi_bold"
+        app:layout_constraintBottom_toBottomOf="@+id/category_image_background"
+        app:layout_constraintStart_toEndOf="@+id/category_image_background"
+        app:layout_constraintTop_toTopOf="@+id/category_image_background" />
+
+    <ImageView
+        android:id="@+id/category_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_chevron_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/category_image_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/category_image_background" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

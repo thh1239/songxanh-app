@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.songxanh.ui.screens.profile_change_noti_time.ProfileChangeNotiTimeVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        bind:context=".ui.screens.profile_change_noti_time.ProfileChangeNotiTimeFragment">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/updateNotiBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/primary_button_background"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Cập nhật"
+            android:textAllCaps="false"
+            android:textColor="@color/primaryBackgroundColor"
+            android:textSize="20sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/meal_edt" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_chevron_backward" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/primaryTextColor"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Cài đặt thông báo"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/weight_tv"
+            style="@style/fill_in_information_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="Thời gian tập luyện"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <EditText
+            android:id="@+id/workout_edt"
+            style="@style/PrimaryEditText"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/primary_edittext_background"
+            android:drawableEnd="@drawable/ic_option"
+            android:inputType="time"
+            android:timePickerMode="spinner"
+            app:layout_constraintTop_toBottomOf="@+id/weight_tv"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="20dp" />
+
+
+        <TextView
+            android:id="@+id/weight_tv1"
+            style="@style/fill_in_information_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="Thời gian ăn uống"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/workout_edt" />
+
+        <EditText
+            android:id="@+id/meal_edt"
+            style="@style/PrimaryEditText"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/primary_edittext_background"
+            android:drawableEnd="@drawable/ic_option"
+            android:inputType="time"
+            app:layout_constraintTop_toBottomOf="@+id/weight_tv1"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="20dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

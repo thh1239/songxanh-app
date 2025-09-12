@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_horizontal_margin">20dp</dimen>
+    <dimen name="default_vertical_margin">20dp</dimen>
+    <dimen name="default_corners_radius">12dp</dimen>
+    <dimen name="default_button_height">52dp</dimen>
+
+    <!--    Workout-->
+    <dimen name="tab_horizontal_padding">22dp</dimen>
+    <dimen name="tab_vertical_padding">8dp</dimen>
+</resources>

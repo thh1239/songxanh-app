@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="workoutHistoryVM"
+            type="com.example.songxanh.ui.screens.workout_history.WorkoutHistoryVM" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.screens.workout_history.WorkoutHistoryFragment">
+
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/fragment_custom_app_bar"
+            title="@{@string/workout_history_app_bar_title}" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/default_horizontal_margin">
+
+            <ImageButton
+                android:id="@+id/calendar_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_calendar" />
+
+            <TextView
+                android:id="@+id/date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textSize="16dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@{workoutHistoryVM.selectedDateInString}"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/exercises_lst"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="@dimen/default_horizontal_margin" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

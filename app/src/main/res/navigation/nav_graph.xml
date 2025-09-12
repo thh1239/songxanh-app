@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Reorganized nav_graph for SongXanh
+  - Grouped by flows: App Entry, Onboarding/Auth, Sign-up Personalization, Home, Profile,
+    Workout, Community, Menu/Nutrition, Admin, Dialogs
+  - No IDs or destinations changed to avoid breaking references
+  - Only order and comments adjusted
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/signUpFragment">
+
+    <!-- ====================== App Entry ====================== -->
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.songxanh.ui.screens.splash_screen.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" />
+
+    <!-- ====================== Onboarding & Auth ====================== -->
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.example.songxanh.ui.screens.onboarding.OnboardingFragment"
+        android:label="OnboardingFragment"
+        tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/action_onboardingFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.songxanh.ui.screens.sign_up.SignUpFragment"
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_fillInPersonalInformationFragment"
+            app:destination="@id/fillInPersonalInformationFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.songxanh.ui.screens.sign_in.SignInFragment"
+        android:label="SignInFragment"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_signInFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_fillInPersonalInformationFragment"
+            app:destination="@id/fillInPersonalInformationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.example.songxanh.ui.screens.forgot_password.ForgotPasswordFragment"
+        android:label="ForgotPasswordFragment"
+        tools:layout="@layout/fragment_forgot_password" />
+
+    <!-- ====================== Sign-up Personalization ====================== -->
+    <fragment
+        android:id="@+id/fillInPersonalInformationFragment"
+        android:name="com.example.songxanh.ui.screens.fill_in_personal_information.FillInPersonalInformationFragment"
+        android:label="FillInPersonalInformationFragment"
+        tools:layout="@layout/fragment_fill_in_personal_information">
+        <action
+            android:id="@+id/action_fillInPersonalInformationFragment_to_fillInTrackingInformationFragment"
+            app:destination="@id/fillInTrackingInformationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fillInTrackingInformationFragment"
+        android:name="com.example.songxanh.ui.screens.fill_in_personal_information.FillInTrackingInformationFragment"
+        android:label="FillInTrackingInformationFragment"
+        tools:layout="@layout/fragment_fill_in_tracking_information">
+        <action
+            android:id="@+id/action_fillInTrackingInformationFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <!-- ====================== Home & Shared ====================== -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.songxanh.ui.screens.home.HomeFragment"
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_excerciseDetail"
+            app:destination="@id/excerciseDetail" />
+        <action
+            android:id="@+id/action_homeFragment_to_homeUpdateWeightFragment"
+            app:destination="@id/homeUpdateWeightFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeUpdateWeightFragment"
+        android:name="com.example.songxanh.ui.screens.home_update_weight.HomeUpdateWeightFragment"
+        android:label="HomeUpdateWeightFragment" />
+
+    <!-- Kept original ID 'excerciseDetail' (sic) to preserve references -->
+    <fragment
+        android:id="@+id/excerciseDetail"
+        android:name="com.example.songxanh.ui.screens.exercise_detail.ExcerciseDetailFragment"
+        android:label="ExcerciseDetail" />
+
+    <!-- ====================== Profile ====================== -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.songxanh.ui.screens.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileChangeGoalsFragment"
+            app:destination="@id/profileChangeGoalsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileChangeNotiTimeFragment"
+            app:destination="@id/profileChangeNotiTimeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileChangeNotiTimeFragment2"
+            app:destination="@id/profileChangeNotiTimeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_profilePersonalInfoFragment"
+            app:destination="@id/profilePersonalInfoFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileCaloriesHistoryFragment"
+            app:destination="@id/profileCaloriesHistoryFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileSettingFragment"
+            app:destination="@id/profileSettingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.songxanh.ui.screens.profile_edit.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/profileChangeGoalsFragment"
+        android:name="com.example.songxanh.ui.screens.profile_change_goals.ProfileChangeGoalsFragment"
+        android:label="fragment_profile_change_goals"
+        tools:layout="@layout/fragment_profile_change_goals" />
+
+    <fragment
+        android:id="@+id/profileChangeNotiTimeFragment"
+        android:name="com.example.songxanh.ui.screens.profile_change_noti_time.ProfileChangeNotiTimeFragment"
+        android:label="fragment_profile_change_noti_time"
+        tools:layout="@layout/fragment_profile_change_noti_time" />
+
+    <fragment
+        android:id="@+id/profilePersonalInfoFragment"
+        android:name="com.example.songxanh.ui.screens.profile_personal_info.ProfilePersonalInfoFragment"
+        android:label="fragment_profile_personal_info"
+        tools:layout="@layout/fragment_profile_personal_info" />
+
+    <fragment
+        android:id="@+id/profileCaloriesHistoryFragment"
+        android:name="com.example.songxanh.ui.screens.profile_calories_history.ProfileCaloriesHistoryFragment"
+        android:label="fragment_profile_calories_history"
+        tools:layout="@layout/fragment_profile_calories_history" />
+
+    <fragment
+        android:id="@+id/profileSettingFragment"
+        android:name="com.example.songxanh.ui.screens.profile_setting.ProfileSettingFragment"
+        android:label="fragment_profile_setting"
+        tools:layout="@layout/fragment_profile_setting">
+        <action
+            android:id="@+id/action_profileSettingFragment_to_profileChangePassFragment2"
+            app:destination="@id/profileChangePassFragment2" />
+        <action
+            android:id="@+id/action_profileSettingFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileChangePassFragment2"
+        android:name="com.example.songxanh.ui.screens.profile_change_pass.ProfileChangePassFragment"
+        android:label="fragment_profile_change_pass"
+        tools:layout="@layout/fragment_profile_change_pass" />
+
+    <!-- ====================== Workout ====================== -->
+    <fragment
+        android:id="@+id/workoutFragment"
+        android:name="com.example.songxanh.ui.screens.workout.WorkoutFragment"
+        android:label="fragment_workout"
+        tools:layout="@layout/fragment_workout">
+        <action
+            android:id="@+id/action_workoutFragment_to_workoutCategoriesFragment"
+            app:destination="@id/workoutCategoriesFragment" />
+        <action
+            android:id="@+id/action_workoutFragment_to_workoutExerciseDetailsFragment"
+            app:destination="@id/workoutExerciseDetailsFragment" />
+        <action
+            android:id="@+id/action_workoutFragment_to_workoutExercisePracticingFragment"
+            app:destination="@id/workoutExercisePracticingFragment" />
+        <action
+            android:id="@+id/action_workoutFragment_to_workoutHistoryFragment"
+            app:destination="@id/workoutHistoryFragment" />
+        <action
+            android:id="@+id/action_workoutFragment_to_workoutFavoriteFragment"
+            app:destination="@id/workoutFavoriteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/workoutCategoriesFragment"
+        android:name="com.example.songxanh.ui.screens.workout_categories.WorkoutCategoriesFragment"
+        android:label="WorkoutCategoriesFragment"
+        tools:layout="@layout/fragment_workout_categories">
+        <action
+            android:id="@+id/action_workoutCategoriesFragment_to_workoutCategoryExercisesFragment"
+            app:destination="@id/workoutCategoryExercisesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/workoutCategoryExercisesFragment"
+        android:name="com.example.songxanh.ui.screens.workout_categories_exercises.WorkoutCategoryExercisesFragment"
+        android:label="WorkoutCategoryExercisesFragment"
+        tools:layout="@layout/fragment_workout_category_exercises">
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_workoutCategoryExercisesFragment_to_workoutExerciseDetailsFragment"
+            app:destination="@id/workoutExerciseDetailsFragment" />
+        <action
+            android:id="@+id/action_workoutCategoryExercisesFragment_to_workoutEditInformationFragment"
+            app:destination="@id/workoutEditInformationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/workoutExerciseDetailsFragment"
+        android:name="com.example.songxanh.ui.screens.workout_exercise_details.WorkoutExerciseDetailsFragment"
+        android:label="WorkoutExerciseDetailsFragment"
+        tools:layout="@layout/fragment_workout_exercise_details">
+        <argument
+            android:name="exercise"
+            app:argType="com.example.songxanh.data.models.Exercise" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/workoutEditInformationFragment"
+        android:name="com.example.songxanh.ui.screens.workout_edit_information.WorkoutEditInformationFragment"
+        android:label="fragment_workout_edit_information"
+        tools:layout="@layout/fragment_workout_edit_information">
+        <argument
+            android:name="exercise"
+            app:argType="com.example.songxanh.data.models.Exercise" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/workoutExercisePracticingFragment"
+        android:name="com.example.songxanh.ui.screens.workout_exercise_practicing.WorkoutExercisePracticingFragment"
+        android:label="WorkoutExercisePracticingFragment"
+        tools:layout="@layout/fragment_workout_exercise_practicing">
+        <action
+            android:id="@+id/action_workoutExercisePracticingFragment_to_workoutFinishFragment"
+            app:destination="@id/workoutFinishFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/workoutFinishFragment"
+        android:name="com.example.songxanh.ui.screens.workout_finish.WorkoutFinishFragment"
+        android:label="fragment_workout_finish"
+        tools:layout="@layout/fragment_workout_finish">
+        <action
+            android:id="@+id/action_workoutFinishFragment_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/workoutHistoryFragment"
+        android:name="com.example.songxanh.ui.screens.workout_history.WorkoutHistoryFragment"
+        android:label="fragment_workout_history"
+        tools:layout="@layout/fragment_workout_history" />
+
+    <fragment
+        android:id="@+id/workoutFavoriteFragment"
+        android:name="com.example.songxanh.ui.screens.workout_favorite.WorkoutFavoriteFragment"
+        android:label="WorkoutFavoriteFragment"
+        tools:layout="@layout/fragment_workout_favorite">
+        <action
+            android:id="@+id/action_workoutFavoriteFragment_to_workoutExerciseDetailsFragment"
+            app:destination="@id/workoutExerciseDetailsFragment" />
+    </fragment>
+
+    <!-- ====================== Community ====================== -->
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.example.songxanh.ui.screens.community.CommunityFragment"
+        android:label="fragment_community"
+        tools:layout="@layout/fragment_community">
+        <action
+            android:id="@+id/action_communityFragment_to_workoutShareAchievementFragment"
+            app:destination="@id/workoutShareAchievementFragment" />
+        <action
+            android:id="@+id/action_communityFragment_to_achievementDetailsFragment"
+            app:destination="@id/achievementDetailsFragment" />
+        <action
+            android:id="@+id/action_communityFragment_to_communitySearchFragment"
+            app:destination="@id/communitySearchFragment" />
+        <action
+            android:id="@+id/action_communityFragment_to_communityFollowingFragment2"
+            app:destination="@id/communityFollowingFragment2" />
+        <action
+            android:id="@+id/action_communityFragment_to_communityUserProfileFragment"
+            app:destination="@id/communityUserProfileFragment" />
+        <action
+            android:id="@+id/action_communityFragment_to_communityReportFragment"
+            app:destination="@id/communityReportFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/workoutShareAchievementFragment"
+        android:name="com.example.songxanh.ui.screens.community_share_achievement.CommunityShareAchievementFragment"
+        android:label="WorkoutShareAchievementFragment"
+        tools:layout="@layout/fragment_community_share_achievement" />
+
+    <fragment
+        android:id="@+id/achievementDetailsFragment"
+        android:name="com.example.songxanh.ui.screens.community_achievement_details.AchievementDetailsFragment"
+        android:label="AchievementDetailsFragment"
+        tools:layout="@layout/fragment_achievement_details">
+        <argument
+            android:name="achievement"
+            app:argType="com.example.songxanh.data.models.Achievement" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/communitySearchFragment"
+        android:name="com.example.songxanh.ui.screens.community_search.CommunitySearchFragment"
+        android:label="CommunitySearchFragment"
+        tools:layout="@layout/fragment_community_search">
+        <action
+            android:id="@+id/action_communitySearchFragment_to_communityUserProfileFragment"
+            app:destination="@id/communityUserProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/communityUserProfileFragment"
+        android:name="com.example.songxanh.ui.screens.community_user_profile.CommunityUserProfileFragment"
+        android:label="CommunityUserProfileFragment"
+        tools:layout="@layout/fragment_community_user_profile">
+        <argument
+            android:name="uid"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/communityFollowingFragment2"
+        android:name="com.example.songxanh.ui.screens.community_following.CommunityFollowingFragment"
+        android:label="CommunityFollowingFragment"
+        tools:layout="@layout/fragment_community_following" />
+
+    <fragment
+        android:id="@+id/communityReportFragment"
+        android:name="com.example.songxanh.ui.screens.community_report.CommunityReportFragment"
+        android:label="CommunityReportFragment"
+        tools:layout="@layout/fragment_community_report">
+        <argument
+            android:name="achievement"
+            app:argType="com.example.songxanh.data.models.Achievement" />
+    </fragment>
+
+    <!-- ====================== Menu / Nutrition ====================== -->
+    <fragment
+        android:id="@+id/chatboxFragment"
+        android:name="com.example.songxanh.ui.screens.chatbox.ChatboxFragment"
+        android:label="Chatbox"
+        tools:layout="@layout/fragment_chatbox" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.songxanh.ui.screens.menu.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menuFragment_to_addMealFragment"
+            app:destination="@id/addMealFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_editMealFragment"
+            app:destination="@id/editMealFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addMealFragment"
+        android:name="com.example.songxanh.ui.screens.add_meal.AddMealFragment"
+        android:label="AddMealFragment">
+        <action
+            android:id="@+id/action_addMealFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_addMealFragment_to_findIngredientFragment"
+            app:destination="@id/findIngredientFragment" />
+        <action
+            android:id="@+id/action_addMealFragment_to_chatboxFragment"
+            app:destination="@id/chatboxFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/findIngredientFragment"
+        android:name="com.example.songxanh.ui.screens.find_ingredient.FindIngredientFragment"
+        android:label="FindIngredientFragment">
+        <action
+            android:id="@+id/action_findIngredientFragment_to_addMealFragment"
+            app:destination="@id/addMealFragment" />
+        <action
+            android:id="@+id/action_findIngredientFragment_to_editMealFragment"
+            app:destination="@id/editMealFragment" />
+        <action
+            android:id="@+id/action_findIngredientFragment_to_ingredientInfoFragment"
+            app:destination="@id/ingredientInfoFragment" />
+        <action
+            android:id="@+id/action_findIngredientFragment_to_addPersonalIngredientFragment"
+            app:destination="@id/addPersonalIngredientFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editMealFragment"
+        android:name="com.example.songxanh.ui.screens.edit_meal.EditMealFragment"
+        android:label="EditMealFragment">
+        <action
+            android:id="@+id/action_editMealFragment_to_findIngredientFragment"
+            app:destination="@id/findIngredientFragment" />
+        <action
+            android:id="@+id/action_editMealFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ingredientInfoFragment"
+        android:name="com.example.songxanh.ui.screens.ingredient_info.IngredientInfoFragment"
+        android:label="IngredientInfoFragment" />
+
+    <fragment
+        android:id="@+id/addPersonalIngredientFragment"
+        android:name="com.example.songxanh.ui.screens.add_personal_ingredient.AddPersonalIngredientFragment"
+        android:label="AddPersonalIngredientFragment">
+        <action
+            android:id="@+id/action_addPersonalIngredientFragment_to_newIngredientAddedFragment"
+            app:destination="@id/newIngredientAddedFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newIngredientAddedFragment"
+        android:name="com.example.songxanh.ui.screens.new_ingredient_added_screen.NewIngredientAddedFragment"
+        android:label="NewIngredientAddedFragment" />
+
+    <!-- ====================== Admin ====================== -->
+    <fragment
+        android:id="@+id/adminCommunityFragment"
+        android:name="com.example.songxanh.ui.screens.admin_community_screen.AdminCommunityFragment"
+        android:label="fragment_admin_community"
+        tools:layout="@layout/fragment_admin_community">
+        <action
+            android:id="@+id/action_adminCommunityFragment_to_achievementDetailsFragment"
+            app:destination="@id/achievementDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/adminIngredientFragment"
+        android:name="com.example.songxanh.ui.screens.admin_ingredient_screen.AdminIngredientFragment"
+        android:label="fragment_admin_ingredient"
+        tools:layout="@layout/fragment_admin_ingredient">
+        <action
+            android:id="@+id/action_adminIngredientFragment_to_adminEditIngredientFragment"
+            app:destination="@id/adminEditIngredientFragment" />
+        <action
+            android:id="@+id/action_adminIngredientFragment_to_adminPendingIngredientsFragment"
+            app:destination="@id/adminPendingIngredientsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/adminEditIngredientFragment"
+        android:name="com.example.songxanh.ui.screens.admin_edit_ingredient_screen.AdminEditIngredientFragment"
+        android:label="AdminEditIngredientFragment" />
+
+    <fragment
+        android:id="@+id/adminPendingIngredientsFragment"
+        android:name="com.example.songxanh.ui.screens.admin_pending_ingredients_screen.AdminPendingIngredientsFragment"
+        android:label="fragment_admin_pending_ingredients"
+        tools:layout="@layout/fragment_admin_pending_ingredients" />
+
+    <fragment
+        android:id="@+id/adminWorkoutFragment"
+        android:name="com.example.songxanh.ui.screens.admin_workout_screen.AdminWorkoutFragment"
+        android:label="fragment_admin_workout"
+        tools:layout="@layout/fragment_admin_workout">
+        <action
+            android:id="@+id/action_adminWorkoutFragment_to_adminAddWorkoutCategoryFragment"
+            app:destination="@id/adminAddWorkoutCategoryFragment" />
+        <action
+            android:id="@+id/action_adminWorkoutFragment_to_adminEditExercisesFragment"
+            app:destination="@id/adminEditExercisesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/adminAddWorkoutCategoryFragment"
+        android:name="com.example.songxanh.ui.screens.admin_add_workout_category_screen.AdminAddWorkoutCategoryFragment"
+        android:label="AdminAddWorkoutCategoryFragment" />
+
+    <fragment
+        android:id="@+id/adminEditExercisesFragment"
+        android:name="com.example.songxanh.ui.screens.admin_edit_exercises_screen.AdminEditExercisesFragment"
+        android:label="AdminEditExercisesFragment">
+        <action
+            android:id="@+id/action_adminEditExercisesFragment_to_addExerciseFragment"
+            app:destination="@id/addExerciseFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addExerciseFragment"
+        android:name="com.example.songxanh.ui.screens.add_exercise_screen.AddExerciseFragment"
+        android:label="AddExerciseFragment" />
+
+    <fragment
+        android:id="@+id/adminSettingFragment"
+        android:name="com.example.songxanh.ui.screens.admin_setting_screen.AdminSettingFragment"
+        android:label="AdminSettingFragment" />
+
+    <!-- ====================== Dialogs ====================== -->
+    <dialog
+        android:id="@+id/currentWeightPickerBottomSheetFragment"
+        android:name="com.example.songxanh.ui.widgets.number_picker_bottom_sheet.CurrentWeightPickerBottomSheetFragment"
+        android:label="NumberPickerBottomSheet"
+        tools:layout="@layout/fragment_current_weight_picker_bottom_sheet" />
+
+    <dialog
+        android:id="@+id/currentHeightPickerBottomSheetFragment"
+        android:name="com.example.songxanh.ui.widgets.number_picker_bottom_sheet.CurrentHeightPickerBottomSheetFragment"
+        android:label="CurrentHeightPickerBottomSheetFragment"
+        tools:layout="@layout/fragment_current_height_picker_bottom_sheet" />
+
+    <dialog
+        android:id="@+id/goalWeightPickerBottomSheetFragment"
+        android:name="com.example.songxanh.ui.widgets.number_picker_bottom_sheet.GoalWeightPickerBottomSheetFragment"
+        android:label="GoalWeightPickerBottomSheetFragment"
+        tools:layout="@layout/fragment_goal_weight_picker_bottom_sheet" />
+
+</navigation>

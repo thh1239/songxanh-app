@@ -1,0 +1,134 @@
+<resources>
+	<string name="app_name">Song Xanh</string>
+	<!-- TODO: Xóa hoặc thay đổi đoạn văn bản mẫu này -->
+	<string name="hello_blank_fragment">Xin chào blank fragment</string>
+
+	<!-- Chung -->
+	<string name="upload_button_title">Tải lên</string>
+
+	<!-- Onboarding -->
+	<string name="onboarding_title_1">Theo dõi lượng calo hàng ngày</string>
+	<string name="onboarding_title_2">Kiểm soát lượng calo trong bữa ăn</string>
+	<string name="onboarding_title_3">Bài tập dành cho bạn</string>
+
+	<string name="onboarding_subtitle_1">Giúp bạn theo dõi lượng calo nạp vào và tiêu thụ dễ dàng, đồng thời lưu lại tiến trình để theo dõi lâu dài.</string>
+	<string name="onboarding_subtitle_2">Giờ đây bạn có thể kiểm soát lượng calo bằng cách theo dõi thông tin dinh dưỡng của từng bữa ăn với sự hỗ trợ từ cơ sở dữ liệu thực phẩm đáng tin cậy.</string>
+	<string name="onboarding_subtitle_3">Cung cấp kế hoạch tập luyện cá nhân hóa, theo dõi tiến trình, tích hợp mạng xã hội và thư viện bài tập đa dạng để giúp bạn đạt được mục tiêu thể chất.</string>
+
+	<!-- Điền thông tin -->
+	<string name="fill_in_information_title_1">Hoàn tất thông tin cá nhân</string>
+	<string name="fill_in_information_description_1">Chúng tôi cần một số thông tin cá nhân để tạo hồ sơ riêng cho bạn. Những thông tin này chỉ được sử dụng trong ứng dụng.</string>
+	<string name="fill_in_information_title_2">Hoàn tất thông tin của bạn</string>
+	<string name="fill_in_information_description_2">Chúng tôi cần một số thông tin dưới đây để tính toán lượng calo bạn cần mỗi ngày và đề xuất bài tập phù hợp.</string>
+
+	<!-- Quên mật khẩu -->
+	<string name="forgot_password_text">Quên mật khẩu</string>
+	<string name="forgot_password_description">Nhập email đã đăng ký, chúng tôi sẽ gửi email đặt lại mật khẩu cho bạn</string>
+	<string name="sent_reset_email_description">Chúng tôi đã gửi email đặt lại mật khẩu. Vui lòng kiểm tra hộp thư đến!</string>
+
+	<!-- Navbar -->
+	<string name="navbar_home">Trang chủ</string>
+	<string name="navbar_menu">Thực đơn</string>
+	<string name="navbar_workout">Tập luyện</string>
+	<string name="navbar_community">Cộng đồng</string>
+	<string name="navbar_profile">Hồ sơ</string>
+
+	<!-- Menu -->
+	<string name="dish_name_hint_text">Tên món ăn</string>
+	<string name="meal_type">Buổi ăn</string>
+	<string-array name="meal_types">
+		<item>Bữa sáng</item>
+		<item>Bữa trưa</item>
+		<item>Bữa tối</item>
+		<item>Bữa xế</item>
+		<item>Ăn nhẹ</item>
+	</string-array>
+	<string name="ingredients">Nguyên liệu</string>
+	<string name="total_calories">Tổng lượng calo</string>
+	<string name="ingredient_search_hint">Tìm kiếm nguyên liệu</string>
+	<string name="can_t_find_your_ingredient">Không tìm thấy nguyên liệu của bạn?</string>
+	<string name="add_your_own">Thêm nguyên liệu của bạn</string>
+	<string name="menu_today">Hôm nay</string>
+
+	<!-- Hồ sơ -->
+	<string name="Profile_Name">Ariana Grande</string>
+	<string name="Profile_Email">AriGrande@gmail.com</string>
+	<string name="Profile_Edit">Chỉnh sửa hồ sơ</string>
+	<string name="Profile_BirthDay">30/02/2002</string>
+	<string name="Profile_PhoneNumber">0908123456</string>
+	<string name="Profile_Address">UIT Linh Trung</string>
+
+	<!-- Tập luyện -->
+	<string name="tab_title_beginner">Người mới bắt đầu</string>
+	<string name="tab_title_intermediate">Trung cấp</string>
+	<string name="tab_title_advance">Nâng cao</string>
+	<string name="workout_categories_app_bar_title">Danh mục bài tập</string>
+	<string name="add_btn_txt">Thêm bài tập</string>
+	<string name="start_exercise_text">Bắt đầu tập luyện</string>
+	<string name="community_text">Cộng đồng</string>
+	<string name="Community_name">Ariana Grande</string>
+	<string name="community_calories">Ngày 31 tháng 3, 2023</string>
+	<string name="community_calo">690</string>
+	<string name="community_calotext">kcal</string>
+	<string name="community_achievementtext">Thành tích hôm nay của tôi</string>
+	<string name="community_step">6.996</string>
+	<string name="community_steptext">bước</string>
+	<string name="community_kcalexcercise">6.996</string>
+	<string name="community_kcalexcecisetext">kcal từ bài tập</string>
+	<string name="community_kcalfood">1200</string>
+	<string name="community_kcalfoodtext">kcal từ thực phẩm</string>
+	<string name="achievementdetail_detailstext">Chi tiết</string>
+	<string name="community_achieventmentdetail_foodtext">Thực phẩm</string>
+	<string name="community_achievmentdetails_textfood">Ức gà</string>
+	<string name="community_details_kalo">246</string>
+	<string name="community_detail_kcal">kcal</string>
+	<string name="achievement_details_exercises_txt">Bài tập</string>
+	<string name="community_achievemnt_Detail_excercise">Gập bụng</string>
+	<string name="community_achievementdetail_kcal_excerise">20</string>
+	<string name="community_achievement_detail_rep">50</string>
+	<string name="reps">lần</string>
+	<string name="workout_history_app_bar_title">Lịch sử</string>
+	<string name="workout_favorite_app_bar_title">Yêu thích</string>
+
+	<!-- Cộng đồng -->
+	<string name="community_share_achievement_app_bar_title">Chia sẻ thành tích hôm nay của bạn</string>
+	<string name="community_following_app_bar_title">Hoạt động của người bạn theo dõi hôm nay</string>
+	<string name="report_app_bar_title">Báo cáo</string>
+	<string name="send_report_button_title">Gửi báo cáo</string>
+	<string name="pending_ingredients_string">Nguyên liệu đang chờ xử lý</string>
+	<string name="details">Chi tiết</string>
+	<string name="add_category">Thêm danh mục</string>
+
+	<!-- Trang chủ & chi tiết bài tập -->
+	<string name="Home_Excercise_Text">Bài tập</string>
+	<string name="Home_Calo">Calo</string>
+	<string name="Home_ExcerciseDetail_Title">Chi tiết bài tập</string>
+	<string name="home_total_excercise_text">Tổng số bài tập</string>
+	<string name="Home_TotalCalories_Text">Tổng lượng calo</string>
+	<string name="Home_Hello">Xin chào</string>
+	<string name="Home_Noti">Thông báo</string>
+	<string name="Home_weight_Start">Cân nặng ban đầu</string>
+	<string name="Home_Weight">Cân nặng</string>
+	<string name="home_weight_target">Mục tiêu cân nặng</string>
+	<string name="Home_Daily_Calories">Calo mỗi ngày</string>
+	<string name="Home_Cal">Calo</string>
+	<string name="Home_Start">Bắt đầu</string>
+	<string name="Home_Target">Mục tiêu</string>
+	<string name="Home_Text_CaloDaily">Lượng calo hàng ngày</string>
+	<string name="Home_Steps_Text">Số bước</string>
+	<string name="Home_Steps">Bước</string>
+	<string name="Home_Goal_Text">Mục tiêu</string>
+	<string name="Home_Goal_Steps">Số bước mục tiêu</string>
+	<string name="home_detail_abs">Cơ bụng</string>
+	<string name="home_detail_abs_text">Tập trung vào nhóm cơ bụng</string>
+	<string name="Home_WeightReport_Back">Quay lại</string>
+	<string name="home_update_weight">Cập nhật cân nặng</string>
+	<string name="home_icon_back">Quay lại</string>
+	<string name="home_weight_report_text">Báo cáo cân nặng</string>
+	<string name="percent_binding">%</string>
+	<string name="better_than_yesterday_text">Tốt hơn hôm qua</string>
+	<string name="kg_binding">kg</string>
+	<string name="total_weight_text">Tổng cân nặng</string>
+	<string name="update_weight_texts">Cập nhật cân nặng</string>
+
+</resources>

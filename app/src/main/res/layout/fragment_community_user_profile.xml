@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.songxanh.ui.screens.community_user_profile.CommunityUserProfileVM" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context=".ui.screens.community_user_profile.CommunityUserProfileFragment">
+
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/fragment_custom_app_bar"
+            />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_frame" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_profile_avatar_img"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/user_profile_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@{viewModel.user.name}"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/user_profile_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@{viewModel.user.address}"
+            android:textColor="@color/dateGreyTextColor"
+            android:textSize="12sp"
+            tools:ignore="SmallSp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/follow_btn"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:onClick="@{() -> viewModel.follow()}"
+            android:textColor="@color/primaryBackgroundColor"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/primary_button_background"
+            android:text="Follow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="@{viewModel.numberOfAchievements > 0 ? View.GONE : View.VISIBLE }"
+            android:text="No achievement yet." />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profile_user_achievement_lst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/default_horizontal_margin"
+            android:layout_marginTop="20dp"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

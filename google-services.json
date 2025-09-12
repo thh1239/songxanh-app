@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "207935215603",
+    "project_id": "song-xanh-3a390",
+    "storage_bucket": "android-healthify.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937919372196:android:b5ac4e6444a707b5557f31",
+        "android_client_info": {
+          "package_name": "com.example.songxanh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937919372196-00lb53p2p8gecluce23dr4cu6il8h3tb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.songxanh",
+            "certificate_hash": "abae8918beda6a837d04dbff34c5b085bb9e1750"
+          }
+        },
+        {
+          "client_id": "937919372196-9sp349olkbug338cs0cn3cu1ulkr16k3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.songxanh",
+            "certificate_hash": "637607e0ef22e75f707f492cd0830d03d74534ce"
+          }
+        },
+        {
+          "client_id": "937919372196-d820oogda08jrck18a41ndkkhqgju0kq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.songxanh",
+            "certificate_hash": "bc51777670de0713424ebcacbefe1ead1e572809"
+          }
+        },
+        {
+          "client_id": "937919372196-8a1emo8ashdqu60qfgobuf7n55td2luj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9UNL3-43nKBdrmXk5ySEnngAmJOaHnNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207935215603-3utapviu5quksl5shkqmk7kdvnj3up6f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.songxanh.ui.screens.community_share_achievement.WorkoutShareAchievementVM" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.screens.community_share_achievement.CommunityShareAchievementFragment">
+
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/fragment_custom_app_bar"
+            app:title="@{@string/community_share_achievement_app_bar_title}" />
+
+        <include
+            android:id="@+id/achievement_layout"
+            layout="@layout/achievement_item"
+            steps="@{String.valueOf(viewModel.todayAchievement.steps)}"
+            foodCalories="@{String.valueOf(viewModel.todayAchievement.foodCalories)}"
+            exerciseCalories="@{String.valueOf(viewModel.todayAchievement.exerciseCalories)}"
+            totalCalories="@{String.valueOf(viewModel.todayAchievement.calories)}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:layout_marginTop="10dp" />
+
+        <include
+            android:id="@+id/submit_btn"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            title="@{@string/upload_button_title}"
+            layout="@layout/primary_button_layout" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

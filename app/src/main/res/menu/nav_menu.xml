@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/navbar_home"
+        app:cnb_backgroundColor="@color/primaryColor"
+        app:cnb_iconColor="@color/primaryTextColor"
+        app:cnb_iconTintMode="src_in"
+        app:cnb_textColor="@color/primaryTextColor" />
+    <item
+        android:id="@+id/nav_menu"
+        android:icon="@drawable/ic_menu"
+        android:title="@string/navbar_menu"
+        app:cnb_backgroundColor="@color/primaryColor"
+        app:cnb_iconColor="@color/primaryTextColor"
+        app:cnb_iconTintMode="src_in"
+        app:cnb_textColor="@color/primaryTextColor" />
+    <item
+        android:id="@+id/nav_workout"
+        android:icon="@drawable/ic_workout"
+        android:title="@string/navbar_workout"
+        app:cnb_backgroundColor="@color/primaryColor"
+        app:cnb_iconColor="@color/primaryTextColor"
+        app:cnb_iconTintMode="src_in"
+        app:cnb_textColor="@color/primaryTextColor" />
+    <item
+        android:id="@+id/nav_community"
+        android:icon="@drawable/ic_community"
+        android:title="@string/navbar_community"
+        app:cnb_backgroundColor="@color/primaryColor"
+        app:cnb_iconColor="@color/primaryTextColor"
+        app:cnb_iconTintMode="src_in"
+        app:cnb_textColor="@color/primaryTextColor" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/navbar_profile"
+        app:cnb_backgroundColor="@color/primaryColor"
+        app:cnb_iconColor="@color/primaryTextColor"
+        app:cnb_iconTintMode="src_in"
+        app:cnb_textColor="@color/primaryTextColor" />
+
+</menu>

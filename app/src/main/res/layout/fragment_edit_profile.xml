@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.songxanh.ui.screens.profile_edit.EditProfileVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        bind:context=".ui.screens.profile_edit.EditProfileFragment">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/editprofile_savebtn"
+            android:layout_width="95dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/primary_button_background"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:text="Save"
+            app:layout_constraintBottom_toTopOf="@+id/profile_image"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_chevron_backward" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/Profile_Edit"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/default_avatar"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.466"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="Name"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editname_edt"
+            style="@style/PrimaryEditText"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:inputType="textPersonName"
+            android:paddingVertical="5dp"
+            android:textColorHint="@color/primaryHintColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <ImageView
+            android:id="@+id/tick_icon1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="-6dp"
+            android:minWidth="40dp"
+            android:minHeight="40dp"
+            android:src="@drawable/ic_tick"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/editname_edt"
+            app:layout_constraintEnd_toEndOf="@+id/editname_edt" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/textView6"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:fontFamily="@font/poppins_medium"-->
+        <!--            android:gravity="center"-->
+        <!--            android:text="Email"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/editname_edt" />-->
+
+        <!--        <com.google.android.material.textfield.TextInputEditText-->
+        <!--            android:id="@+id/editemail_edt"-->
+        <!--            style="@style/PrimaryEditText"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:inputType="textEmailAddress"-->
+        <!--            android:paddingVertical="5dp"-->
+        <!--            android:text="@string/Profile_Email"-->
+        <!--            android:textColorHint="@color/primaryHintColor"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/textView6" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/tick_icon2"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_centerVertical="true"-->
+        <!--            android:layout_marginEnd="8dp"-->
+        <!--            android:minWidth="40dp"-->
+        <!--            android:minHeight="40dp"-->
+        <!--            android:src="@drawable/ic_tick"-->
+        <!--            android:visibility="gone"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/editemail_edt"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/editemail_edt" />-->
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="Date of Birth"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editname_edt" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editdate_edt"
+            style="@style/PrimaryEditText"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:inputType="date"
+            android:paddingVertical="5dp"
+            android:textColorHint="@color/primaryHintColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+        <ImageView
+            android:id="@+id/tick_icon3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="-6dp"
+            android:minWidth="40dp"
+            android:minHeight="40dp"
+            android:src="@drawable/ic_tick"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/editdate_edt"
+            app:layout_constraintEnd_toEndOf="@+id/editdate_edt" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="Phone Number"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editdate_edt" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editphone_edt"
+            style="@style/PrimaryEditText"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:inputType="phone"
+            android:paddingVertical="5dp"
+            android:textColorHint="@color/primaryHintColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <ImageView
+            android:id="@+id/tick_icon4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="-6dp"
+            android:minWidth="40dp"
+            android:minHeight="40dp"
+            android:src="@drawable/ic_tick"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/editphone_edt"
+            app:layout_constraintEnd_toEndOf="@+id/editphone_edt" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="Address"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editphone_edt" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editaddress_edt"
+            style="@style/PrimaryEditText"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:inputType="text"
+            android:paddingVertical="5dp"
+            android:textColorHint="@color/primaryHintColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            app:layout_wrapBehaviorInParent="vertical_only" />
+
+        <ImageView
+            android:id="@+id/tick_icon5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="-6dp"
+            android:minWidth="40dp"
+            android:minHeight="40dp"
+            android:src="@drawable/ic_tick"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/editaddress_edt"
+            app:layout_constraintEnd_toEndOf="@+id/editaddress_edt" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
