@@ -176,13 +176,19 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
 
     @Override
     public void onItemDelete(int position) {
+        // Thêm kiểm tra null và kiểm tra giới hạn để ngăn ngừa lỗi
         if (ingredientRecyclerViewAdapter.isSearchResult()) {
-            IngredientInfo temp = adminIngredientVM.searchResultList.getValue().get(position);
-            adminIngredientVM.deleteIngredient(temp.getId());
-
+            ArrayList<IngredientInfo> searchList = adminIngredientVM.searchResultList.getValue();
+            if (searchList != null && position >= 0 && position < searchList.size()) {
+                IngredientInfo temp = searchList.get(position);
+                adminIngredientVM.deleteIngredient(temp.getId());
+            }
         } else {
-            IngredientInfo temp = adminIngredientVM.databaseIngredientList.getValue().get(position);
-            adminIngredientVM.deleteIngredient(temp.getId());
+            ArrayList<IngredientInfo> databaseList = adminIngredientVM.databaseIngredientList.getValue();
+            if (databaseList != null && position >= 0 && position < databaseList.size()) {
+                IngredientInfo temp = databaseList.get(position);
+                adminIngredientVM.deleteIngredient(temp.getId());
+            }
         }
     }
 

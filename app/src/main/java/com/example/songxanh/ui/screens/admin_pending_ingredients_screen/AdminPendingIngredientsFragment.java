@@ -72,13 +72,19 @@ public class AdminPendingIngredientsFragment extends Fragment implements Pending
 
     @Override
     public void onItemApprove(int position) {
-        adminIngredientVM.approveIngredient(position);
-
+        ArrayList<IngredientInfo> pendingList = adminIngredientVM.getPendingIngredientList().getValue();
+        // Thêm kiểm tra null và kiểm tra giới hạn để ngăn ngừa lỗi
+        if (pendingList != null && position >= 0 && position < pendingList.size()) {
+            adminIngredientVM.approveIngredient(position);
+        }
     }
 
     @Override
     public void onItemDelete(int position) {
-        adminIngredientVM.deleteFromPendingList(position);
+        ArrayList<IngredientInfo> pendingList = adminIngredientVM.getPendingIngredientList().getValue();
+        // Thêm kiểm tra null và kiểm tra giới hạn để ngăn ngừa lỗi
+        if (pendingList != null && position >= 0 && position < pendingList.size()) {
+            adminIngredientVM.deleteFromPendingList(position);
+        }
     }
-
 }
