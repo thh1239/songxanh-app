@@ -131,4 +131,7 @@
 	<string name="total_weight_text">Tổng cân nặng</string>
 	<string name="update_weight_texts">Cập nhật cân nặng</string>
 
+	<!-- Chatbox -->
+	<string name="chat_image_content_desc">Ảnh trong đoạn chat</string>
+
 </resources>

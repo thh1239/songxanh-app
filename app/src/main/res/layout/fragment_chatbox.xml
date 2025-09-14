@@ -28,14 +28,17 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_below="@+id/chat_toolbar"
+			android:animateLayoutChanges="true"
 			tools:context=".ui.screens.chatbox.ChatboxFragment">
 
+			<!-- Danh sách tin nhắn -->
 			<androidx.recyclerview.widget.RecyclerView
 				android:id="@+id/chat_messages_recyclerview"
 				android:layout_width="match_parent"
 				android:layout_height="0dp"
 				android:paddingTop="16dp"
 				android:paddingBottom="16dp"
+				android:clipToPadding="false"
 				app:layout_constraintTop_toTopOf="parent"
 				app:layout_constraintBottom_toTopOf="@id/chat_input_container"
 				app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +47,29 @@
 				tools:listitem="@layout/chat_item_sent"
 				tools:itemCount="10" />
 
+			<!-- Loading indicator (ẩn mặc định, hiện khi chờ Gemini) -->
+			<ProgressBar
+				android:id="@+id/ai_loading_indicator"
+				style="?android:attr/progressBarStyleSmall"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:visibility="gone"
+				app:layout_constraintTop_toTopOf="@id/chat_messages_recyclerview"
+				app:layout_constraintBottom_toBottomOf="@id/chat_messages_recyclerview"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent" />
+
+			<!-- Khung preview ảnh: chen giữa RV và input -->
+			<include
+				android:id="@+id/image_preview_container"
+				layout="@layout/image_preview"
+				android:visibility="gone"
+				app:layout_constraintTop_toBottomOf="@id/chat_messages_recyclerview"
+				app:layout_constraintBottom_toTopOf="@id/chat_input_container"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent" />
+
+			<!-- Ô nhập + upload + gửi -->
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:id="@+id/chat_input_container"
 				android:layout_width="match_parent"
@@ -64,12 +90,24 @@
 					android:background="@drawable/chat_input_background"
 					android:inputType="textMultiLine"
 					android:maxLines="5"
+					android:textColor="@android:color/black"
 					app:layout_constraintTop_toTopOf="parent"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintEnd_toStartOf="@id/upload_button"
+					android:layout_marginEnd="8dp" />
+
+				<ImageButton
+					android:id="@+id/upload_button"
+					android:layout_width="48dp"
+					android:layout_height="48dp"
+					android:scaleType="fitCenter"
+					android:src="@drawable/ic_upload"
+					android:contentDescription="Upload file"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toStartOf="@id/send_message_button"
-					android:layout_marginEnd="8dp"
-					android:textColor="@android:color/black"/>
+					android:layout_marginEnd="8dp" />
 
 				<ImageButton
 					android:id="@+id/send_message_button"
@@ -77,6 +115,7 @@
 					android:layout_height="48dp"
 					android:scaleType="fitCenter"
 					android:src="@drawable/send"
+					android:contentDescription="Gửi tin nhắn"
 					app:layout_constraintTop_toTopOf="parent"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toEndOf="parent" />
