@@ -182,7 +182,7 @@ public class HomeFragment extends Fragment {
     private void drawPie() {
         legendEntries = new ArrayList<>();
         legendEntries.add("Kcal cần nạp");
-        legendEntries.add("Kcal từ Đồ ăn");
+        legendEntries.add("Kcal từ đồ ăn");
         legendEntries.add("Kcal đã đốt");
 
         legendValues = new ArrayList<>();
