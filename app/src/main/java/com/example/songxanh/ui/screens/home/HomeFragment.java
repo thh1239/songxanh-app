@@ -31,6 +31,7 @@ import com.example.songxanh.data.models.User;
 import com.example.songxanh.databinding.FragmentHomeBinding;
 import com.example.songxanh.ui.screens.MainVM;
 import com.example.songxanh.ui.screens.workout.WorkoutVM;
+import com.example.songxanh.utils.GlobalMethods;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -53,6 +54,7 @@ import java.util.Date;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    // ===== Hằng số & ViewModel =====
     public static final String PREF_FILE_NAME = "theme_pref";
     public static final String THEME_KEY = "theme_mode";
     private HomeVM homeVM;
@@ -60,53 +62,39 @@ public class HomeFragment extends Fragment {
     private MutableLiveData<NormalUser> user = new MutableLiveData<>();
     private FragmentHomeBinding binding;
     private WorkoutVM workoutVM;
+
+    // ===== Biểu đồ & legend =====
     private PieChart pieChart;
     private LinearLayout legendLayout;
     private LineChart lineChart;
-    private TextView exerciseTv;
-
     private List<String> legendEntries;
     private List<Integer> legendValues;
 
+    // ===== Cảm biến bước chân =====
     private SensorManager sensorManager;
     private Sensor stepSensor;
-    private TextView stepCountTextView;
-    private int currentStepCount = 0;
-    private Date currentDate = new Date();
-    private static final int ACCELEROMETER_BUFFER_SIZE = 100;// cái này là kích thước bộ đệm gia tốc
-    private static final float STEP_THRESHOLD = 8.0f; // cái này là ngưỡng phát hiện bước châm
-
-    private float[] accelerometerBuffer = new float[ACCELEROMETER_BUFFER_SIZE];
-    private int bufferIndex = 0;
-    private boolean isStepDetected = false;
     private int stepCount = 0;
-
-    // Xác định các trục gia tốc
-    private float previousX = 0.0f;
-    private float previousY = 0.0f;
-    private float previousZ = 0.0f;
-
-    // Xác định thời gian giữa các lần đọc gia tốc
+    private Date currentDate = new Date();
+    private static final float STEP_THRESHOLD = 8.0f;
+    private float previousX = 0.0f, previousY = 0.0f, previousZ = 0.0f;
     private long previousTimestamp = 0;
     Date previousDate;
 
+    // ===== Firestore =====
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private int remaining;
-    private int foodCalories;
-    private int exerciseCalories;
-    private int goal;
-    private String goalMsg = "Goal: ";
+    // ===== Nhãn trung tâm PieChart =====
+    private String todayMsg = "TỔNG KCAL HÔM NAY: ";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Log.i("ON CREATE HOME FRAGMENT", "CREATING");
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // ===== Khởi tạo binding & ViewModel =====
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         homeVM = new ViewModelProvider(requireActivity()).get(HomeVM.class);
         binding.setViewModel(homeVM);
@@ -116,9 +104,8 @@ public class HomeFragment extends Fragment {
         mainVM.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
             public void onChanged(User user) {
+                // ===== Khi có User: nạp dữ liệu màn hình & biểu đồ =====
                 if (user != null) {
-
-                    Log.i("User in main vm", mainVM.getUser().getValue().getEmail());
                     homeVM.setUser(mainVM.getUser());
                     homeVM.loadDocument();
                     homeVM.loadLineData();
@@ -126,59 +113,45 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-        // Init today activity
+        // ===== Khởi tạo dữ liệu hoạt động hôm nay =====
         workoutVM = new ViewModelProvider(requireActivity()).get(WorkoutVM.class);
         workoutVM.initDailyActivity();
 
-
-        // ----------------------------------LINECHART----------------------------------------------
-
+        // ===== Liên kết view biểu đồ =====
         lineChart = binding.lineChart;
-
-        // ----------------------------------PIECHART-----------------------------------------------
-
         pieChart = binding.pieChart;
         legendLayout = binding.legendLayout;
 
-
-
+        // ===== Quan sát trạng thái tải dữ liệu để vẽ biểu đồ / cập nhật UI =====
         homeVM.getIsLoadingDocument().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isLoadingDocument) {
                 if (isLoadingDocument != null && !isLoadingDocument) {
-                    setLoading();
-                    drawPie();
-                } else {
-
+                    setLoading();  // cập nhật text/ảnh
+                    drawPie();     // vẽ PieChart
                 }
             }
         });
-
-
         homeVM.getIsLoadingLine().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isLoadingLine) {
                 if (isLoadingLine != null && !isLoadingLine) {
-                    drawLine();
+                    drawLine();    // vẽ LineChart
                 }
             }
         });
 
-        binding.updateWeightBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_homeFragment_to_homeUpdateWeightFragment);
-            }
-        });
+        // ===== Điều hướng sang cập nhật cân nặng / chi tiết tập luyện =====
+        binding.updateWeightBtn.setOnClickListener(v ->
+                NavHostFragment.findNavController(HomeFragment.this)
+                        .navigate(R.id.action_homeFragment_to_homeUpdateWeightFragment)
+        );
+        binding.exerciseDetailBtn.setOnClickListener(v ->
+                NavHostFragment.findNavController(HomeFragment.this)
+                        .navigate(R.id.action_homeFragment_to_excerciseDetail)
+        );
 
-        binding.exerciseDetailBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_homeFragment_to_excerciseDetail);
-            }
-        });
-
+        // ===== Khởi tạo cảm biến bước chân =====
         sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (stepSensor != null) {
@@ -187,35 +160,30 @@ public class HomeFragment extends Fragment {
             Toast.makeText(requireContext(), "Step counter is not available on your device", Toast.LENGTH_SHORT).show();
         }
 
-        // Lấy số bước chân từ SharedPreferences
+        // ===== Tải số bước đã lưu trong ngày =====
         SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
         long previousDateMillis = sharedPreferences.getLong("previousDate", 0);
         previousDate = new Date(previousDateMillis);
         stepCount = sharedPreferences.getInt("stepCount", 0);
-
         binding.stepCountTextView.setText(String.valueOf(stepCount));
 
-        // set theme
-        binding.setThemeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
-                boolean isDarkTheme = !sharedPreferences1.getBoolean(THEME_KEY, true);
-                SharedPreferences.Editor editor = sharedPreferences1.edit();
-                editor.putBoolean(THEME_KEY, isDarkTheme);
-                editor.apply();
-                getActivity().recreate();
-            }
+        // ===== Chuyển theme sáng/tối =====
+        binding.setThemeButton.setOnClickListener(v -> {
+            SharedPreferences sp = getActivity().getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
+            boolean isDarkTheme = !sp.getBoolean(THEME_KEY, true);
+            sp.edit().putBoolean(THEME_KEY, isDarkTheme).apply();
+            getActivity().recreate();
         });
 
         return binding.getRoot();
     }
 
+    // ===== Vẽ PieChart: 3 phần (cần nạp, từ đồ ăn, đã giảm) + text trung tâm =====
     private void drawPie() {
         legendEntries = new ArrayList<>();
-        legendEntries.add("Calo Còn lại");
-        legendEntries.add("Đồ ăn");
-        legendEntries.add("Tập luyện");
+        legendEntries.add("Kcal cần nạp");
+        legendEntries.add("Kcal từ Đồ ăn");
+        legendEntries.add("Kcal đã đốt");
 
         legendValues = new ArrayList<>();
         legendValues.add(homeVM.getRemaining().intValue());
@@ -227,24 +195,17 @@ public class HomeFragment extends Fragment {
         iconResources.add(R.drawable.home_food);
         iconResources.add(R.drawable.home_calories);
 
-
-        List<PieEntry> entries = new ArrayList<>();
-        entries = homeVM.getPieEntries();
-
-
-
+        List<PieEntry> entries = homeVM.getPieEntries();
 
         List<Integer> colors = new ArrayList<>();
         colors.add(Color.parseColor("#0DBBFC"));
         colors.add(Color.parseColor("#69E6A6"));
         colors.add(Color.parseColor("#FFAA7E"));
 
-
         PieDataSet dataSet = new PieDataSet(entries, "Categories");
         dataSet.setColors(colors);
         dataSet.setValueTextColor(Color.TRANSPARENT);
         dataSet.setValueTextSize(12f);
-
 
         PieData pieData = new PieData(dataSet);
         pieChart.setData(pieData);
@@ -252,10 +213,6 @@ public class HomeFragment extends Fragment {
         pieChart.setDrawEntryLabels(false);
         pieChart.getLegend().setEnabled(false);
         pieChart.setHoleRadius(70f);
-
-
-        pieChart.setData(pieData);
-        pieChart.getDescription().setEnabled(false);
         pieChart.setUsePercentValues(true);
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(android.R.color.transparent);
@@ -263,188 +220,142 @@ public class HomeFragment extends Fragment {
         pieChart.setEntryLabelTextSize(12f);
         pieChart.setEntryLabelColor(android.R.color.black);
 
+        // ===== Tính tổng kcal hôm nay (đồ ăn - tập luyện, không âm) =====
+        int food = Math.max(0, Math.round(homeVM.getFoodCalories()));
+        int exercise = Math.max(0, Math.round(homeVM.getExerciseCalories()));
+        int totalToday = Math.max(0, food - exercise);
+
         pieChart.setDrawCenterText(true);
-        pieChart.setCenterText(goalMsg.concat(homeVM.getGoal().toString()));
-        pieChart.setCenterTextSize(16f);
+        pieChart.setCenterText(todayMsg + totalToday + " kcal");
+        pieChart.setCenterTextSize(13f);
         pieChart.setCenterTextColor(getResources().getColor(R.color.primaryTextColor, null));
         pieChart.animateXY(1000, 1000, Easing.EaseInOutBounce);
 
+        // ===== Vẽ legend tùy chỉnh (có hậu tố kcal) =====
         Legend legend = pieChart.getLegend();
         legend.setEnabled(false);
 
-
         for (int i = 0; i < entries.size(); i++) {
-            if (entries.size() > 3) {
-                String legendEntry = legendEntries.get(2);
-                int legendValue = legendValues.get(2);
+            String legendEntry = legendEntries.get(i < legendEntries.size() ? i : 0);
+            int legendValue = legendValues.get(i < legendValues.size() ? i : 0);
 
-                View legendItemView = LayoutInflater.from(getContext()).inflate(R.layout.legend_item, null);
-                ImageView legendIconView = legendItemView.findViewById(R.id.legendIcon);
-                TextView legendLabelTextView = legendItemView.findViewById(R.id.legendLabel);
-                TextView legendValueTextView = legendItemView.findViewById(R.id.legendValue);
+            View legendItemView = LayoutInflater.from(getContext()).inflate(R.layout.legend_item, null);
+            ImageView legendIconView = legendItemView.findViewById(R.id.legendIcon);
+            TextView legendLabelTextView = legendItemView.findViewById(R.id.legendLabel);
+            TextView legendValueTextView = legendItemView.findViewById(R.id.legendValue);
 
-                legendIconView.setImageResource(iconResources.get(i));
-                legendLabelTextView.setText(legendEntry);
-                legendValueTextView.setText(String.valueOf(legendValue));
+            legendIconView.setImageResource(iconResources.get(i));
+            legendLabelTextView.setText(legendEntry);
+            legendLabelTextView.setTextColor(getResources().getColor(R.color.primaryTextColor, null));
+            legendValueTextView.setText(legendValue + " kcal");
+            legendValueTextView.setTextColor(getResources().getColor(R.color.primaryTextColor, null));
 
-                LinearLayout.LayoutParams itemParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-                itemParams.setMargins(10, 10, 0, 6);
-                legendItemView.setLayoutParams(itemParams);
+            LinearLayout.LayoutParams itemParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            itemParams.setMargins(10, 10, 0, 6);
+            legendItemView.setLayoutParams(itemParams);
 
-                legendLayout.addView(legendItemView);
-            } else {
-                String legendEntry = legendEntries.get(i);
-                int legendValue = legendValues.get(i);
-
-                View legendItemView = LayoutInflater.from(getContext()).inflate(R.layout.legend_item, null);
-                ImageView legendIconView = legendItemView.findViewById(R.id.legendIcon);
-                TextView legendLabelTextView = legendItemView.findViewById(R.id.legendLabel);
-                TextView legendValueTextView = legendItemView.findViewById(R.id.legendValue);
-
-                legendIconView.setImageResource(iconResources.get(i));
-                legendLabelTextView.setText(legendEntry);
-                legendLabelTextView.setTextColor(getResources().getColor(R.color.primaryTextColor, null));
-                legendValueTextView.setText(String.valueOf(legendValue));
-                legendValueTextView.setTextColor(getResources().getColor(R.color.primaryTextColor, null));
-
-                LinearLayout.LayoutParams itemParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-                itemParams.setMargins(10, 10, 0, 6);
-                legendItemView.setLayoutParams(itemParams);
-
-                // Add legend item view to the legend layout
-                legendLayout.addView(legendItemView);
-            }
-            pieChart.invalidate();
-
+            legendLayout.addView(legendItemView);
         }
+
+        pieChart.invalidate();
     }
 
+    // ===== Cập nhật UI: tên, kcal, cân nặng, avatar =====
     private void setLoading() {
-
         binding.userNameTv.setText(homeVM.getUser().getValue().getName());
-        binding.exerciseTv.setText(homeVM.getExerciseCalories().toString());
-        binding.startWeight.setText(homeVM.getStartWeight().toString());
-        binding.goalWeight.setText(homeVM.getGoalWeight().toString());
-        binding.dailyCalories.setText(homeVM.getDailyCalories().toString());
+
+        // Năng lượng (kcal)
+        binding.exerciseTv.setText(Math.round(homeVM.getExerciseCalories()) + " kcal");
+        binding.dailyCalories.setText(GlobalMethods.formatDoubleToString(homeVM.getDailyCalories()) + " kcal");
+
+        // Cân nặng (kg)
+        binding.startWeight.setText(GlobalMethods.formatDoubleToString(homeVM.getStartWeight()) + " kg");
+        binding.goalWeight.setText(GlobalMethods.formatDoubleToString(homeVM.getGoalWeight()) + " kg");
+
+        // Ảnh đại diện
         if (mainVM.getUserImageUrl() == null) {
             binding.userAvatar.setImageResource(R.drawable.default_profile_image);
         } else {
-            Glide.with(requireContext()).load(homeVM.getUser().getValue().getImageUrl()).into(binding.userAvatar);
+            Glide.with(requireContext())
+                    .load(homeVM.getUser().getValue().getImageUrl())
+                    .into(binding.userAvatar);
         }
     }
 
-    ;
-
-    private SensorEventListener accelerometerSensorEventListener = new SensorEventListener() {
+    // ===== Lắng nghe cảm biến để đếm bước =====
+    private final SensorEventListener accelerometerSensorEventListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
-            float x = event.values[0];
-            float y = event.values[1];
-            float z = event.values[2];
-
-            // Tính toán gia tốc tổng hợp
+            float x = event.values[0], y = event.values[1], z = event.values[2];
             float acceleration = Math.abs(x + y + z - previousX - previousY - previousZ);
 
-            // Kiểm tra xem có phát hiện bước chân hay không
             if (acceleration > STEP_THRESHOLD) {
-                // Kiểm tra thời gian giữa các lần phát hiện
                 long currentTimestamp = System.currentTimeMillis();
-                long timeDifference = currentTimestamp - previousTimestamp;
-
-                if (timeDifference > 300) { // Giới hạn khoảng thời gian giữa các bước chân
-                    isStepDetected = true;
+                if (currentTimestamp - previousTimestamp > 300) {
+                    stepCount++;
                     previousTimestamp = currentTimestamp;
                 }
             }
-
-            previousX = x;
-            previousY = y;
-            previousZ = z;
-
-            // Đếm số bước chân
-            if (isStepDetected) {
-                stepCount++;
-                isStepDetected = false;
-            }
+            previousX = x; previousY = y; previousZ = z;
 
             binding.stepCountTextView.setText(String.valueOf(stepCount));
         }
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        }
+        @Override public void onAccuracyChanged(Sensor sensor, int accuracy) {}
     };
 
     @Override
     public void onResume() {
         super.onResume();
-
-        // Lấy SharedPreferences để lưu trữ ngày trước đó
+        // ===== Reset bước khi sang ngày mới & lưu lại ngày =====
         SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
         long previousDateMillis = sharedPreferences.getLong("previousDate", 0);
         previousDate = new Date(previousDateMillis);
         currentDate = new Date();
 
-
         if (!isSameDay(currentDate, previousDate)) {
-
             stepCount = 0;
             binding.stepCountTextView.setText(String.valueOf(stepCount));
-
-            // Lưu ngày hiện tại vào SharedPreferences
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putLong("previousDate", currentDate.getTime());
-            editor.putInt("stepCount", stepCount);
-            editor.apply();
+            sharedPreferences.edit()
+                    .putLong("previousDate", currentDate.getTime())
+                    .putInt("stepCount", stepCount)
+                    .apply();
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
-
-
+        // ===== Lưu số bước & ngày hiện tại; hủy đăng ký cảm biến =====
         SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("stepCount", stepCount);
-        editor.putLong("previousDate", currentDate.getTime());
-        editor.apply();
-        SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
-        if (sensorManager != null) {
-            sensorManager.unregisterListener(accelerometerSensorEventListener);
-        }
+        sharedPreferences.edit()
+                .putInt("stepCount", stepCount)
+                .putLong("previousDate", currentDate.getTime())
+                .apply();
+
+        SensorManager sm = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
+        if (sm != null) sm.unregisterListener(accelerometerSensorEventListener);
 
         homeVM.saveDailySteps(stepCount, previousDate);
     }
 
-
+    // ===== So sánh cùng ngày =====
     private boolean isSameDay(Date date1, Date date2) {
-        Calendar cal1 = Calendar.getInstance();
-        Calendar cal2 = Calendar.getInstance();
-        cal1.setTime(date1);
-        cal2.setTime(date2);
+        Calendar cal1 = Calendar.getInstance(), cal2 = Calendar.getInstance();
+        cal1.setTime(date1); cal2.setTime(date2);
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
                 && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)
                 && cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
     }
 
-
+    // ===== Vẽ LineChart số bước 7 ngày gần nhất =====
     private void drawLine() {
-
-        ArrayList<CustomEntryLineChart> entries = new ArrayList<>();
-        entries = homeVM.getLineEntries1();
-
+        ArrayList<CustomEntryLineChart> entries = homeVM.getLineEntries1();
 
         List<Entry> entryList = new ArrayList<>();
         for (CustomEntryLineChart customEntry : entries) {
-
             entryList.add(new Entry(customEntry.getX(), customEntry.getSteps()));
         }
 
@@ -460,16 +371,12 @@ public class HomeFragment extends Fragment {
             labels[i] = entries.get(i).getDate();
         }
 
-        // cái này để hiển thị ngày ở cột có giá trị
         IndexAxisValueFormatter xAxisFormatter = new IndexAxisValueFormatter(labels);
-
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setValueFormatter(xAxisFormatter);
         xAxis.setGranularity(1);
-        xAxis.setDrawGridLines(false); // Hide grid lines
-
+        xAxis.setDrawGridLines(false);
         xAxis.setAxisMaximum(entries.size() - 1);
-
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(dataSet);
@@ -493,5 +400,4 @@ public class HomeFragment extends Fragment {
 
         lineChart.invalidate();
     }
-
 }

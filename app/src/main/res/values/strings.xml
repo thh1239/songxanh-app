@@ -112,9 +112,9 @@
 	<string name="home_weight_target">Mục tiêu cân nặng</string>
 	<string name="Home_Daily_Calories">Calo mỗi ngày</string>
 	<string name="Home_Cal">Calo</string>
-	<string name="Home_Start">Bắt đầu</string>
-	<string name="Home_Target">Mục tiêu</string>
-	<string name="Home_Text_CaloDaily">Lượng calo hàng ngày</string>
+	<string name="Home_Start">Cân nặng ban đầu:</string>
+	<string name="Home_Target">Mục tiêu cân nặng mong muốn:</string>
+	<string name="Home_Text_CaloDaily">Lượng kcal cần nạp tối thiểu hàng ngày:</string>
 	<string name="Home_Steps_Text">Số bước</string>
 	<string name="Home_Steps">Bước</string>
 	<string name="Home_Goal_Text">Mục tiêu</string>

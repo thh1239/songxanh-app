@@ -24,7 +24,7 @@
 
             <include
                 layout="@layout/fragment_custom_app_bar"
-                app:title="Add meal" />
+                app:title="Thêm Thực đơn" />
         </RelativeLayout>
 
         <TextView
@@ -206,7 +206,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/primaryTextColor"
             android:fontFamily="@font/poppins_regular"
-            android:text="Gửi đến hệ thống của chúng tôi. Sau khi xác nhận, bạn có thể tìm thấy thành phần của mình trong danh sách."/>
+            android:text="Chia sẽ nguyên liệu của bạn đến hệ thống của chúng tôi. Sau khi xác nhận, nguyên liệu của bạn có thể được chia sẽ với mọi người. "/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/new_ingredient_confirm_button"
 

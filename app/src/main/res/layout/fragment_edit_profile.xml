@@ -76,7 +76,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:text="Name"
+            android:text="Họ tên"
             android:textColor="@color/primaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_image" />
@@ -158,7 +158,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:text="Date of Birth"
+            android:text="Ngày sinh"
             android:textColor="@color/primaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editname_edt" />
@@ -200,7 +200,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:text="Phone Number"
+            android:text="Số điện thoại"
             android:textColor="@color/primaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editdate_edt" />
@@ -242,7 +242,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:text="Address"
+            android:text="Địa chỉ"
             android:textColor="@color/primaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editphone_edt" />

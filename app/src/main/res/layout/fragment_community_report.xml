@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:text="Title" />
+            android:text="Tiêu đề" />
 
         <EditText
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/background_primary"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Title of report"
+            android:hint="Vấn đề cần báo"
             android:maxLength="50"
             android:padding="10dp"
             android:text="@={viewModel.title}"
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:text="Description" />
+            android:text="Mô tả" />
 
         <EditText
             android:layout_width="match_parent"
@@ -66,7 +66,7 @@
             android:background="@drawable/background_primary"
             android:fontFamily="@font/poppins_regular"
             android:gravity="start"
-            android:hint="What do you want to report about this achievement?"
+            android:hint="Bạn có thể mô tả chi tiết hơn về vấn đề cần báo được không?"
             android:maxLength="200"
             android:minLines="5"
             android:padding="10dp"

@@ -17,7 +17,7 @@ public class NormalUser extends User {
     private String phone;
     private Date dateOfBirth;
     private String address;
-    private String gender; // { "MALE", "FEMALE" }
+    private String gender;
     private int startWeight;
     private int goalWeight;
     private int height = 160;
@@ -186,7 +186,7 @@ public class NormalUser extends User {
                         if (task.isSuccessful()) {
 
                         } else {
-                            Log.e("Update daily calories error", "", task.getException());
+                            Log.e("Cập nhật Calories hàng ngày thất bại", "", task.getException());
                         }
                     }
                 });
