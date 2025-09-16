@@ -46,6 +46,11 @@ public class HomeVM extends ViewModel {
     private Float dailyCalories = 0f;
     private Integer weight = 0;
 
+    // NEW: kcal tối thiểu theo mức vận động
+    private Float activityLight = 0f;
+    private Float activityModerate = 0f;
+    private Float activityHeavy = 0f;
+
     ArrayList<CustomEntryLineChart> lineEntries;
     ArrayList<CustomEntryLineChart> lineEntries1;
 
@@ -116,6 +121,11 @@ public class HomeVM extends ViewModel {
     public Integer getSteps() { return steps; }
     public void setSteps(Integer steps) { this.steps = steps == null ? 0 : steps; }
 
+    // NEW: getters cho 3 mức vận động
+    public Float getActivityLight() { return activityLight; }
+    public Float getActivityModerate() { return activityModerate; }
+    public Float getActivityHeavy() { return activityHeavy; }
+
     public HomeVM() {}
 
     // ===== Lưu dữ liệu bước chân hàng ngày =====
@@ -177,6 +187,12 @@ public class HomeVM extends ViewModel {
                         setDailyCalories(0f);
                         setStartWeight(0f);
                         setGoalWeight(0f);
+
+                        // reset 3 mức vận động
+                        activityLight = 0f;
+                        activityModerate = 0f;
+                        activityHeavy = 0f;
+
                         buildPieEntries();
                         isLoadingDocument.setValue(false);
                         return;
@@ -189,6 +205,29 @@ public class HomeVM extends ViewModel {
                     setDailyCalories(g);
                     setStartWeight(sw);
                     setGoalWeight(gw);
+
+                    // NEW: tính kcal theo 3 mức vận động dựa trên cân nặng hiện tại
+                    String gender = documentSnapshot.getString("gender");
+                    Double height = documentSnapshot.getDouble("height");
+                    Long ageL = documentSnapshot.getLong("age");
+
+                    if (height != null && ageL != null && getWeight() > 0) {
+                        boolean isMale = GlobalMethods.normalizeGenderPublic(gender);
+                        double bmr = GlobalMethods.bmrMifflin(isMale, getWeight(), height, ageL.intValue());
+
+                        // Các hệ số hoạt động thường dùng
+                        double light    = GlobalMethods.tdee(bmr, 1.375); // nhẹ
+                        double moderate = GlobalMethods.tdee(bmr, 1.55);  // vừa
+                        double heavy    = GlobalMethods.tdee(bmr, 1.725); // nặng
+
+                        activityLight = Math.max(0f, (float) Math.round(light));
+                        activityModerate = Math.max(0f, (float) Math.round(moderate));
+                        activityHeavy = Math.max(0f, (float) Math.round(heavy));
+                    } else {
+                        activityLight = 0f;
+                        activityModerate = 0f;
+                        activityHeavy = 0f;
+                    }
 
                     float food = nn(getFoodCalories());
                     float ex   = nn(getExerciseCalories());

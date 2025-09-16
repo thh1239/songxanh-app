@@ -61,13 +61,12 @@ public class GlobalMethods {
         return String.valueOf(rounded);
     }
 
-    // ===== Định dạng ngày dd/MM/yyyy =====
+    // ===== Định dạng ngày =====
     public static String convertDateToSlashSplittingFormat(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(date);
     }
 
-    // ===== Định dạng ngày dd-MM-yyyy =====
     public static String convertDateToHyphenSplittingFormat(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         return dateFormat.format(date);
@@ -156,7 +155,25 @@ public class GlobalMethods {
         return generatedStrings;
     }
 
-    // ===== Tính lượng calo hằng ngày (dailyCalories) từ thông tin người dùng — làm tròn đơn vị =====
+    // ===== Helper: BMR/TDEE/Clamp =====
+    public static double bmrMifflin(boolean isMale, int weightKg, double heightCm, int ageYears) {
+        double bmr = isMale
+                ? (10 * weightKg + 6.25 * heightCm - 5 * ageYears + 5)
+                : (10 * weightKg + 6.25 * heightCm - 5 * ageYears - 161);
+        return safeNumber(bmr);
+    }
+
+    public static double tdee(double bmr, double activityFactor) {
+        return safeNumber(bmr * activityFactor);
+    }
+
+    public static double clamp(double v, double lo, double hi) {
+        if (Double.isNaN(v) || Double.isInfinite(v)) return lo;
+        if (hi < lo) return v;
+        return Math.max(lo, Math.min(hi, v));
+    }
+
+    // ===== Tính lượng calo hằng ngày (dailyCalories) — làm tròn đơn vị & tối thiểu ≥ BMR =====
     public static double calculateDailyCalories(String gender,
                                                 int weight,
                                                 double height,
@@ -173,21 +190,23 @@ public class GlobalMethods {
         if (daysBetween <= 0) return 0d;
 
         boolean isMale = normalizeGender(gender);
-        double bmr = isMale
-                ? (10 * weight + 6.25 * height - 5 * age + 5)
-                : (10 * weight + 6.25 * height - 5 * age - 161);
+        double bmr = bmrMifflin(isMale, weight, height, age);
 
         double activityFactor = 1.375; // mặc định: nhẹ (light)
-        double tdee = bmr * activityFactor;
+        double tdee = tdee(bmr, activityFactor);
 
         double kgDiff = goalWeight - weight;   // âm: giảm cân; dương: tăng cân
         double kcalPerKg = 7700d;
         double deltaPerDay = (kgDiff * kcalPerKg) / (double) daysBetween;
 
-        if (deltaPerDay > 1000d)  deltaPerDay = 1000d;
-        if (deltaPerDay < -1000d) deltaPerDay = -1000d;
+        // Giới hạn tốc độ thay đổi (an toàn)
+        deltaPerDay = clamp(deltaPerDay, -1000d, 1000d);
 
         double daily = tdee + deltaPerDay;
+
+        // Tối thiểu ≥ BMR
+        daily = Math.max(daily, bmr);
+
         daily = safeNumber(daily);
         if (daily < 0d) daily = 0d;
 
@@ -202,6 +221,11 @@ public class GlobalMethods {
         if (g.startsWith("m") || g.equals("nam")) return true;
         if (g.startsWith("f") || g.equals("nữ") || g.equals("nu")) return false;
         return true;
+    }
+
+    // Public để nơi khác dùng (ví dụ HomeVM)
+    public static boolean normalizeGenderPublic(String gender) {
+        return normalizeGender(gender);
     }
 
     // ===== Tiện ích: chuẩn hóa số (tránh NaN/Infinity) =====

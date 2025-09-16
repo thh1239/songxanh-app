@@ -130,6 +130,11 @@
 	<string name="kg_binding">kg</string>
 	<string name="total_weight_text">Tổng cân nặng</string>
 	<string name="update_weight_texts">Cập nhật cân nặng</string>
+	<string name="current_weight">Cân nặng hiện tại</string>
+	<string name="Home_Text_Activity_Light">Lượng kcal cần cho vận động nhẹ:</string>
+	<string name="Home_Text_Activity_Moderate">Lượng kcal cần cho vận động vừa:</string>
+	<string name="Home_Text_Activity_Heavy">Lượng kcal cần cho vận động nặng:</string>
+	<string name="kcal_suffix">kcal</string>
 
 	<!-- Chatbox -->
 	<string name="chat_image_content_desc">Ảnh trong đoạn chat</string>

@@ -224,6 +224,31 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView28"
                     app:layout_constraintStart_toStartOf="parent" />
 
+                <!-- Current Weight -->
+                <TextView
+                    android:id="@+id/textViewCurrentLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Cân nặng đạt được hiện tại:"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTarget"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/currentWeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="16sp"
+                    android:text='@string/current_weight'
+                    app:layout_constraintStart_toEndOf="@+id/textViewCurrentLabel"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/textViewCurrentLabel" />
+
                 <!-- Daily Calories -->
 
                 <TextView
@@ -249,8 +274,83 @@
                     android:textColor="@color/primaryTextColor"
                     android:textSize="12sp"
                     android:gravity="start"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewTarget"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewCurrentLabel"
                     app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Activity calories: Light -->
+                <TextView
+                    android:id="@+id/textViewLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/Home_Text_Activity_Light"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView29"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/lightCalories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="16sp"
+                    android:text="--"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/textViewLight"
+                    app:layout_constraintStart_toEndOf="@+id/textViewLight" />
+
+                <!-- Activity calories: Moderate -->
+                <TextView
+                    android:id="@+id/textViewModerate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/Home_Text_Activity_Moderate"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewLight"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/moderateCalories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="16sp"
+                    android:text="--"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/textViewModerate"
+                    app:layout_constraintStart_toEndOf="@+id/textViewModerate" />
+
+                <!-- Activity calories: Heavy -->
+                <TextView
+                    android:id="@+id/textViewHeavy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/Home_Text_Activity_Heavy"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewModerate"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/heavyCalories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="16sp"
+                    android:text="--"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/textViewHeavy"
+                    app:layout_constraintStart_toEndOf="@+id/textViewHeavy" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -427,19 +527,6 @@
                         android:text="@string/Home_Calo"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/imageView6"
-                        app:layout_constraintTop_toBottomOf="@+id/textView24" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/poppins_semi_bold"
-                        android:text="@string/Home_Cal"
-                        android:textColor="@color/primaryTextColor"
-
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toEndOf="@+id/exercise_tv"
                         app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
                     <ImageView

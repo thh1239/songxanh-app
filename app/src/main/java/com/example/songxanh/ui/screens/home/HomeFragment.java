@@ -54,7 +54,6 @@ import java.util.Date;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-    // ===== Hằng số & ViewModel =====
     public static final String PREF_FILE_NAME = "theme_pref";
     public static final String THEME_KEY = "theme_mode";
     private HomeVM homeVM;
@@ -63,14 +62,14 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private WorkoutVM workoutVM;
 
-    // ===== Biểu đồ & legend =====
+    // Biểu đồ
     private PieChart pieChart;
     private LinearLayout legendLayout;
     private LineChart lineChart;
     private List<String> legendEntries;
     private List<Integer> legendValues;
 
-    // ===== Cảm biến bước chân =====
+    // Cảm biến bước chân
     private SensorManager sensorManager;
     private Sensor stepSensor;
     private int stepCount = 0;
@@ -80,10 +79,8 @@ public class HomeFragment extends Fragment {
     private long previousTimestamp = 0;
     Date previousDate;
 
-    // ===== Firestore =====
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    // ===== Nhãn trung tâm PieChart =====
     private String todayMsg = "TỔNG KCAL HÔM NAY: ";
 
     @Override
@@ -94,7 +91,6 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // ===== Khởi tạo binding & ViewModel =====
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         homeVM = new ViewModelProvider(requireActivity()).get(HomeVM.class);
         binding.setViewModel(homeVM);
@@ -104,7 +100,6 @@ public class HomeFragment extends Fragment {
         mainVM.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
             public void onChanged(User user) {
-                // ===== Khi có User: nạp dữ liệu màn hình & biểu đồ =====
                 if (user != null) {
                     homeVM.setUser(mainVM.getUser());
                     homeVM.loadDocument();
@@ -113,22 +108,21 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // ===== Khởi tạo dữ liệu hoạt động hôm nay =====
         workoutVM = new ViewModelProvider(requireActivity()).get(WorkoutVM.class);
         workoutVM.initDailyActivity();
 
-        // ===== Liên kết view biểu đồ =====
+        // Liên kết view biểu đồ
         lineChart = binding.lineChart;
         pieChart = binding.pieChart;
         legendLayout = binding.legendLayout;
 
-        // ===== Quan sát trạng thái tải dữ liệu để vẽ biểu đồ / cập nhật UI =====
+        // Quan sát trạng thái tải
         homeVM.getIsLoadingDocument().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isLoadingDocument) {
                 if (isLoadingDocument != null && !isLoadingDocument) {
-                    setLoading();  // cập nhật text/ảnh
-                    drawPie();     // vẽ PieChart
+                    setLoading();
+                    drawPie();
                 }
             }
         });
@@ -136,12 +130,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(Boolean isLoadingLine) {
                 if (isLoadingLine != null && !isLoadingLine) {
-                    drawLine();    // vẽ LineChart
+                    drawLine();
                 }
             }
         });
 
-        // ===== Điều hướng sang cập nhật cân nặng / chi tiết tập luyện =====
+        // Điều hướng
         binding.updateWeightBtn.setOnClickListener(v ->
                 NavHostFragment.findNavController(HomeFragment.this)
                         .navigate(R.id.action_homeFragment_to_homeUpdateWeightFragment)
@@ -151,7 +145,7 @@ public class HomeFragment extends Fragment {
                         .navigate(R.id.action_homeFragment_to_excerciseDetail)
         );
 
-        // ===== Khởi tạo cảm biến bước chân =====
+        // Cảm biến bước chân
         sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (stepSensor != null) {
@@ -160,14 +154,14 @@ public class HomeFragment extends Fragment {
             Toast.makeText(requireContext(), "Step counter is not available on your device", Toast.LENGTH_SHORT).show();
         }
 
-        // ===== Tải số bước đã lưu trong ngày =====
+        // Tải số bước đã lưu trong ngày
         SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
         long previousDateMillis = sharedPreferences.getLong("previousDate", 0);
         previousDate = new Date(previousDateMillis);
         stepCount = sharedPreferences.getInt("stepCount", 0);
         binding.stepCountTextView.setText(String.valueOf(stepCount));
 
-        // ===== Chuyển theme sáng/tối =====
+        // Chuyển theme
         binding.setThemeButton.setOnClickListener(v -> {
             SharedPreferences sp = getActivity().getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
             boolean isDarkTheme = !sp.getBoolean(THEME_KEY, true);
@@ -178,7 +172,7 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
-    // ===== Vẽ PieChart: 3 phần (cần nạp, từ đồ ăn, đã giảm) + text trung tâm =====
+    // Vẽ PieChart
     private void drawPie() {
         legendEntries = new ArrayList<>();
         legendEntries.add("Kcal cần nạp");
@@ -220,7 +214,6 @@ public class HomeFragment extends Fragment {
         pieChart.setEntryLabelTextSize(12f);
         pieChart.setEntryLabelColor(android.R.color.black);
 
-        // ===== Tính tổng kcal hôm nay (đồ ăn - tập luyện, không âm) =====
         int food = Math.max(0, Math.round(homeVM.getFoodCalories()));
         int exercise = Math.max(0, Math.round(homeVM.getExerciseCalories()));
         int totalToday = Math.max(0, food - exercise);
@@ -231,7 +224,6 @@ public class HomeFragment extends Fragment {
         pieChart.setCenterTextColor(getResources().getColor(R.color.primaryTextColor, null));
         pieChart.animateXY(1000, 1000, Easing.EaseInOutBounce);
 
-        // ===== Vẽ legend tùy chỉnh (có hậu tố kcal) =====
         Legend legend = pieChart.getLegend();
         legend.setEnabled(false);
 
@@ -263,19 +255,31 @@ public class HomeFragment extends Fragment {
         pieChart.invalidate();
     }
 
-    // ===== Cập nhật UI: tên, kcal, cân nặng, avatar =====
+    // Cập nhật UI
     private void setLoading() {
         binding.userNameTv.setText(homeVM.getUser().getValue().getName());
 
-        // Năng lượng (kcal)
+        // kcal
         binding.exerciseTv.setText(Math.round(homeVM.getExerciseCalories()) + " kcal");
         binding.dailyCalories.setText(GlobalMethods.formatDoubleToString(homeVM.getDailyCalories()) + " kcal");
 
-        // Cân nặng (kg)
+        // cân nặng
         binding.startWeight.setText(GlobalMethods.formatDoubleToString(homeVM.getStartWeight()) + " kg");
         binding.goalWeight.setText(GlobalMethods.formatDoubleToString(homeVM.getGoalWeight()) + " kg");
+        binding.currentWeight.setText(GlobalMethods.formatDoubleToString(homeVM.getWeight()) + " kg");
 
-        // Ảnh đại diện
+        // NEW: kcal tối thiểu theo mức vận động
+        if (binding.lightCalories != null) {
+            binding.lightCalories.setText(GlobalMethods.formatDoubleToString(homeVM.getActivityLight()) + " " + getString(R.string.kcal_suffix));
+        }
+        if (binding.moderateCalories != null) {
+            binding.moderateCalories.setText(GlobalMethods.formatDoubleToString(homeVM.getActivityModerate()) + " " + getString(R.string.kcal_suffix));
+        }
+        if (binding.heavyCalories != null) {
+            binding.heavyCalories.setText(GlobalMethods.formatDoubleToString(homeVM.getActivityHeavy()) + " " + getString(R.string.kcal_suffix));
+        }
+
+        // avatar
         if (mainVM.getUserImageUrl() == null) {
             binding.userAvatar.setImageResource(R.drawable.default_profile_image);
         } else {
@@ -285,7 +289,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    // ===== Lắng nghe cảm biến để đếm bước =====
     private final SensorEventListener accelerometerSensorEventListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
@@ -309,7 +312,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // ===== Reset bước khi sang ngày mới & lưu lại ngày =====
+        // Reload để bắt kịp cân nặng/dailyCalories mới nhất khi quay lại
+        homeVM.loadDocument();
+
         SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
         long previousDateMillis = sharedPreferences.getLong("previousDate", 0);
         previousDate = new Date(previousDateMillis);
@@ -328,7 +333,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        // ===== Lưu số bước & ngày hiện tại; hủy đăng ký cảm biến =====
         SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
         sharedPreferences.edit()
                 .putInt("stepCount", stepCount)
@@ -341,7 +345,6 @@ public class HomeFragment extends Fragment {
         homeVM.saveDailySteps(stepCount, previousDate);
     }
 
-    // ===== So sánh cùng ngày =====
     private boolean isSameDay(Date date1, Date date2) {
         Calendar cal1 = Calendar.getInstance(), cal2 = Calendar.getInstance();
         cal1.setTime(date1); cal2.setTime(date2);
@@ -350,7 +353,6 @@ public class HomeFragment extends Fragment {
                 && cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
     }
 
-    // ===== Vẽ LineChart số bước 7 ngày gần nhất =====
     private void drawLine() {
         ArrayList<CustomEntryLineChart> entries = homeVM.getLineEntries1();
 

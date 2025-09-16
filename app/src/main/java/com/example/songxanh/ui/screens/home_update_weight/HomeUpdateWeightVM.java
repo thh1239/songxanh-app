@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class HomeUpdateWeightVM extends ViewModel {
@@ -38,7 +39,7 @@ public class HomeUpdateWeightVM extends ViewModel {
 
     private Integer x = 0;
     private MutableLiveData<Boolean> isAddingValue = null;
-    private Integer weight = new Integer(0);
+    private Integer weight = 0;
     private HomeVM homeVM;
 
     List<CustomEntry> barEntries;
@@ -64,7 +65,6 @@ public class HomeUpdateWeightVM extends ViewModel {
     }
 
     public HomeUpdateWeightVM() {
-//        getUserLiveData();
         loadDailyWeight();
         loadBarData();
     }
@@ -93,8 +93,8 @@ public class HomeUpdateWeightVM extends ViewModel {
                                 if (document.contains("weight")) {
                                     int steps = document.getLong("weight").intValue();
                                     String date = document.getId();
-                                    SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
-                                    SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM");
+                                    SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                                    SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM", Locale.getDefault());
                                     try {
                                         Date parsedDate = inputFormat.parse(date);
                                         date = outputFormat.format(parsedDate);
@@ -116,22 +116,18 @@ public class HomeUpdateWeightVM extends ViewModel {
     }
 
     public void loadDailyWeight() {
-
         firestore.collection("users")
                 .document(firebaseAuth.getCurrentUser().getUid())
                 .collection("daily_activities")
                 .document(GlobalMethods.convertDateToHyphenSplittingFormat(new Date()))
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
+                    if (documentSnapshot.exists() && documentSnapshot.contains("weight")) {
                         int stepsValue = documentSnapshot.getLong("weight").intValue();
                         setWeight(stepsValue);
                     }
                 })
-                .addOnFailureListener(e -> {
-                    Log.i("Lỗi", "abcdxyz");
-                    // Xử lý khi không thể tải dữ liệu từ Firestore
-                });
+                .addOnFailureListener(e -> Log.i("Lỗi", "Không thể tải cân nặng hôm nay"));
     }
 
     public void getUserLiveData() {
@@ -140,48 +136,120 @@ public class HomeUpdateWeightVM extends ViewModel {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
                             user = task.getResult().getDocuments().get(0).toObject(NormalUser.class);
                             isLoadingData.setValue(false);
-
                         } else {
                             Log.d("Get user data error", "Error getting user documents: ", task.getException());
+                            isLoadingData.setValue(false);
                         }
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        isLoadingData.setValue(false);
-                        Log.i("Error", e.getMessage());
-                    }
+                })
+                .addOnFailureListener(e -> {
+                    isLoadingData.setValue(false);
+                    Log.i("Error", e.getMessage());
                 });
     }
 
+    /**
+     * Lưu cân nặng hôm nay và TÍNH LẠI dailyCalories cho users/{uid}.
+     */
     public void saveDailyWeight(Integer weight, Integer steps, Float exerciseCalories, Float calories, Float foodCalories) {
         Map<String, Object> dailyActivities = new HashMap<>();
-//        dailyActivities.put("steps", steps);
         dailyActivities.put("weight", weight);
-//        dailyActivities.put("exerciseCalories", exerciseCalories);
-//        dailyActivities.put("calories", calories);
-//        dailyActivities.put("foodCalories", foodCalories);
 
         firestore.collection("users")
                 .document(firebaseAuth.getCurrentUser().getUid())
-                .collection("daily_activities").document(GlobalMethods.convertDateToHyphenSplittingFormat(new Date()))
+                .collection("daily_activities")
+                .document(GlobalMethods.convertDateToHyphenSplittingFormat(new Date()))
                 .update(dailyActivities)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.i("success", "Lưu giá trị thành công");
+                        Log.i("success", "Lưu cân nặng thành công");
+                        // Sau khi lưu weight -> tính lại dailyCalories
+                        recalcAndUpdateDailyCaloriesAfterWeightChange(weight != null ? weight : 0);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.i("success", "Lưu giá trị thất bại");
+                        Log.i("fail", "Lưu cân nặng thất bại");
                         Log.i("bug", e.toString());
                     }
                 });
     }
 
+    /**
+     * Đọc users/{uid}, tính lại dailyCalories theo cân nặng hiện tại.
+     * - Nếu đủ dữ liệu lộ trình (startDate/goalDate/goalWeight): dùng calculateDailyCalories (đã có sàn BMR).
+     * - Nếu thiếu: fallback = max(BMR, 90% TDEE).
+     */
+    private void recalcAndUpdateDailyCaloriesAfterWeightChange(int currentWeight) {
+        final String uid = firebaseAuth.getCurrentUser().getUid();
+
+        firestore.collection("users").document(uid).get()
+                .addOnSuccessListener(userDoc -> {
+                    if (!userDoc.exists()) {
+                        Log.w("kcal", "User doc không tồn tại, bỏ qua cập nhật dailyCalories");
+                        return;
+                    }
+
+                    String gender = userDoc.getString("gender");
+                    Double height = userDoc.getDouble("height");
+                    Long ageL = userDoc.getLong("age");
+                    Long goalW = userDoc.getLong("goalWeight");
+                    Date startDate = userDoc.getDate("startDate");
+                    Date goalDate  = userDoc.getDate("goalDate");
+
+                    if (height == null || ageL == null || currentWeight <= 0) {
+                        Log.w("kcal", "Thiếu height/age/weight -> bỏ qua cập nhật dailyCalories");
+                        return;
+                    }
+
+                    final boolean isMale = normalizeGender(gender);
+                    final double bmr  = GlobalMethods.bmrMifflin(isMale, currentWeight, height, ageL.intValue());
+                    final double tdee = GlobalMethods.tdee(bmr, 1.375); // mức hoạt động mặc định: nhẹ
+
+                    // Tính dailyCalories tạm
+                    double dailyTmp;
+                    boolean hasRoadmap = (goalW != null && startDate != null && goalDate != null);
+
+                    if (hasRoadmap) {
+                        // Dùng công thức đầy đủ (đã có sàn BMR bên trong)
+                        dailyTmp = GlobalMethods.calculateDailyCalories(
+                                gender,
+                                currentWeight,
+                                height,
+                                ageL.intValue(),
+                                goalW.intValue(),
+                                startDate,
+                                goalDate
+                        );
+                    } else {
+                        // Fallback: không có lộ trình -> đề xuất an toàn tối thiểu
+                        dailyTmp = Math.max(bmr, tdee * 0.90); // 90% TDEE nhưng >= BMR
+                    }
+
+                    // Giá trị cuối cùng (final) để dùng trong lambda lồng nhau
+                    final long dailyRounded = Math.round(dailyTmp);
+
+                    final Map<String, Object> upd = new HashMap<>();
+                    upd.put("dailyCalories", dailyRounded);
+
+                    firestore.collection("users").document(uid).update(upd)
+                            .addOnSuccessListener(v -> Log.i("kcal", "Cập nhật dailyCalories = " + dailyRounded))
+                            .addOnFailureListener(err -> Log.e("kcal", "Cập nhật dailyCalories thất bại", err));
+                })
+                .addOnFailureListener(e -> Log.e("kcal", "Không đọc được users/{uid}", e));
+    }
+
+    // Helper normalize local (độc lập với GlobalMethods.normalizeGender private)
+    private static boolean normalizeGender(String gender) {
+        if (gender == null) return true;
+        String g = gender.trim().toLowerCase(java.util.Locale.ROOT);
+        if (g.startsWith("m") || g.equals("nam")) return true;
+        if (g.startsWith("f") || g.equals("nữ") || g.equals("nu")) return false;
+        return true;
+    }
 }
