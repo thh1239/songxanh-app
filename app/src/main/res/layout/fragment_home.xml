@@ -298,7 +298,7 @@
                     android:fontFamily="@font/poppins_bold"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="16sp"
-                    android:text="--"
+                    android:text="Số kcal cần thiết"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textViewLight"
                     app:layout_constraintStart_toEndOf="@+id/textViewLight" />
 
@@ -323,7 +323,7 @@
                     android:fontFamily="@font/poppins_bold"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="16sp"
-                    android:text="--"
+                    android:text="Số Kcal cần thiết"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textViewModerate"
                     app:layout_constraintStart_toEndOf="@+id/textViewModerate" />
 
@@ -348,7 +348,7 @@
                     android:fontFamily="@font/poppins_bold"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="16sp"
-                    android:text="--"
+                    android:text="Số Kcal cần thiết"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textViewHeavy"
                     app:layout_constraintStart_toEndOf="@+id/textViewHeavy" />
 
