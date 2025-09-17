@@ -22,7 +22,11 @@ import com.example.songxanh.databinding.FragmentAdminCommunityBinding;
 
 import java.util.ArrayList;
 
-public class AdminCommunityFragment extends Fragment implements ReportRecyclerViewAdapter.OnItemDeleteListener, ReportRecyclerViewAdapter.OnItemApproveListener, ReportRecyclerViewAdapter.OnItemDetailsListener {
+public class AdminCommunityFragment extends Fragment implements
+        ReportRecyclerViewAdapter.OnItemDeleteListener,
+        ReportRecyclerViewAdapter.OnItemApproveListener,
+        ReportRecyclerViewAdapter.OnItemDetailsListener {
+
     FragmentAdminCommunityBinding binding;
     AdminCommunityVM adminCommunityVM;
     ReportRecyclerViewAdapter adapter;
@@ -30,7 +34,6 @@ public class AdminCommunityFragment extends Fragment implements ReportRecyclerVi
     private boolean isLoading = false;
     private int visibleThreshold = 10;
     private int lastVisibleItem, totalItemCount;
-
 
     public AdminCommunityFragment() {
         // Required empty public constructor
@@ -42,29 +45,39 @@ public class AdminCommunityFragment extends Fragment implements ReportRecyclerVi
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
         adminCommunityVM = provider.get(AdminCommunityVM.class);
         binding = FragmentAdminCommunityBinding.inflate(inflater, container, false);
-        adapter = new ReportRecyclerViewAdapter(this.getContext(), adminCommunityVM.pendingReportList.getValue(), this, this, this);
+
+        // [UI INIT] Đảm bảo adapter không nhận list null để tránh NPE khi set dữ liệu lần đầu
+        ArrayList<Report> initial = adminCommunityVM.pendingReportList.getValue();
+        if (initial == null) initial = new ArrayList<>();
+        adapter = new ReportRecyclerViewAdapter(this.getContext(), initial, this, this, this);
+
         binding.setViewModel(adminCommunityVM);
         binding.reportRecyclerView.setAdapter(adapter);
+
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         binding.reportRecyclerView.setLayoutManager(linearLayoutManager);
+
         binding.reportRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 totalItemCount = linearLayoutManager.getItemCount();
                 lastVisibleItem = linearLayoutManager.findLastCompletelyVisibleItemPosition();
-                Log.d("total item count", "totalItemCount" + totalItemCount    );
-                Log.d("last visible item", "lastvisibleitem" + lastVisibleItem    );
-                if(!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                    Log.d("Scrolling", "onScrolled: loadmore is called");
+                Log.d("total item count", "totalItemCount: " + totalItemCount);
+                Log.d("last visible item", "lastVisibleItem: " + lastVisibleItem);
+
+                // [PAGINATION GUARD] Chặn load trùng khi đang loading
+                if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                    Log.d("Scrolling", "onScrolled: loadMore is called");
                     loadMore();
                     isLoading = true;
                 }
             }
         });
+
         binding.setLifecycleOwner(getViewLifecycleOwner());
         return binding.getRoot();
-    }                       
+    }
 
     private void loadMore() {
         Handler handler = new Handler();
@@ -80,16 +93,21 @@ public class AdminCommunityFragment extends Fragment implements ReportRecyclerVi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         adminCommunityVM.pendingReportList.observe(getViewLifecycleOwner(), new Observer<ArrayList<Report>>() {
             @Override
             public void onChanged(ArrayList<Report> reportArrayList) {
+                // [UI BIND] Null-safe khi cập nhật list
+                if (reportArrayList == null) reportArrayList = new ArrayList<>();
                 adapter.setReportArrayList(reportArrayList);
             }
         });
+
         adminCommunityVM.reportCount.observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                String temp = String.valueOf(integer) + " reports remaining";
+                int value = (integer == null) ? 0 : Math.max(integer, 0);
+                String temp = value + " báo cáo còn lại";
                 binding.remainingReportsCount.setText(temp);
             }
         });
@@ -97,11 +115,13 @@ public class AdminCommunityFragment extends Fragment implements ReportRecyclerVi
 
     @Override
     public void onItemApprove(int position) {
+        // [ACTION] Admin duyệt bài → ViewModel sẽ tự giảm/pull dữ liệu, fragment chỉ chuyển sự kiện
         adminCommunityVM.approvePost(position);
     }
 
     @Override
     public void onItemDelete(int position) {
+        // [ACTION] Admin xoá bài
         adminCommunityVM.deletePost(position);
     }
 

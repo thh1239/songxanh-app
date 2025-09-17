@@ -1,61 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.songxanh.ui.screens.add_personal_ingredient.AddPersonalIngredientVM" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/default_horizontal_margin">
 
+        <!-- App bar -->
         <RelativeLayout
             android:id="@+id/new_ingredient_added_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <include
-                layout="@layout/fragment_custom_app_bar"
-                app:title="Thêm Thực đơn" />
+            <!-- Không truyền app:title để tránh lỗi nếu layout con không có biến -->
+            <include layout="@layout/fragment_custom_app_bar" />
         </RelativeLayout>
 
+        <!-- Tên nguyên liệu: set bằng code trong Fragment -->
         <TextView
-            android:layout_marginVertical="40dp"
             android:id="@+id/ingredient_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="40dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="@{String.valueOf(viewModel.newIngredient.getShort_Description)}"
+            android:text=""
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/new_ingredient_added_toolbar"/>
+            app:layout_constraintTop_toBottomOf="@id/new_ingredient_added_toolbar" />
 
+        <!-- Header dinh dưỡng -->
         <TextView
-            android:layout_marginVertical="20dp"
             android:id="@+id/nutrient_facts_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
             android:fontFamily="@font/poppins_semi_bold"
             android:text="Thông tin dinh dưỡng (mỗi 100g)"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ingredient_header" />
+            app:layout_constraintTop_toBottomOf="@id/ingredient_header" />
 
+        <!-- Calories -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/calories_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/nutrient_facts_header">
+            app:layout_constraintTop_toBottomOf="@id/nutrient_facts_header">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -70,6 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@id/kcal"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -84,13 +86,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Protein -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/protein_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/calories_info">
+            app:layout_constraintTop_toBottomOf="@id/calories_info">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -105,6 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@id/protein_gram"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -119,13 +122,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Lipid -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/lipid_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/protein_info">
+            app:layout_constraintTop_toBottomOf="@id/protein_info">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -140,6 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@id/lipid_gram"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -154,13 +158,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Carbohydrate -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/carbs_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/lipid_info">
+            app:layout_constraintTop_toBottomOf="@id/lipid_info">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -175,6 +179,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@id/carbs"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -188,33 +193,38 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Animation -->
         <com.airbnb.lottie.LottieAnimationView
-            app:layout_constraintTop_toBottomOf="@+id/carbs_info"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/submit_checkbox"
-            app:lottie_rawRes="@raw/ingredient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            />
+            app:lottie_rawRes="@raw/ingredient"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/carbs_info"
+            app:layout_constraintBottom_toTopOf="@id/submit_checkbox" />
+
+        <!-- Checkbox -->
         <CheckBox
             android:id="@+id/submit_checkbox"
-            app:layout_constraintBottom_toTopOf="@id/new_ingredient_confirm_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/primaryTextColor"
             android:fontFamily="@font/poppins_regular"
-            android:text="Chia sẽ nguyên liệu của bạn đến hệ thống của chúng tôi. Sau khi xác nhận, nguyên liệu của bạn có thể được chia sẽ với mọi người. "/>
+            android:text="Chia sẻ nguyên liệu của bạn đến chúng tôi. Sau khi xác nhận, nguyên liệu của bạn sẽ được đề cử với mọi người."
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintBottom_toTopOf="@id/new_ingredient_confirm_button" />
+
+        <!-- Confirm button -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/new_ingredient_confirm_button"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginVertical="40dp"
+            style="@style/PrimaryButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="40dp"
             android:text="Tuyệt vời!"
-            style="@style/PrimaryButtonStyle"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

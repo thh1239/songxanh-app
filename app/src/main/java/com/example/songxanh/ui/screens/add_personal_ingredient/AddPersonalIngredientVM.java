@@ -20,64 +20,91 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddPersonalIngredientVM extends ViewModel {
-    public GlobalMethods getGlobalMethods() {
-        return globalMethods;
-    }
 
     private GlobalMethods globalMethods;
+    public GlobalMethods getGlobalMethods() { return globalMethods; }
+
     private MutableLiveData<IngredientInfo> newIngredient = new MutableLiveData<>();
+    public MutableLiveData<IngredientInfo> getNewIngredient() { return newIngredient; }
 
-    public MutableLiveData<IngredientInfo> getNewIngredient() {
-        return newIngredient;
-    }
+    public AddPersonalIngredientVM() { }
+    public AddPersonalIngredientVM(MutableLiveData<IngredientInfo> newIngredient) { this.newIngredient = newIngredient; }
+    public void setNewIngredient(MutableLiveData<IngredientInfo> newIngredient) { this.newIngredient = newIngredient; }
 
-    public AddPersonalIngredientVM() {
-    }
-
-    public void setNewIngredient(MutableLiveData<IngredientInfo> newIngredient) {
-        this.newIngredient = newIngredient;
-    }
-
-
-    public AddPersonalIngredientVM(MutableLiveData<IngredientInfo> newIngredient) {
-        this.newIngredient = newIngredient;
-    }
-
-
+    // ===== LƯU NGUYÊN LIỆU CÁ NHÂN =====
     public void addPersonalIngredient() {
-        DocumentReference userDocumentRef = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        CollectionReference personalIngredientRef = userDocumentRef.collection("personal_ingredient");
-        personalIngredientRef.add(this.newIngredient.getValue()).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
+        IngredientInfo ing = this.newIngredient.getValue();
+        if (ing == null) {
+            Log.w("ADD_PERSONAL_ING", "newIngredient is null, abort");
+            return;
+        }
 
+        String shortDesc = ing.getShort_Description();
+        Double cal = ing.getCalories();
+        Double carbs = ing.getCarbs();
+        Double lipid = ing.getLipid();
+        Double protein = ing.getProtein();
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("shortDescription", shortDesc);
+        data.put("calories", cal == null ? null : (int) Math.round(cal));
+        data.put("carbs",   carbs);
+        data.put("lipid",   lipid);
+        data.put("protein", protein);
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DocumentReference userDocumentRef = FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(uid);
+        CollectionReference personalIngredientRef = userDocumentRef.collection("personal_ingredient");
+
+        personalIngredientRef.add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override public void onSuccess(DocumentReference documentReference) {
+                        Log.i("ADD_PERSONAL_ING", "Added personal ingredient: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("ADDED NEW INGREDIENT failure", "Error adding document", e);
+                    @Override public void onFailure(@NonNull Exception e) {
+                        Log.w("ADD_PERSONAL_ING", "Error adding document", e);
                     }
                 });
     }
 
+    // ===== THÊM NGUYÊN LIỆU VÀO PENDING =====
     public void addToPendingList() {
+        IngredientInfo temp = this.newIngredient.getValue();
+        if (temp == null) {
+            Log.w("ADD_PENDING_ING", "newIngredient is null, abort");
+            return;
+        }
+
         CollectionReference user_ingredients = FirebaseFirestore.getInstance().collection("user_ingredients");
         Map<String, Object> data = new HashMap<>();
-        IngredientInfo temp = this.newIngredient.getValue();
-        data.put("Calories", temp.getCalories());
-        data.put("Carbs", temp.getCarbs());
-        data.put("Lipid", temp.getLipid());
-        data.put("Protein", temp.getProtein());
+        data.put("Calories",          temp.getCalories());
+        data.put("Carbs",             temp.getCarbs());
+        data.put("Lipid",             temp.getLipid());
+        data.put("Protein",           temp.getProtein());
         data.put("Short_Description", temp.getShort_Description());
-        user_ingredients.add(data);
-        FirebaseFirestore.getInstance().collection("count").document("pending_ingredients_count").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                int count = documentSnapshot.getLong("count").intValue();
-                int newCount = count + 1;
-                FirebaseFirestore.getInstance().collection("count").document("pending_ingredients_count").update("count", newCount);
-            }
-        });
+
+        user_ingredients.add(data)
+                .addOnSuccessListener(docRef -> Log.i("ADD_PENDING_ING", "Added pending ingredient: " + docRef.getId()))
+                .addOnFailureListener(e -> Log.w("ADD_PENDING_ING", "Error adding pending doc", e));
+
+        FirebaseFirestore.getInstance()
+                .collection("count")
+                .document("pending_ingredients_count")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Long count = documentSnapshot.getLong("count");
+                        int newCount = (count == null ? 0 : count.intValue()) + 1;
+                        FirebaseFirestore.getInstance()
+                                .collection("count")
+                                .document("pending_ingredients_count")
+                                .update("count", newCount);
+                    }
+                })
+                .addOnFailureListener(e -> Log.w("ADD_PENDING_ING", "Error updating pending count", e));
     }
 }

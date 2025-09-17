@@ -13,7 +13,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,8 +26,6 @@ public class CommunityReportVM extends ViewModel {
     private Achievement achievement;
     private User user;
     private MutableLiveData<String> message = new MutableLiveData<>("");
-
-
 
     public CommunityReportVM() {
         achievement = null;
@@ -56,9 +56,11 @@ public class CommunityReportVM extends ViewModel {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             if (task.isSuccessful()) {
-                                message.setValue("We sent this report to admin. Thanks for your contribution.");
+                                message.setValue("Chúng tôi đã gửi báo cáo này cho quản trị viên. Cảm ơn bạn đã đóng góp!");
                                 title.setValue("");
                                 description.setValue("");
+
+                                // [CRITICAL COUNTER LOGIC] Tăng biến đếm pending report theo cách ATOMIC
                                 updatePendingReportCount();
                             } else {
                                 message.setValue("Something went wrong. Please try again");
@@ -70,21 +72,44 @@ public class CommunityReportVM extends ViewModel {
         }
     }
 
+    /**
+     * [CRITICAL COUNTER LOGIC]
+     * - Dùng FieldValue.increment(1) để tăng ATOMIC.
+     * - Nếu document không tồn tại: tạo mới với count = 1.
+     * - Nếu count hiện tại âm (dữ liệu lỗi): reset về 0 trước khi increment.
+     */
     public void updatePendingReportCount() {
-        DocumentReference countDocumentRef = FirebaseFirestore.getInstance().collection("count").document("reports_count");
+        final DocumentReference countDocumentRef =
+                FirebaseFirestore.getInstance().collection("count").document("reports_count");
+
         countDocumentRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists()) {
-                    Integer currentValue = documentSnapshot.getLong("count").intValue();
-                    Integer newValue = currentValue + 1;
-                    Map<String, Object> updates = new HashMap<>();
-                    updates.put("count", newValue);
-                    countDocumentRef.update(updates);
+                if (!documentSnapshot.exists()) {
+                    Map<String, Object> init = new HashMap<>();
+                    init.put("count", 1);
+                    countDocumentRef.set(init, SetOptions.merge());
+                    return;
+                }
+
+                Long current = documentSnapshot.getLong("count");
+                if (current == null) current = 0L;
+
+                if (current < 0L) {
+                    // [DATA GUARD] Nếu đang âm → reset về 0 rồi mới tăng để tránh âm lan
+                    Map<String, Object> fix = new HashMap<>();
+                    fix.put("count", 0);
+                    countDocumentRef.set(fix, SetOptions.merge())
+                            .addOnSuccessListener(unused -> countDocumentRef.update("count", FieldValue.increment(1)));
+                } else {
+                    // [ATOMIC INCREMENT] Tăng lên 1 cách an toàn khi có cạnh tranh
+                    countDocumentRef.update("count", FieldValue.increment(1));
                 }
             }
         });
     }
+
+    // ===== Getter/Setter & LiveData expose =====
 
     public MutableLiveData<String> getTitle() {
         return title;

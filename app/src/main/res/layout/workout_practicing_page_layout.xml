@@ -53,7 +53,7 @@
             android:layout_marginStart="@dimen/default_horizontal_margin"
             android:layout_marginTop="26dp"
             android:fontFamily="@font/poppins_semi_bold"
-            android:text="Vị trí bắt đầu"
+            android:text="Tư thế bắt đầu"
             android:textSize="16sp" />
 
         <TextView
