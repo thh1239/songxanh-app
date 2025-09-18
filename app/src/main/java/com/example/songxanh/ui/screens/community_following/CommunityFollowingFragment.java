@@ -29,9 +29,10 @@ public class CommunityFollowingFragment extends Fragment {
     private CommunityFollowingAdapter adapter;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentCommunityFollowingBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(CommunityFollowingVM.class);
         binding.setViewModel(viewModel);
@@ -46,6 +47,7 @@ public class CommunityFollowingFragment extends Fragment {
 
         viewModel.getActivities().observe(getViewLifecycleOwner(), new Observer<List<FollowingActivity>>() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onChanged(List<FollowingActivity> followingActivities) {
                 adapter.addAll(followingActivities);
             }
@@ -59,6 +61,7 @@ public class CommunityFollowingFragment extends Fragment {
     private void setOnClick() {
         binding.appBar.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(CommunityFollowingFragment.this);
             }

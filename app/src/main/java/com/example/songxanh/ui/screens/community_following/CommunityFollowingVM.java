@@ -23,6 +23,7 @@ public class CommunityFollowingVM extends ViewModel {
     private List<String> followers;
     private MutableLiveData<List<FollowingActivity>> activities = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
+// == Tính toán và hiển thị tổng calo ==
 
     public void loadActivities() {
         List<FollowingActivity> newActivities = new ArrayList<>();
@@ -50,7 +51,6 @@ public class CommunityFollowingVM extends ViewModel {
                                         newActivity.setUserAvatarUrl(null);
                                     }
 
-                                    // Because of having 2 asynchronus function (get data from 2 path), so we need 2 variable to mark when each function is completed
                                     isLoadedUserInfo.set(true);
                                     if (isLoadedCaloriesInfo.equals(true)) { // if calories info is loaded, it means that 2 process is completed, so add this item to list
                                         newActivities.add(newActivity);
@@ -70,6 +70,7 @@ public class CommunityFollowingVM extends ViewModel {
                     .collection("daily_activities").document(GlobalMethods.convertDateToHyphenSplittingFormat(new Date()))
                     .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
+// == Tính toán và hiển thị tổng calo ==
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
@@ -101,7 +102,6 @@ public class CommunityFollowingVM extends ViewModel {
         }
     }
 
-    // GETTERS AND SETTERS
     public MutableLiveData<List<FollowingActivity>> getActivities() {
         return activities;
     }
@@ -118,6 +118,7 @@ public class CommunityFollowingVM extends ViewModel {
         this.followers = followers;
         loadActivities();
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;

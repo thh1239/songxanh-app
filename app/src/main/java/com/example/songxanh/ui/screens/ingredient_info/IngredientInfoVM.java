@@ -18,30 +18,36 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class IngredientInfoVM extends ViewModel {
     private GlobalMethods globalMethods;
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public GlobalMethods getGlobalMethods() {
         return globalMethods;
     }
 
     public MutableLiveData<String> toastMessage = new MutableLiveData<>("");
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public IngredientInfo getIngredientInfo() {
         return ingredientInfo;
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void setIngredientInfo(IngredientInfo ingredientInfo) {
         this.ingredientInfo = ingredientInfo;
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void markAsFavorite() {
         CollectionReference favoriteCollection = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("favorite_ingredients");
         Log.d("this id", "markAsFavorite: " + ingredientInfo.getId());
         favoriteCollection.whereEqualTo("id", ingredientInfo.getId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
                     if(task.getResult().isEmpty()) {
                         favoriteCollection.add(ingredientInfo).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                 if(task.isSuccessful()) {
                                     toastMessage.postValue("Đã thêm nguyên liệu yêu thích của bạn thành công!");

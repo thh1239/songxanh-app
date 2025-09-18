@@ -53,14 +53,17 @@ public class AdminIngredientVM extends ViewModel {
 
         loadMore();
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public MutableLiveData<ArrayList<IngredientInfo>> getSearchResultList() {
         return searchResultList;
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void setSearchResultList(MutableLiveData<ArrayList<IngredientInfo>> searchResultList) {
         this.searchResultList = searchResultList;
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void loadMore() {
         Query newQuery;
@@ -72,6 +75,7 @@ public class AdminIngredientVM extends ViewModel {
 
         newQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     ArrayList<IngredientInfo> tempList = new ArrayList<>();
@@ -89,6 +93,7 @@ public class AdminIngredientVM extends ViewModel {
             }
         });
     }
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
 
     public void addIngredient(IngredientInfo ingredientInfo) {
         Log.d("NEW INGREDIENT", ingredientInfo.getShort_Description());
@@ -100,6 +105,7 @@ public class AdminIngredientVM extends ViewModel {
         data.put("Short_Description", ingredientInfo.getShort_Description());
         db.collection("ingredient-data").add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onSuccess(DocumentReference documentReference) {
                 ArrayList<IngredientInfo> currentList = databaseIngredientList.getValue();
                 ingredientInfo.withId(documentReference.getId()); //`withId` method to set the document ID
@@ -110,10 +116,12 @@ public class AdminIngredientVM extends ViewModel {
             }
         });
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void updateIngredient(String id, IngredientInfo updatedIngredient) {
         db.collection("ingredient-data").document(id).set(updatedIngredient).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onSuccess(Void unused) {
                 ArrayList<IngredientInfo> currentList = databaseIngredientList.getValue();
                 for (int i = 0; i < currentList.size(); i++) {
@@ -126,6 +134,7 @@ public class AdminIngredientVM extends ViewModel {
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onFailure(@NonNull Exception e) {
                 ArrayList<IngredientInfo> currentList = databaseIngredientList.getValue();
                 for (Iterator<IngredientInfo> it = currentList.iterator(); it.hasNext(); ) {
@@ -138,17 +147,20 @@ public class AdminIngredientVM extends ViewModel {
             }
         });
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void updateCount(int numIncreased) {
         ingredientCount.postValue(ingredientCount.getValue() + numIncreased);
 
         db.collection("count").document("ingredients_count").update("count",ingredientCount.getValue());
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void deleteIngredient(String id) {
         Log.d("DELETE ID", "deleteIngredient: " + id);
         db.collection("ingredient-data").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onSuccess(Void unused) {
                 ArrayList<IngredientInfo> currentList = databaseIngredientList.getValue();
                 for (Iterator<IngredientInfo> it = currentList.iterator(); it.hasNext(); ) {
@@ -162,11 +174,13 @@ public class AdminIngredientVM extends ViewModel {
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onFailure(@NonNull Exception e) {
 
             }
         });
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void search(String query) {
         query = query.toUpperCase();
@@ -178,6 +192,7 @@ public class AdminIngredientVM extends ViewModel {
         Query searchQuery = ingredientInfoRef.whereGreaterThanOrEqualTo("Short_Description", query).whereLessThanOrEqualTo("Short_Description", query + "\uf8ff").limit(10);
         searchQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                 if (task.isSuccessful()) {
@@ -199,10 +214,12 @@ public class AdminIngredientVM extends ViewModel {
             }
         });
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void fetchIngredientCount() {
         db.collection("count").document("ingredients_count").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
                     Long count = documentSnapshot.getLong("count");
@@ -214,6 +231,7 @@ public class AdminIngredientVM extends ViewModel {
         });
         db.collection("count").document("pending_ingredients_count").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
                     Long count = documentSnapshot.getLong("count");
@@ -224,10 +242,12 @@ public class AdminIngredientVM extends ViewModel {
             }
         });
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void fetchPendingIngredientsList() {
         db.collection("user_ingredients").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     ArrayList<IngredientInfo> tempList = new ArrayList<>();
@@ -240,12 +260,14 @@ public class AdminIngredientVM extends ViewModel {
             }
         });
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void approveIngredient(int position) {
         IngredientInfo ingredient = pendingIngredientList.getValue().get(position);
         addIngredient(ingredient);
         deleteFromPendingList(position);
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void deleteFromPendingList(int position) {
         db.collection("user_ingredients").document(pendingIngredientList.getValue().get(position).getId()).delete();
@@ -255,6 +277,7 @@ public class AdminIngredientVM extends ViewModel {
         pendingIngredientList.postValue(temp);
         decreasePendingCountByOne();
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
 
     public void decreasePendingCountByOne(){
@@ -262,19 +285,23 @@ public class AdminIngredientVM extends ViewModel {
         pendingIngredientCount.postValue(temp -1 );
         db.collection("count").document("pending_ingredients_count").update("count",temp - 1);
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public MutableLiveData<ArrayList<IngredientInfo>> getDatabaseIngredientList() {
         return databaseIngredientList;
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
 
     public void setDatabaseIngredientList(MutableLiveData<ArrayList<IngredientInfo>> databaseIngredientList) {
         this.databaseIngredientList = databaseIngredientList;
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public MutableLiveData<ArrayList<IngredientInfo>> getPendingIngredientList() {
         return pendingIngredientList;
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void setPendingIngredientList(MutableLiveData<ArrayList<IngredientInfo>> pendingIngredientList) {
         this.pendingIngredientList = pendingIngredientList;

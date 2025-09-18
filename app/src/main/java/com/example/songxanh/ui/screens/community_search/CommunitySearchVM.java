@@ -17,6 +17,7 @@ import java.util.List;
 
 public class CommunitySearchVM extends ViewModel {
     private MutableLiveData<List<NormalUser>> result = new MutableLiveData<>();
+// == Tương tác với dịch vụ Firebase ==
 
     public void search(String keyword) {
         FirebaseConstants.usersRef.whereEqualTo("type", "NORMAL_USER").whereArrayContains("keyword", keyword).get()
@@ -34,7 +35,6 @@ public class CommunitySearchVM extends ViewModel {
                 });
     }
 
-    // GETTERS AND SETTERS
     public MutableLiveData<List<NormalUser>> getResult() {
         return result;
     }

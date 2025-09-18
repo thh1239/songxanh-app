@@ -24,10 +24,12 @@ public class ProfileVM extends ViewModel {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private MutableLiveData<User> user = new MutableLiveData<>();
+// == Xác thực người dùng với FirebaseAuth ==
 
     public MutableLiveData<Boolean> getIsLoadingData() {
         return isLoadingData;
     }
+// == Xác thực người dùng với FirebaseAuth ==
     public void getUserLiveData() {
         isLoadingData.setValue(true);
         firestore.collection("users").whereEqualTo("email", firebaseAuth.getCurrentUser().getEmail()).get()

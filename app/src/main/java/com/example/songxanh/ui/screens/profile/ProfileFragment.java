@@ -32,17 +32,19 @@ public class ProfileFragment extends Fragment {
     private MainVM mainVM;
 
     public ProfileFragment() {
-        // Required empty public constructor
+
     }
+// == Quản lý dữ liệu bằng ViewModel ==
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         profileVM = new ViewModelProvider(requireActivity()).get(ProfileVM.class);
         mainVM = new ViewModelProvider(requireActivity()).get(MainVM.class);
-//        profileVM.getUserLiveData();
+
         profileVM.setUser(mainVM.getUser());
     }
+// == Quản lý dữ liệu bằng ViewModel ==
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class ProfileFragment extends Fragment {
 
         binding.personalInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(ProfileFragment.this).navigate(R.id.action_profileFragment_to_profilePersonalInfoFragment);
             }
@@ -68,6 +71,7 @@ public class ProfileFragment extends Fragment {
 
         binding.editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(ProfileFragment.this).navigate(R.id.action_profileFragment_to_editProfileFragment);
             }
@@ -75,24 +79,28 @@ public class ProfileFragment extends Fragment {
 
         binding.changeGoalsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(ProfileFragment.this).navigate(R.id.action_profileFragment_to_profileChangeGoalsFragment);
             }
         });
         binding.caloriesHistoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(ProfileFragment.this).navigate(R.id.action_profileFragment_to_profileCaloriesHistoryFragment);
             }
         });
         binding.changeNotiTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(ProfileFragment.this).navigate(R.id.action_profileFragment_to_profileChangeNotiTimeFragment2);
             }
         });
         binding.settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Load ảnh bằng Glide và hiển thị ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(ProfileFragment.this).navigate(R.id.action_profileFragment_to_profileSettingFragment);
             }
@@ -100,6 +108,7 @@ public class ProfileFragment extends Fragment {
 
         binding.profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Load ảnh bằng Glide và hiển thị ==
             public void onClick(View view) {
                 imagePicker();
             }
@@ -126,11 +135,13 @@ public class ProfileFragment extends Fragment {
         imageRef.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
+// == Load ảnh bằng Glide và hiển thị ==
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
+// == Load ảnh bằng Glide và hiển thị ==
                             public void onSuccess(Uri uri) {
-//                                binding.profileImage.setImageURI(uri);
+
                                 Glide.with(requireContext()).load(uri).into(binding.profileImage);
                                 mainVM.updateUserProfileImage(uri);
                             }

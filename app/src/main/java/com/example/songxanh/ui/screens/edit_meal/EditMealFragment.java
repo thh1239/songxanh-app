@@ -35,10 +35,11 @@ public class EditMealFragment extends Fragment implements IngredientRowRecyclerV
     IngredientRowRecyclerViewAdapterForAddAndDelete recyclerViewAdapterForAddAndDelete;
 
     public EditMealFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
         menuVM = provider.get(MenuVM.class);
@@ -67,6 +68,7 @@ public class EditMealFragment extends Fragment implements IngredientRowRecyclerV
 
         editMealVM.getIngredients().observe(getViewLifecycleOwner(), new Observer<ArrayList<Ingredient>>() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onChanged(ArrayList<Ingredient> ingredients) {
                 if (ingredients.size() > 2) {
                     Log.d("NEW INGREDIENT", "onChanged: " + ingredients.get(2).getName());
@@ -88,6 +90,7 @@ public class EditMealFragment extends Fragment implements IngredientRowRecyclerV
     private void setOnClick() {
         binding.editMealToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onClick(View v) {
                 GlobalMethods.backToPreviousFragment(EditMealFragment.this);
             }
@@ -95,6 +98,7 @@ public class EditMealFragment extends Fragment implements IngredientRowRecyclerV
 
         binding.editMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onClick(View v) {
                 if (totalCalories == 0) {
                     return;
@@ -103,7 +107,7 @@ public class EditMealFragment extends Fragment implements IngredientRowRecyclerV
                     Toast.makeText(getContext(), "Please add some ingredients!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                // add data to the dish
+
                 double totalProtein = 0;
                 double totalLipid = 0;
                 double totalCarb = 0;
@@ -131,6 +135,7 @@ public class EditMealFragment extends Fragment implements IngredientRowRecyclerV
 
         binding.editMealAddIngredientButton.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("operation", "edit");
@@ -140,6 +145,7 @@ public class EditMealFragment extends Fragment implements IngredientRowRecyclerV
     }
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public void onRemoveIngredientClick(int position) {
         if (position >= 0 && position < editMealVM.getIngredients().getValue().size()) {
             ArrayList<Ingredient> updatedIngredients = new ArrayList<>(editMealVM.getIngredients().getValue());
@@ -149,14 +155,14 @@ public class EditMealFragment extends Fragment implements IngredientRowRecyclerV
     }
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public void onWeightChanged(int position, double newValue) {
         if (position >= 0 && position < editMealVM.getIngredients().getValue().size()) {
-            // Get the updated ingredient and set the new weight
+
             Ingredient updatedIngredient = editMealVM.getIngredients().getValue().get(position);
             updatedIngredient.updateWeight(newValue);
             totalCalories = 0;
 
-            // Update the ingredient in the list
             ArrayList<Ingredient> updatedIngredients = new ArrayList<>(editMealVM.getIngredients().getValue());
             updatedIngredients.set(position, updatedIngredient);
             for (Ingredient ingredient : updatedIngredients) {
@@ -167,7 +173,6 @@ public class EditMealFragment extends Fragment implements IngredientRowRecyclerV
             newIngredients.setValue(updatedIngredients);
             editMealVM.setIngredients(newIngredients);
 
-            // Update the displayed total calories
             binding.editDishTotalCalories.setText(GlobalMethods.formatDoubleToString(totalCalories));
         }
     }

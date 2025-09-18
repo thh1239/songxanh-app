@@ -44,6 +44,7 @@ public class ChatMessage {
     public boolean hasImage() {
         return imageUri != null;
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public boolean isLoading() {
         return loading;

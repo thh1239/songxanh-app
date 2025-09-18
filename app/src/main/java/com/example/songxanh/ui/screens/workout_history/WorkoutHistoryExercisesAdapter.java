@@ -29,6 +29,7 @@ public class WorkoutHistoryExercisesAdapter extends RecyclerView.Adapter<Workout
         this.todayExercises = todayExercises;
         this.navController = navController;
     }
+// == Load ảnh bằng Glide và hiển thị ==
 
     public void setNewData(List<Exercise> newExercises) {
         todayExercises.clear();
@@ -37,6 +38,7 @@ public class WorkoutHistoryExercisesAdapter extends RecyclerView.Adapter<Workout
 
     @NonNull
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.exercise_list_item_layout, parent, false);
@@ -44,6 +46,7 @@ public class WorkoutHistoryExercisesAdapter extends RecyclerView.Adapter<Workout
     };
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Exercise exercise = todayExercises.get(position);
         Glide.with(context).load(exercise.getImageUrl()).into(holder.image);
@@ -52,6 +55,7 @@ public class WorkoutHistoryExercisesAdapter extends RecyclerView.Adapter<Workout
         holder.calories.setText(String.valueOf(exercise.getCaloriesPerUnit()) + " cal");
         holder.informationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View view) {
                 com.example.songxanh.ui.screens.workout_categories_exercises.WorkoutCategoryExercisesFragmentDirections.ActionWorkoutCategoryExercisesFragmentToWorkoutExerciseDetailsFragment action =
                         com.example.songxanh.ui.screens.workout_categories_exercises.WorkoutCategoryExercisesFragmentDirections.actionWorkoutCategoryExercisesFragmentToWorkoutExerciseDetailsFragment(exercise);
@@ -61,6 +65,7 @@ public class WorkoutHistoryExercisesAdapter extends RecyclerView.Adapter<Workout
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public int getItemCount() {
         return todayExercises.size();
     }

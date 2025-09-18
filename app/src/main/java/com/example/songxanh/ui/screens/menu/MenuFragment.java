@@ -50,10 +50,11 @@ public class MenuFragment extends Fragment implements DishRecycleViewAdapter.Mea
 
 
     public MenuFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
         menuVM = provider.get(MenuVM.class);
@@ -63,7 +64,6 @@ public class MenuFragment extends Fragment implements DishRecycleViewAdapter.Mea
 
         dates = initializeDatesList();
 
-        // Remove the observer before setting up a new one
         menuVM.getFirestoreDishes().removeObservers(this);
 
         adapter = new DishRecycleViewAdapter(this.getContext(), menuVM.getFirestoreDishes().getValue(), true, this);
@@ -73,6 +73,7 @@ public class MenuFragment extends Fragment implements DishRecycleViewAdapter.Mea
         dateAdapter.setSelectedPosition(2);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 5) {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public boolean canScrollHorizontally() {
                 return false;
             }
@@ -85,12 +86,14 @@ public class MenuFragment extends Fragment implements DishRecycleViewAdapter.Mea
         binding.dateSlider.scrollToPosition(centerPos);
         binding.addMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View v) {
                 onAddMealClick();
             }
         });
         binding.calendarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 final Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
@@ -101,6 +104,7 @@ public class MenuFragment extends Fragment implements DishRecycleViewAdapter.Mea
                         requireContext(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
                             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                                 Date date = new GregorianCalendar(year, month, dayOfMonth).getTime();
                                 updateDatesList(date);
@@ -131,10 +135,12 @@ public class MenuFragment extends Fragment implements DishRecycleViewAdapter.Mea
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         menuVM.getFirestoreDishes().observe(getViewLifecycleOwner(), new Observer<ArrayList<Dish>>() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onChanged(ArrayList<Dish> dishArrayList) {
                 adapter.setDishes(dishArrayList);
                 totalCalories = 0.0;
@@ -146,12 +152,14 @@ public class MenuFragment extends Fragment implements DishRecycleViewAdapter.Mea
             }
         });
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void onAddMealClick() {
         NavHostFragment.findNavController(MenuFragment.this).navigate(R.id.action_menuFragment_to_addMealFragment);
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onEditMealClick(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);
@@ -159,21 +167,25 @@ public class MenuFragment extends Fragment implements DishRecycleViewAdapter.Mea
     }
 
     @Override
+// == Thêm mới dữ liệu hoặc item ==
     public void onAddIngredientClick(int position) {
 
     }
 
     @Override
+// == Xóa dữ liệu hoặc item ==
     public void onDeleteMealClick(int position) {
         menuVM.getFirestoreDishes().deleteDish(menuVM.getFirestoreDishes().getValue().get(position));
     }
 
     @Override
+// == Xử lý sự kiện click từ người dùng ==
     public void onCancelClick(int position) {
 
     }
 
     @Override
+// == Xử lý sự kiện click từ người dùng ==
     public void onMealOptionClick(int position) {
 
     }
@@ -203,6 +215,7 @@ public class MenuFragment extends Fragment implements DishRecycleViewAdapter.Mea
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onDateClick(Date date) {
         updateDatesList(date);
         int centerPosition = 2;
@@ -234,6 +247,7 @@ public class MenuFragment extends Fragment implements DishRecycleViewAdapter.Mea
         MenuFragment menuFragment = this;
         dailyActivityRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();

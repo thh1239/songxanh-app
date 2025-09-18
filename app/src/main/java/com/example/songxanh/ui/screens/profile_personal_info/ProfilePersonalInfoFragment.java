@@ -30,22 +30,22 @@ public class ProfilePersonalInfoFragment extends Fragment {
     private @NonNull FragmentProfilePersonalInfoBinding binding;
     private User user;
     public ProfilePersonalInfoFragment() {
-        // Required empty public constructor
+
     }
 
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         profilePersonalInfoVM = new ViewModelProvider(this).get(ProfilePersonalInfoVM.class);
         profilePersonalInfoVM.getUserLiveData();
 
-
-//        user = mainVM.getUser();
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentProfilePersonalInfoBinding.inflate(inflater,container,false);
@@ -59,6 +59,7 @@ public class ProfilePersonalInfoFragment extends Fragment {
 
         binding.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavController navController = NavHostFragment.findNavController(ProfilePersonalInfoFragment.this);
                 navController.popBackStack();

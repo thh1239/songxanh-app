@@ -83,6 +83,7 @@ public class ProfileChangeNotiTimeFragment extends Fragment {
 
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         profileChangeNotiTimeVM = new ViewModelProvider(requireActivity()).get(ProfileChangeNotiTimeVM.class);
@@ -91,6 +92,7 @@ public class ProfileChangeNotiTimeFragment extends Fragment {
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentProfileChangeNotiTimeBinding.inflate(inflater,container,false);
@@ -101,31 +103,31 @@ public class ProfileChangeNotiTimeFragment extends Fragment {
 
         binding.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavController navController = NavHostFragment.findNavController(ProfileChangeNotiTimeFragment.this);
                 navController.popBackStack();
             }
         });
 
-//        binding.workoutEdt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                final Calendar calendar = Calendar.getInstance();
-//                int hour = calendar.get(Calendar.HOUR_OF_DAY);
-//                int minute = calendar.get(Calendar.MINUTE);
-//
-//                TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
-//                        new TimePickerDialog.OnTimeSetListener() {
-//                            @Override
-//                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                                String time = String.format("%02d:%02d", hourOfDay, minute);
-//                                binding.workoutEdt.setText(time);
-//                            }
-//                        }, hour, minute, true);
-//
-//                timePickerDialog.show();
-//            }
-//        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         binding.workoutEdt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -152,25 +154,24 @@ public class ProfileChangeNotiTimeFragment extends Fragment {
             }
         });
 
-//        binding.mealEdt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                final Calendar calendar = Calendar.getInstance();
-//                int hour = calendar.get(Calendar.HOUR_OF_DAY);
-//                int minute = calendar.get(Calendar.MINUTE);
-//
-//                TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
-//                        new TimePickerDialog.OnTimeSetListener() {
-//                            @Override
-//                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                                String time = String.format("%02d:%02d", hourOfDay, minute);
-//                                binding.mealEdt.setText(time);
-//                            }
-//                        }, hour, minute, true);
-//
-//                timePickerDialog.show();
-//            }
-//        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         binding.mealEdt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -199,6 +200,7 @@ public class ProfileChangeNotiTimeFragment extends Fragment {
 
         binding.updateNotiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 try {
                     String workoutTimeString = binding.workoutEdt.getText().toString();
@@ -258,31 +260,29 @@ public class ProfileChangeNotiTimeFragment extends Fragment {
 
     }
 
-    //    private void setWorkoutNotificationTime(int hour, int minute) {
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.set(Calendar.HOUR_OF_DAY, hour);
-//        calendar.set(Calendar.MINUTE, minute);
-//        calendar.set(Calendar.SECOND, 0);
-//
-//        long notificationTime = calendar.getTimeInMillis();
-//
-//        Intent intent = new Intent(requireContext(), workoutNotificationReceiver.class);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-//            notificationIntent = PendingIntent.getBroadcast(requireContext(), REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-//        } else {
-//            notificationIntent = PendingIntent.getBroadcast(requireContext(), REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        }
-//
-//        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), notificationIntent);
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private void scheduleWorkoutNotification(int hour, int minute, int second) {
-        // Set the desired time for the notification
+
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         calendar.set(java.util.Calendar.HOUR_OF_DAY, hour); // Hour in 24-hour format
         calendar.set(java.util.Calendar.MINUTE, minute);
         calendar.set(java.util.Calendar.SECOND, second);
 
-        // Create an explicit intent for the notification receiver
         Intent intent = new Intent(requireContext(), workoutNotificationReceiver.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             notificationIntent = PendingIntent.getBroadcast(requireContext(), REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
@@ -290,17 +290,15 @@ public class ProfileChangeNotiTimeFragment extends Fragment {
             notificationIntent = PendingIntent.getBroadcast(requireContext(), REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
-        // Schedule the notification
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), notificationIntent);
     }
     private void scheduleMealNotification(int hour, int minute, int second) {
-        // Set the desired time for the notification
+
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         calendar.set(java.util.Calendar.HOUR_OF_DAY, hour); // Hour in 24-hour format
         calendar.set(java.util.Calendar.MINUTE, minute);
         calendar.set(java.util.Calendar.SECOND, second);
 
-        // Create an explicit intent for the notification receiver
         Intent intent = new Intent(requireContext(), mealNotificationReceiver.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             notificationIntent = PendingIntent.getBroadcast(requireContext(), REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
@@ -308,7 +306,6 @@ public class ProfileChangeNotiTimeFragment extends Fragment {
             notificationIntent = PendingIntent.getBroadcast(requireContext(), REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
-        // Schedule the notification
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), notificationIntent);
     }
 }

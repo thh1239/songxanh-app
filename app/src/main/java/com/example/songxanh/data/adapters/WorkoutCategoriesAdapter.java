@@ -44,6 +44,7 @@ public class WorkoutCategoriesAdapter extends RecyclerView.Adapter<WorkoutCatego
 
     @NonNull
     @Override
+// == Load ảnh bằng Glide và hiển thị ==
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.workout_category_layout, parent, false);
 
@@ -51,12 +52,14 @@ public class WorkoutCategoriesAdapter extends RecyclerView.Adapter<WorkoutCatego
     }
 
     @Override
+// == Load ảnh bằng Glide và hiển thị ==
     public void onBindViewHolder(@NonNull ViewHolder holder,  int position) {
         WorkoutCategory category = categories.get(position);
         Glide.with(context).load(category.getImageUrl()).into(holder.image);
         holder.name.setText(category.getName());
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Điều hướng sang màn hình khác ==
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putString("categoryId",category.getId());

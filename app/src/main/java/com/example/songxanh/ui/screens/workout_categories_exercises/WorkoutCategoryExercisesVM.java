@@ -30,6 +30,7 @@ public class WorkoutCategoryExercisesVM extends ViewModel {
     private MutableLiveData<List<Exercise>> selectedTempList = new MutableLiveData<>(new ArrayList<>());
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+// == Thêm mới dữ liệu hoặc item ==
 
     public void loadData() {
         exercises.setValue(new ArrayList<>());
@@ -51,6 +52,7 @@ public class WorkoutCategoryExercisesVM extends ViewModel {
                     }
                 });
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void addTempExercisesToDb() {
         Log.i("Start add selected", "");
@@ -81,13 +83,14 @@ public class WorkoutCategoryExercisesVM extends ViewModel {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Log.i("Add done", "Done");
-//                    loadSelectedExercises();
+
                 } else {
                     Log.e("Add exercise", "Error writing batch", task.getException());
                 }
             }
         });
     }
+// == Thêm mới dữ liệu hoặc item ==
 
     public void addExerciseToTempList(Exercise exercise) {
         List<Exercise> newList =  selectedTempList.getValue();
@@ -96,7 +99,6 @@ public class WorkoutCategoryExercisesVM extends ViewModel {
         Log.i("New selected list size", String.valueOf(selectedTempList.getValue().size()));
     }
 
-    // Getters and setters
     public String getCategoryId() {
         return categoryId;
     }

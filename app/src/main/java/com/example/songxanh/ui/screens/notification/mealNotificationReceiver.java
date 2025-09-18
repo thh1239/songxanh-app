@@ -12,7 +12,7 @@ import androidx.core.app.NotificationCompat;
 import com.example.songxanh.R;
 
 public class mealNotificationReceiver extends BroadcastReceiver {
-    // Constants for the second notification channel
+
     private static final String SECOND_CHANNEL_ID = "meal_notification_channel";
     private static final String SECOND_CHANNEL_NAME = "Meal Channel";
     private static final String SECOND_CHANNEL_DESC = "This is the meal notification channel";

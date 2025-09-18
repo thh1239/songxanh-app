@@ -27,6 +27,7 @@ public class AchievementExercisesAdapter extends RecyclerView.Adapter<Achievemen
 
     @NonNull
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.achievement_exercise_item, parent, false);
 
@@ -34,6 +35,7 @@ public class AchievementExercisesAdapter extends RecyclerView.Adapter<Achievemen
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Exercise exercise = exercises.get(position);
         holder.nameTv.setText(exercise.getName());
@@ -42,6 +44,7 @@ public class AchievementExercisesAdapter extends RecyclerView.Adapter<Achievemen
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public int getItemCount() {
         return exercises.size();
     }
@@ -58,6 +61,7 @@ public class AchievementExercisesAdapter extends RecyclerView.Adapter<Achievemen
             image = itemView.findViewById(R.id.achievement_exercise_img);
         }
     }
+// == Thêm mới dữ liệu hoặc item ==
 
     public void addAll(List<Exercise> newExercises) {
         exercises.addAll(newExercises);

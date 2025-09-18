@@ -36,14 +36,17 @@ public class FindIngredientVM extends ViewModel {
         personalIngredientInfoArrayList.setValue(new ArrayList<>());
         favoriteIngredient.setValue(new ArrayList<>());
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public MutableLiveData<ArrayList<IngredientInfo>> getIngredientInfoArrayList() {
         return ingredientInfoArrayList;
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public MutableLiveData<ArrayList<IngredientInfo>> getPersonalIngredientInfoArrayList() {
         return personalIngredientInfoArrayList;
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void fetchFavoriteIngredients() {
         CollectionReference favoriteIngredientsRef = MainActivity.getDb()
@@ -52,6 +55,7 @@ public class FindIngredientVM extends ViewModel {
                 .collection("favorite_ingredients");
         favoriteIngredientsRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 ArrayList<IngredientInfo> temp = new ArrayList<>();
                 for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
@@ -62,6 +66,7 @@ public class FindIngredientVM extends ViewModel {
             }
         });
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void search(String query) {
         String qRaw = query == null ? "" : query.trim();
@@ -79,6 +84,7 @@ public class FindIngredientVM extends ViewModel {
                 .limit(10);
         searchQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     ArrayList<IngredientInfo> tempList = new ArrayList<>();
@@ -102,6 +108,7 @@ public class FindIngredientVM extends ViewModel {
                 .limit(10);
         personalIngredientQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     ArrayList<IngredientInfo> tempList = new ArrayList<>();
@@ -122,11 +129,13 @@ public class FindIngredientVM extends ViewModel {
             }
         });
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void loadAllRecommended() {
         CollectionReference ingredientInfoRef = MainActivity.getDb().collection("ingredient-data");
         ingredientInfoRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     ArrayList<IngredientInfo> tempList = new ArrayList<>();
@@ -141,6 +150,7 @@ public class FindIngredientVM extends ViewModel {
             }
         });
     }
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
 
     public void loadAllPersonal() {
         DocumentReference userDocument = MainActivity.getDb().collection("users")
@@ -148,6 +158,7 @@ public class FindIngredientVM extends ViewModel {
         CollectionReference personalRef = userDocument.collection("personal_ingredient");
         personalRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     ArrayList<IngredientInfo> tempList = new ArrayList<>();
@@ -167,6 +178,7 @@ public class FindIngredientVM extends ViewModel {
             }
         });
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void searchBoth(String query) {
         String qRaw = query == null ? "" : query.trim();
@@ -184,6 +196,7 @@ public class FindIngredientVM extends ViewModel {
                 .limit(50);
         searchQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     ArrayList<IngredientInfo> tempList = new ArrayList<>();
@@ -207,6 +220,7 @@ public class FindIngredientVM extends ViewModel {
                 .limit(50);
         personalIngredientQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     ArrayList<IngredientInfo> tempList = new ArrayList<>();
@@ -226,6 +240,7 @@ public class FindIngredientVM extends ViewModel {
             }
         });
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void deletePersonalIngredient(String docId, int position) {
         DocumentReference userDocument = MainActivity.getDb()
@@ -249,6 +264,7 @@ public class FindIngredientVM extends ViewModel {
                     }
                 });
     }
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
 
     public void savePersonalIngredient(IngredientInfo info, String existingDocId,
                                        OnSuccessListener<Void> onSuccess,

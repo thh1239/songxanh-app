@@ -32,25 +32,28 @@ public class ExcerciseDetailFragment extends Fragment {
     private HomeStatisticsCategoryAdapter adapter;
 
     public ExcerciseDetailFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentExcerciseDetailBinding.inflate(inflater,container,false);
         exerciseDetailVM = new ViewModelProvider(this).get(ExerciseDetailVM.class);
         binding.setViewModel(exerciseDetailVM);
         binding.setLifecycleOwner(getViewLifecycleOwner());
         binding.exerciseDetailBack.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(ExcerciseDetailFragment.this);
             }
@@ -61,6 +64,7 @@ public class ExcerciseDetailFragment extends Fragment {
 
         exerciseDetailVM.getCategories().observe(getViewLifecycleOwner(), new Observer<List<ExerciseCategory>>() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onChanged(List<ExerciseCategory> exerciseCategories) {
                 adapter.setCategories(exerciseCategories);
             }
@@ -68,6 +72,7 @@ public class ExcerciseDetailFragment extends Fragment {
 
         exerciseDetailVM.getWorkouts().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onChanged(List<Exercise> exercises) {
                 adapter.setExercises(exercises);
             }

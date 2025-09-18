@@ -40,12 +40,14 @@ public class HomeUpdateWeightFragment extends Fragment {
     private HomeVM homeVM = new HomeVM();
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         homeUpdateWeightVM = new ViewModelProvider(requireActivity()).get(HomeUpdateWeightVM.class);
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeWeightReportBinding.inflate(inflater, container, false);
         binding.setViewModel(homeUpdateWeightVM);
@@ -53,6 +55,7 @@ public class HomeUpdateWeightFragment extends Fragment {
 
         binding.weightReportBack.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(HomeUpdateWeightFragment.this);
             }
@@ -60,6 +63,7 @@ public class HomeUpdateWeightFragment extends Fragment {
 
         binding.updateWeightDailyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View view) {
                 String addWeightValue = binding.addWeightDaily.getText().toString();
                 if (!addWeightValue.isEmpty()) {
@@ -72,7 +76,6 @@ public class HomeUpdateWeightFragment extends Fragment {
                     Toast.makeText(getContext(), "Update today's weight successfully", Toast.LENGTH_LONG).show();
                     binding.addWeightDaily.setText("");
 
-                    // Gọi phương thức loadBarData để tải lại dữ liệu cho biểu đồ
                     homeUpdateWeightVM.loadBarData();
                 } else {
                     Toast.makeText(getContext(), "Please enter a weight value", Toast.LENGTH_LONG).show();
@@ -114,7 +117,6 @@ public class HomeUpdateWeightFragment extends Fragment {
             barChart.getDescription().setText("Weight by Date");
             barChart.getDescription().setTextColor(getResources().getColor(R.color.primaryTextColor, null));
 
-            // Set up X-axis
             XAxis xAxis = barChart.getXAxis();
             xAxis.setGranularity(1f); // hiển thị 1 giá trị mỗi lần
             xAxis.setDrawGridLines(false); // cái này để xóa grid
@@ -136,14 +138,12 @@ public class HomeUpdateWeightFragment extends Fragment {
 
             xAxis.setTextColor(getResources().getColor(R.color.primaryTextColor, null));
 
-            // Set up Y-axis
             YAxis leftAxis = barChart.getAxisLeft();
             YAxis rightAxis = barChart.getAxisRight();
 
             leftAxis.setTextColor(getResources().getColor(R.color.primaryTextColor, null));
             rightAxis.setTextColor(getResources().getColor(R.color.primaryTextColor, null));
 
-            // Custom axis value formatter for displaying "kg" next to weight values
             ValueFormatter weightValueFormatter = new ValueFormatter() {
                 @Override
                 public String getFormattedValue(float value) {

@@ -22,11 +22,13 @@ public class CommunityUserProfileVM extends ViewModel {
     private MutableLiveData<List<Achievement>> achievements = new MutableLiveData<>();
     private MutableLiveData<Integer> numberOfAchievements = new MutableLiveData<>(0);
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+// == Tương tác với dịch vụ Firebase ==
 
     public void loadUser(String uid) {
         FirebaseConstants.usersRef.document(uid).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
+// == Tương tác với dịch vụ Firebase ==
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             user.setValue(task.getResult().toObject(NormalUser.class));
@@ -34,6 +36,7 @@ public class CommunityUserProfileVM extends ViewModel {
                     }
                 });
     }
+// == Tương tác với dịch vụ Firebase ==
 
     public void loadAchievements(String uid) {
         FirebaseConstants.achievementsRef.whereEqualTo("userId", uid).get()
@@ -54,12 +57,14 @@ public class CommunityUserProfileVM extends ViewModel {
                     }
                 });
     }
+// == Tương tác với dịch vụ Firebase ==
 
     public void follow() {
         if (user.getValue().getFollowers().contains(auth.getCurrentUser().getUid())) {
             FirebaseConstants.usersRef.document(auth.getCurrentUser().getUid()).update("followers", FieldValue.arrayRemove(auth.getCurrentUser().getUid()))
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
+// == Tương tác với dịch vụ Firebase ==
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 NormalUser temp = user.getValue();
@@ -87,7 +92,6 @@ public class CommunityUserProfileVM extends ViewModel {
         }
     }
 
-    // GETTERS AND SETTERS
     public MutableLiveData<NormalUser> getUser() {
         return user;
     }

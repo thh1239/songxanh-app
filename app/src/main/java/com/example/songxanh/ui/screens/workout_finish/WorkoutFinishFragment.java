@@ -19,9 +19,10 @@ public class WorkoutFinishFragment extends Fragment {
     private WorkoutVM workoutVM;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentWorkoutFinishBinding.inflate(inflater, container, false);
         workoutVM = new ViewModelProvider(requireActivity()).get(WorkoutVM.class);
         binding.setWorkoutVM(workoutVM);
@@ -36,6 +37,7 @@ public class WorkoutFinishFragment extends Fragment {
     private void setOnClick() {
         binding.doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
 
                 NavHostFragment.findNavController(WorkoutFinishFragment.this).navigate(R.id.action_workoutFinishFragment_to_workoutFragment);

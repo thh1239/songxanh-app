@@ -37,11 +37,12 @@ public class AddMealFragment extends Fragment implements IngredientRowRecyclerVi
 
 
     public AddMealFragment() {
-        // Required empty public constructor
+
     }
 
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
@@ -63,6 +64,7 @@ public class AddMealFragment extends Fragment implements IngredientRowRecyclerVi
 
         addMealVM.getIngredients().observe(getViewLifecycleOwner(), new Observer<ArrayList<Ingredient>>() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onChanged(ArrayList<Ingredient> ingredients) {
                 recyclerViewAdapterForAddAndDelete.setIngredients(ingredients);
 
@@ -80,12 +82,14 @@ public class AddMealFragment extends Fragment implements IngredientRowRecyclerVi
     private void setOnClick() {
         binding.appBar.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onClick(View v) {
                 GlobalMethods.backToPreviousFragment(AddMealFragment.this);
             }
         });
         binding.addMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onClick(View v) {
                 if (totalCalories == 0) {
                     return;
@@ -94,7 +98,7 @@ public class AddMealFragment extends Fragment implements IngredientRowRecyclerVi
                     Toast.makeText(getContext(), "Hãy thêm nguyên liệu vào nhé!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                // add data to the dish
+
                 double totalProtein = 0;
                 double totalLipid = 0;
                 double totalCarb = 0;
@@ -111,7 +115,7 @@ public class AddMealFragment extends Fragment implements IngredientRowRecyclerVi
                 dish.setLipid(totalLipid);
                 dish.setCarb(totalCarb);
                 dish.setIngredients(addMealVM.getIngredients().getValue());
-                //add dish to database
+
                 addMealVM.setIngredients(new MutableLiveData<>());
                 menuVM.getFirestoreDishes().addDish(dish);
 
@@ -121,6 +125,7 @@ public class AddMealFragment extends Fragment implements IngredientRowRecyclerVi
 
         binding.chatBox.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onClick(View v) {
 
                 NavHostFragment.findNavController(AddMealFragment.this).navigate(R.id.action_addMealFragment_to_chatboxFragment);
@@ -129,6 +134,7 @@ public class AddMealFragment extends Fragment implements IngredientRowRecyclerVi
 
         binding.addIngredientButton.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("operation", "add");
@@ -140,6 +146,7 @@ public class AddMealFragment extends Fragment implements IngredientRowRecyclerVi
 
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onRemoveIngredientClick(int position) {
         if (position >= 0 && position < addMealVM.getIngredients().getValue().size()) {
             ArrayList<Ingredient> updatedIngredients = new ArrayList<>(addMealVM.getIngredients().getValue());
@@ -149,9 +156,10 @@ public class AddMealFragment extends Fragment implements IngredientRowRecyclerVi
     }
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public void onWeightChanged(int position, double newValue) {
         if (position >= 0 && position < addMealVM.getIngredients().getValue().size()) {
-            // Get the updated ingredient and set the new weight
+
             Ingredient updatedIngredient = addMealVM.getIngredients().getValue().get(position);
             if(newValue == 0) {
                 Toast.makeText(this.getContext(), "Weight cannot be 0", Toast.LENGTH_LONG).show();
@@ -160,7 +168,6 @@ public class AddMealFragment extends Fragment implements IngredientRowRecyclerVi
             updatedIngredient.updateWeight(newValue);
             totalCalories = 0;
 
-            // Update the ingredient in the list
             ArrayList<Ingredient> updatedIngredients = new ArrayList<>(addMealVM.getIngredients().getValue());
             updatedIngredients.set(position, updatedIngredient);
             for (Ingredient ingredient: updatedIngredients) {
@@ -170,7 +177,6 @@ public class AddMealFragment extends Fragment implements IngredientRowRecyclerVi
             newIngredients.setValue(updatedIngredients);
             addMealVM.setIngredients(newIngredients);
 
-            // Update the displayed total calories
             binding.dishTotalCalories.setText(GlobalMethods.formatDoubleToString(totalCalories));
         }
     }

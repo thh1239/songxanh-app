@@ -46,7 +46,6 @@ public class HomeVM extends ViewModel {
     private Float dailyCalories = 0f;
     private Integer weight = 0;
 
-    // NEW: kcal tối thiểu theo mức vận động
     private Float activityLight = 0f;
     private Float activityModerate = 0f;
     private Float activityHeavy = 0f;
@@ -62,7 +61,6 @@ public class HomeVM extends ViewModel {
     private Integer x = 0;
     private Integer x1 = 0;
 
-    // ===== Hàm tiện ích =====
     private float num(DocumentSnapshot doc, String key) {
         if (!doc.contains(key)) return 0f;
         Object v = doc.get(key);
@@ -75,60 +73,88 @@ public class HomeVM extends ViewModel {
         if (Math.abs(v) < 1e-6f) return 0f;
         return v < 0f ? 0f : v;
     }
+// == Tính toán và hiển thị tổng calo ==
 
-    // ===== Getter/Setter =====
     public ArrayList<CustomEntryLineChart> getLineEntries1() { return lineEntries1; }
+// == Tính toán và hiển thị tổng calo ==
     public void setLineEntries1(ArrayList<CustomEntryLineChart> lineEntries1) { this.lineEntries1 = lineEntries1; }
+// == Tính toán và hiển thị tổng calo ==
 
     public Float getCalories() { return calories; }
+// == Tính toán và hiển thị tổng calo ==
     public void setCalories(Float calories) { this.calories = nn(calories); }
+// == Tính toán và hiển thị tổng calo ==
 
     public Float getStartWeight() { return startWeight; }
+// == Tính toán và hiển thị tổng calo ==
     public void setStartWeight(Float startWeight) { this.startWeight = startWeight; }
+// == Tính toán và hiển thị tổng calo ==
 
     public Float getGoalWeight() { return goalWeight; }
+// == Tính toán và hiển thị tổng calo ==
     public void setGoalWeight(Float goalWeight) { this.goalWeight = goalWeight; }
+// == Tính toán và hiển thị tổng calo ==
 
     public Float getDailyCalories() { return dailyCalories; }
+// == Tính toán và hiển thị tổng calo ==
     public void setDailyCalories(Float dailyCalories) { this.dailyCalories = nn(dailyCalories); }
 
     public void setWeight(Integer weight) { this.weight = weight == null ? 0 : weight; }
     public Integer getWeight() { return weight; }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public void getIsLoadingLine(MutableLiveData<Boolean> isLoadingLine) { this.isLoadingLine = isLoadingLine; }
+// == Tải dữ liệu và hiển thị lên UI ==
     public MutableLiveData<Boolean> getIsLoadingLine() { return isLoadingLine; }
 
     public Float getRemaining() { return remaining; }
+// == Tính toán và hiển thị tổng calo ==
     public void setRemaining(Float remaining) { this.remaining = nn(remaining); }
+// == Tính toán và hiển thị tổng calo ==
 
     public List<PieEntry> getPieEntries() { return pieEntries; }
+// == Tính toán và hiển thị tổng calo ==
     public void setPieEntries(List<PieEntry> pieEntries) { this.pieEntries = pieEntries; }
+// == Tính toán và hiển thị tổng calo ==
 
     public ArrayList<CustomEntryLineChart> getLineEntries() { return lineEntries; }
+// == Tính toán và hiển thị tổng calo ==
     public void setLineEntries(ArrayList<CustomEntryLineChart> entries) { this.lineEntries = entries; }
+// == Tính toán và hiển thị tổng calo ==
 
     public Float getGoal() { return goal; }
+// == Tính toán và hiển thị tổng calo ==
     public void setGoal(Float goal) { this.goal = nn(goal); }
+// == Tính toán và hiển thị tổng calo ==
 
     public MutableLiveData<Boolean> getIsLoadingDocument() { return isLoadingDocument; }
+// == Tính toán và hiển thị tổng calo ==
     public void setIsLoadingDocument(MutableLiveData<Boolean> isLoadingDocument) { this.isLoadingDocument = isLoadingDocument; }
+// == Tính toán và hiển thị tổng calo ==
 
     public Float getExerciseCalories() { return exerciseCalories; }
+// == Tính toán và hiển thị tổng calo ==
     public Float getFoodCalories() { return foodCalories; }
+// == Tính toán và hiển thị tổng calo ==
     public void setExerciseCalories(Float exerciseCalories) { this.exerciseCalories = nn(exerciseCalories); }
+// == Tính toán và hiển thị tổng calo ==
     public void setFoodCalories(Float foodCalories) { this.foodCalories = nn(foodCalories); }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public Integer getSteps() { return steps; }
+// == Xác thực người dùng với FirebaseAuth ==
     public void setSteps(Integer steps) { this.steps = steps == null ? 0 : steps; }
+// == Xác thực người dùng với FirebaseAuth ==
 
-    // NEW: getters cho 3 mức vận động
     public Float getActivityLight() { return activityLight; }
+// == Xác thực người dùng với FirebaseAuth ==
     public Float getActivityModerate() { return activityModerate; }
+// == Xác thực người dùng với FirebaseAuth ==
     public Float getActivityHeavy() { return activityHeavy; }
 
     public HomeVM() {}
+// == Xác thực người dùng với FirebaseAuth ==
 
-    // ===== Lưu dữ liệu bước chân hàng ngày =====
     public void saveDailySteps(int stepCount, Date previousDate) {
         Map<String, Object> dailyActivities = new HashMap<>();
         dailyActivities.put("steps", stepCount);
@@ -141,8 +167,8 @@ public class HomeVM extends ViewModel {
                 .addOnSuccessListener(aVoid -> Log.i("success", "Lưu bước chân thành công"))
                 .addOnFailureListener(e -> Log.i("fail", "Lưu bước chân thất bại"));
     }
+// == Tính toán và hiển thị tổng calo ==
 
-    // ===== Tải dữ liệu hoạt động hôm nay =====
     public void loadDocument() {
         isLoadingDocument.setValue(true);
         firestore.collection("users")
@@ -170,8 +196,8 @@ public class HomeVM extends ViewModel {
                 })
                 .addOnFailureListener(e -> isLoadingDocument.setValue(false));
     }
+// == Tính toán và hiển thị tổng calo ==
 
-    // ===== Tải mục tiêu và tính toán lượng calo =====
     public void loadGoal() {
         User u = user.getValue();
         if (u != null && u.getEmail() != null) {
@@ -188,7 +214,6 @@ public class HomeVM extends ViewModel {
                         setStartWeight(0f);
                         setGoalWeight(0f);
 
-                        // reset 3 mức vận động
                         activityLight = 0f;
                         activityModerate = 0f;
                         activityHeavy = 0f;
@@ -206,7 +231,6 @@ public class HomeVM extends ViewModel {
                     setStartWeight(sw);
                     setGoalWeight(gw);
 
-                    // NEW: tính kcal theo 3 mức vận động dựa trên cân nặng hiện tại
                     String gender = documentSnapshot.getString("gender");
                     Double height = documentSnapshot.getDouble("height");
                     Long ageL = documentSnapshot.getLong("age");
@@ -215,7 +239,6 @@ public class HomeVM extends ViewModel {
                         boolean isMale = GlobalMethods.normalizeGenderPublic(gender);
                         double bmr = GlobalMethods.bmrMifflin(isMale, getWeight(), height, ageL.intValue());
 
-                        // Các hệ số hoạt động thường dùng
                         double light    = GlobalMethods.tdee(bmr, 1.375); // nhẹ
                         double moderate = GlobalMethods.tdee(bmr, 1.55);  // vừa
                         double heavy    = GlobalMethods.tdee(bmr, 1.725); // nặng
@@ -240,7 +263,6 @@ public class HomeVM extends ViewModel {
                 .addOnFailureListener(e -> isLoadingDocument.setValue(false));
     }
 
-    // ===== Xây dựng dữ liệu PieChart =====
     private void buildPieEntries() {
         float rem  = nn(getRemaining());
         float food = nn(getFoodCalories());
@@ -258,8 +280,8 @@ public class HomeVM extends ViewModel {
         pieEntries.add(new PieEntry(food, "Food"));
         pieEntries.add(new PieEntry(ex,   "Exercise"));
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
-    // ===== Tải dữ liệu vẽ LineChart bước chân =====
     public void loadLineData() {
         isLoadingLine.setValue(true);
         firestore.collection("users").document(firebaseAuth.getCurrentUser().getUid())
@@ -307,7 +329,6 @@ public class HomeVM extends ViewModel {
                 });
     }
 
-    // ===== Quản lý thông tin người dùng =====
     public MutableLiveData<User> getUser() { return user; }
     public void setUser(MutableLiveData<User> user) { this.user = user; }
 }

@@ -27,6 +27,7 @@ public class MainVM extends ViewModel {
         void onUserLoaded(User user);
         void onUserNotHaveInformation();
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void loadUser(UserLoadCallback callback) {
         state.setValue(UserState.loading);
@@ -34,18 +35,19 @@ public class MainVM extends ViewModel {
         FirebaseConstants.usersRef.document(firebaseAuth.getCurrentUser().getUid()).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
+// == Tương tác với dịch vụ Firebase ==
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 user.setValue(document.toObject(NormalUser.class));
-//                                if (callback != null) {
-//                                    callback.onUserLoaded(user. getValue());
-//                                }
+
+
+
                                 state.setValue(UserState.loaded);
                             } else {
                                 state.setValue(UserState.notHaveInformation);
-//                                callback.onUserNotHaveInformation();
+
                             }
                         } else {
                             state.setValue(UserState.loadFailed);
@@ -54,11 +56,13 @@ public class MainVM extends ViewModel {
                     }
                 });
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void updateUserProfileImage(Uri uri) {
         FirebaseConstants.usersRef.document(firebaseAuth.getCurrentUser().getUid()).update("imageUrl", uri)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
+// == Xác thực người dùng với FirebaseAuth ==
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             User copyUser = user.getValue();
@@ -68,6 +72,7 @@ public class MainVM extends ViewModel {
                     }
                 });
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void updateKeyword(String newName) {
         FirebaseConstants.usersRef.document(firebaseAuth.getCurrentUser().getUid()).update("keyword", GlobalMethods.generateKeyword(newName));

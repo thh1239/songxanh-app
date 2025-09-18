@@ -15,6 +15,7 @@ import java.util.List;
 })
 public class BindingAdapters {
     @BindingAdapter("selectedExercisesSize")
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public static void setSelectedExercisesSize(TextView textView, List<Exercise> list) {
         if (list != null) {
             textView.setText(String.valueOf(list.size()) + " exercises selected");

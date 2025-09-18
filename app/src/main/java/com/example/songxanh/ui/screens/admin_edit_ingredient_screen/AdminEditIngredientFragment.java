@@ -24,10 +24,11 @@ public class AdminEditIngredientFragment extends Fragment {
     private int ingredientPosition;
 
     public AdminEditIngredientFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         adminIngredientVM = new ViewModelProvider(requireActivity()).get(AdminIngredientVM.class);
@@ -46,6 +47,7 @@ public class AdminEditIngredientFragment extends Fragment {
     private void setUpView() {
         binding.appBar.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onClick(View v) {
                 GlobalMethods.backToPreviousFragment(AdminEditIngredientFragment.this);
             }
@@ -65,6 +67,7 @@ public class AdminEditIngredientFragment extends Fragment {
             binding.etUpdateIngredientLipid.setText(GlobalMethods.formatDoubleToString(temp.getLipid()));
             binding.appBar.backBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
                 public void onClick(View v) {
                     GlobalMethods.backToPreviousFragment(AdminEditIngredientFragment.this);
                 }
@@ -72,6 +75,7 @@ public class AdminEditIngredientFragment extends Fragment {
             IngredientInfo finalTemp = temp;
             binding.updateIngredientBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
                 public void onClick(View v) {
                     if (binding.etUpdateIngredientName.getText() != null && binding.etUpdateIngredientCalories.getText() != null && binding.etUpdateIngredientProtein.getText() != null && binding.etUpdateIngredientLipid.getText() != null || binding.etUpdateIngredientCarbs.getText() != null) {
                         IngredientInfo newIngredient = new IngredientInfo(binding.etUpdateIngredientName.getText().toString().toUpperCase(), Double.parseDouble(binding.etUpdateIngredientCalories.getText().toString()), Double.parseDouble(binding.etUpdateIngredientCarbs.getText().toString()), Double.parseDouble(binding.etUpdateIngredientLipid.getText().toString()), Double.parseDouble(binding.etUpdateIngredientProtein.getText().toString()));
@@ -85,6 +89,7 @@ public class AdminEditIngredientFragment extends Fragment {
             binding.updateIngredientBtn.setText("Add");
             binding.updateIngredientBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
                 public void onClick(View v) {
                     if (binding.etUpdateIngredientName.getText() != null && binding.etUpdateIngredientCalories.getText() != null && binding.etUpdateIngredientProtein.getText() != null && binding.etUpdateIngredientLipid.getText() != null || binding.etUpdateIngredientCarbs.getText() != null) {
                         IngredientInfo newIngredient = new IngredientInfo(binding.etUpdateIngredientName.getText().toString().toUpperCase(), Double.parseDouble(binding.etUpdateIngredientCalories.getText().toString()), Double.parseDouble(binding.etUpdateIngredientCarbs.getText().toString()), Double.parseDouble(binding.etUpdateIngredientLipid.getText().toString()), Double.parseDouble(binding.etUpdateIngredientProtein.getText().toString()));

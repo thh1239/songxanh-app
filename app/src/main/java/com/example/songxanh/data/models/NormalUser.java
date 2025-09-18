@@ -74,58 +74,72 @@ public class NormalUser extends User {
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+// == Thêm mới dữ liệu hoặc item ==
 
     public String getAddress() {
         return address;
     }
+// == Thêm mới dữ liệu hoặc item ==
 
     public void setAddress(String address) {
         this.address = address;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public String getGender() {
         return gender;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setGender(String gender) {
         this.gender = gender;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getStartWeight() {
         return startWeight;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setStartWeight(int startWeight) {
         this.startWeight = startWeight;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getGoalWeight() {
         return goalWeight;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setGoalWeight(int goalWeight) {
         this.goalWeight = goalWeight;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public Date getStartTime() {
         return startTime;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public Date getGoalTime() {
         return goalTime;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setGoalTime(Date goalTime) {
         this.goalTime = goalTime;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public double getDailyCalories() {
         return dailyCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setDailyCalories(int dailyCalories) {
         this.dailyCalories = dailyCalories;
@@ -146,27 +160,33 @@ public class NormalUser extends User {
     public void setFollowers(List<String> followers) {
         this.followers = followers;
     }
-//    private  List<DailyActivity> dailyActivities;
+// == Tính toán và hiển thị tổng calo ==
+
 
     public List<String> getKeyword() {
         return keyword;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setKeyword(List<String> keyword) {
         this.keyword = keyword;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public DailyActivity getDailyActivity() {
         return dailyActivity;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setDailyActivity(DailyActivity dailyActivity) {
         this.dailyActivity = dailyActivity;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getDailySteps() {
         return dailySteps;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getAge() {
         Calendar calendar = Calendar.getInstance();
@@ -182,6 +202,7 @@ public class NormalUser extends User {
         FirebaseConstants.usersRef.document(this.uid).update("dailyCalories", GlobalMethods.calculateDailyCalories(this.getGender(), this.getStartWeight(), this.getHeight(), this.getAge(), this.getGoalWeight(), this.getStartTime(), this.getGoalTime()))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
+// == Tính toán và hiển thị tổng calo ==
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
 

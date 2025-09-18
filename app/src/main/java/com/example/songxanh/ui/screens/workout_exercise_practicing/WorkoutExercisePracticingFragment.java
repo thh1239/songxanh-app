@@ -34,20 +34,19 @@ public class WorkoutExercisePracticingFragment extends Fragment {
     private long remainingTimeInMilliseconds = 0;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentWorkoutExercisePracticingBinding.inflate(inflater, container, false);
         workoutVM = new ViewModelProvider(requireActivity()).get(WorkoutVM.class);
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
-        // Get selected exercises from view model
         selectedExercises = workoutVM.getSelectedExercises().getValue();
         pageAdapter = new ExercisePracticingPageAdapter(requireContext(), selectedExercises);
         binding.exerciseList.setAdapter(pageAdapter);
         pageAdapter.setViewPager(binding.exerciseList);
 
-        // Handle timer for the first page separately because addOnPageChangeListener method does not apply on the first page
         handleTimer(0);
 
         binding.exerciseList.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -77,6 +76,7 @@ public class WorkoutExercisePracticingFragment extends Fragment {
     private void setOnClick() {
         binding.appBar.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 PracticingOnBackDialogInterface onBackDialogInterface = new PracticingOnBackDialogInterface() {
                     @Override
@@ -95,6 +95,7 @@ public class WorkoutExercisePracticingFragment extends Fragment {
 
         binding.previousBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 binding.exerciseList.setCurrentItem(binding.exerciseList.getCurrentItem() - 1);
             }
@@ -102,6 +103,7 @@ public class WorkoutExercisePracticingFragment extends Fragment {
 
         binding.nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 binding.exerciseList.setCurrentItem(binding.exerciseList.getCurrentItem() + 1);
             }
@@ -127,6 +129,7 @@ public class WorkoutExercisePracticingFragment extends Fragment {
             binding.playBtn.setImageResource(R.drawable.ic_pause);
             binding.playBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
+// == Xử lý sự kiện click từ người dùng ==
                 public void onClick(View view) {
                     if (timer != null) {
                         pauseTimer();
@@ -141,6 +144,7 @@ public class WorkoutExercisePracticingFragment extends Fragment {
             binding.playBtn.setImageResource(R.drawable.ic_done);
             binding.playBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
+// == Xử lý sự kiện click từ người dùng ==
                 public void onClick(View view) {
                     if (binding.exerciseList.getCurrentItem() < selectedExercises.size() - 1) {
                         binding.exerciseList.setCurrentItem(binding.exerciseList.getCurrentItem() + 1);

@@ -26,19 +26,20 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateViewHolder
 
     @NonNull
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public DateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.date_item, parent, false);
 
-//        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-//        int itemWidth = (int) (screenWidth * 0.2);
-//        ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
-//        layoutParams.width = itemWidth;
-//        itemView.setLayoutParams(layoutParams);
+
+
+
+
         return new DateViewHolder(itemView);
     }
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public void onBindViewHolder(@NonNull DateViewHolder holder, int position) {
         Date date = dates.get(position);
 
@@ -61,20 +62,24 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateViewHolder
     }
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public int getItemCount() {
         return dates.size();
     }
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
 
     public void updateDates(Date newDate) {
         dates.add(newDate);
         notifyDataSetChanged();
     }
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
 
     public void setSelectedPosition(int position) {
         selectedItems.clear();
         selectedItems.put(position, true);
         notifyDataSetChanged();
     }
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
 
     public Date getSelectedDate() {
         int selectedPosition = selectedItems.keyAt(0);

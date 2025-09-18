@@ -22,9 +22,10 @@ public class CommunityReportFragment extends Fragment {
     private MainVM mainVM;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding =  FragmentCommunityReportBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(CommunityReportVM.class);
         binding.setViewModel(viewModel);
@@ -55,6 +56,7 @@ public class CommunityReportFragment extends Fragment {
     private void setOnClick() {
         binding.appBar.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(CommunityReportFragment.this);
             }

@@ -40,12 +40,14 @@ public class PendingIngredientRecyclerviewAdapter extends RecyclerView.Adapter {
         View view = inflater.inflate(R.layout.pending_ingredient_layout, parent, false);
         return new PendingIngredientViewHolder(view);
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void deleteItem(int position) {
         if (onItemDeleteListener != null) {
             onItemDeleteListener.onItemDelete(position);
         }
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void approveItem(int position) {
         if (onItemApproveListener != null) {
@@ -54,6 +56,7 @@ public class PendingIngredientRecyclerviewAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         PendingIngredientViewHolder pendingIngredientViewHolder = (PendingIngredientViewHolder) holder;
         pendingIngredientViewHolder.tvIngredientName.setText(ingredientInfoArrayList.get(position).getShort_Description());
@@ -63,12 +66,14 @@ public class PendingIngredientRecyclerviewAdapter extends RecyclerView.Adapter {
         pendingIngredientViewHolder.tvCaloriesNumber.setText(GlobalMethods.formatDoubleToString(ingredientInfoArrayList.get(position).getCalories()));
         pendingIngredientViewHolder.btnApprove.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onClick(View v) {
                 approveItem(position);
             }
         });
         pendingIngredientViewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onClick(View v) {
                 deleteItem(position);
             }
@@ -77,6 +82,7 @@ public class PendingIngredientRecyclerviewAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public int getItemCount() {
         return ingredientInfoArrayList.size();
     }
@@ -96,6 +102,7 @@ public class PendingIngredientRecyclerviewAdapter extends RecyclerView.Adapter {
             btnDelete = itemView.findViewById(R.id.delete_pending_ingredient_button);
         }
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void setIngredientInfoArrayList(ArrayList<IngredientInfo> ingredientInfoArrayList) {
         this.ingredientInfoArrayList = ingredientInfoArrayList;

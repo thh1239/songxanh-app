@@ -35,16 +35,19 @@ public class IngredientNameRecyclerViewAdapter extends RecyclerView.Adapter<Ingr
         this.ingredientInfoClickListener = viewIngredientInfoClickListener;
         this.ingredientInfoNameClickListener = ingredientInfoNameClickListener;
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void setIngredientInfoArrayList(ArrayList<IngredientInfo> ingredientInfoArrayList) {
         this.ingredientInfoArrayList = ingredientInfoArrayList;
         notifyDataSetChanged();
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public IngredientInfo getItem(int position) {
         if (ingredientInfoArrayList == null || position < 0 || position >= ingredientInfoArrayList.size()) return null;
         return ingredientInfoArrayList.get(position);
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void setOnFavoriteClickListener(OnFavoriteClickListener l) {
         this.favoriteClickListener = l;
@@ -52,6 +55,7 @@ public class IngredientNameRecyclerViewAdapter extends RecyclerView.Adapter<Ingr
 
     @NonNull
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public IngredientNameViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.ingredient_info_row_layout, parent, false);
@@ -59,6 +63,7 @@ public class IngredientNameRecyclerViewAdapter extends RecyclerView.Adapter<Ingr
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onBindViewHolder(@NonNull IngredientNameViewHolder holder, int position) {
         IngredientInfo item = ingredientInfoArrayList.get(position);
         holder.tvIngredientName.setText(item.getShort_Description());
@@ -94,6 +99,7 @@ public class IngredientNameRecyclerViewAdapter extends RecyclerView.Adapter<Ingr
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public int getItemCount() {
         return ingredientInfoArrayList == null ? 0 : ingredientInfoArrayList.size();
     }

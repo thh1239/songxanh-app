@@ -24,29 +24,35 @@ import java.util.Date;
 
 public class ProfileCaloriesHistoryVM extends ViewModel {
     private MutableLiveData<Boolean> isLoadingData = new MutableLiveData<>(null);
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public MutableLiveData<Boolean> getIsLoadingData() {
         return isLoadingData;
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public void setIsLoadingData(MutableLiveData<Boolean> isLoadingData) {
         this.isLoadingData = isLoadingData;
     }
     private MutableLiveData<Boolean> isLoadingLine = new MutableLiveData<>(null);
+// == Tương tác với dịch vụ Firebase ==
 
     public MutableLiveData<Boolean> getIsLoadingLine() {
         return isLoadingLine;
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void setIsLoadingLine(MutableLiveData<Boolean> isLoadingLine) {
         this.isLoadingLine = isLoadingLine;
     }
     ArrayList<CustomEntryLineChart> lineEntries;
     ArrayList<CustomEntryLineChart> lineEntries1;
+// == Tính toán và hiển thị tổng calo ==
 
     public ArrayList<CustomEntryLineChart> getLineEntries1() {
         return lineEntries1;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setLineEntries1(ArrayList<CustomEntryLineChart> lineEntries1) {
         this.lineEntries1 = lineEntries1;
@@ -54,10 +60,12 @@ public class ProfileCaloriesHistoryVM extends ViewModel {
 
     private Integer x = 0;
     private Integer x1 = 0;
+// == Tính toán và hiển thị tổng calo ==
 
     public ArrayList<CustomEntryLineChart> getLineEntries() {
         return lineEntries;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setLineEntries(ArrayList<CustomEntryLineChart> lineEntries) {
         this.lineEntries = lineEntries;
@@ -70,6 +78,7 @@ public class ProfileCaloriesHistoryVM extends ViewModel {
     public ProfileCaloriesHistoryVM() {
         loadChart();
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void loadChart() {
         isLoadingLine.setValue(true);
@@ -77,6 +86,7 @@ public class ProfileCaloriesHistoryVM extends ViewModel {
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
+// == Tính toán và hiển thị tổng calo ==
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             QuerySnapshot querySnapshot = task.getResult();
@@ -122,6 +132,7 @@ public class ProfileCaloriesHistoryVM extends ViewModel {
                     }
                 });
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void getUserLiveData() {
         isLoadingData.setValue(true);
@@ -142,10 +153,9 @@ public class ProfileCaloriesHistoryVM extends ViewModel {
                     }
                 });
 
-//        if (userLiveData == null) {
-//            userLiveData = new MutableLiveData<>();
-//            loadUser();
-//        }
+
+
+
     }
 
 }

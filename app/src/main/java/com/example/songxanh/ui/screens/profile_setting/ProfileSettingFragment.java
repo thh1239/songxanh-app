@@ -21,17 +21,20 @@ public class ProfileSettingFragment extends Fragment {
 
 
     @Override
+// == Khởi tạo và thiết lập ban đầu cho màn hình ==
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
     @Override
+// == Khởi tạo và thiết lập ban đầu cho màn hình ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentProfileSettingBinding.inflate(inflater,container,false);
         binding.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xác thực người dùng với FirebaseAuth ==
             public void onClick(View view) {
                 NavController navController = NavHostFragment.findNavController(ProfileSettingFragment.this);
                 navController.popBackStack();
@@ -40,6 +43,7 @@ public class ProfileSettingFragment extends Fragment {
 
         binding.changePassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xác thực người dùng với FirebaseAuth ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(ProfileSettingFragment.this).navigate(R.id.action_profileSettingFragment_to_profileChangePassFragment2);
             }
@@ -47,10 +51,11 @@ public class ProfileSettingFragment extends Fragment {
 
         binding.logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xác thực người dùng với FirebaseAuth ==
             public void onClick(View view) {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 mAuth.signOut();
-//                NavHostFragment.findNavController(ProfileSettingFragment.this).navigate(R.id.action_profileSettingFragment_to_signInFragment);
+
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);

@@ -25,6 +25,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public int getItemViewType(int position) {
         ChatMessage m = messages.get(position);
         boolean isLoading = (m.getContent() == null && !m.hasImage());
@@ -49,6 +50,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ChatMessage message = messages.get(position);
         int type = holder.getItemViewType();
@@ -57,11 +59,12 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else if (type == VIEW_TYPE_RECEIVED) {
             ((ReceivedMessageViewHolder) holder).bind(message);
         } else {
-            // loading: nothing to bind
+
         }
     }
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public int getItemCount() {
         return messages.size();
     }

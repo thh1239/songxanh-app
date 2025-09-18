@@ -35,10 +35,11 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
     private boolean enableLoadOnScroll = true;
 
     public AdminIngredientFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
         adminIngredientVM = provider.get(AdminIngredientVM.class);
@@ -57,6 +58,7 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
 
         binding.adminIngredientRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 totalItemCount = linearLayoutManager.getItemCount();
@@ -73,6 +75,7 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
 
         binding.adminFindIngredientSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 String searchQuery = binding.adminFindIngredientSearch.getText().toString().trim();
                 if (searchQuery.length() == 0) {
@@ -88,6 +91,7 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
 
         binding.adminPendingCount.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onClick(View v) {
                 NavHostFragment.findNavController(AdminIngredientFragment.this).navigate(R.id.action_adminIngredientFragment_to_adminPendingIngredientsFragment);
             }
@@ -95,6 +99,7 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
 
         binding.adminAddNewIngredientBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("operation", "add");
@@ -118,6 +123,7 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void run() {
                 adminIngredientVM.loadMore();
                 isLoading = false;
@@ -127,10 +133,12 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
 
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         adminIngredientVM.databaseIngredientList.observe(getViewLifecycleOwner(), new Observer<ArrayList<IngredientInfo>>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onChanged(ArrayList<IngredientInfo> ingredientInfoArrayList) {
                 ingredientRecyclerViewAdapter.setIngredientInfoArrayList(ingredientInfoArrayList, false);
             }
@@ -138,6 +146,7 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
 
         adminIngredientVM.searchResultList.observe(getViewLifecycleOwner(), new Observer<ArrayList<IngredientInfo>>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onChanged(ArrayList<IngredientInfo> ingredientInfoArrayList) {
                 if (ingredientInfoArrayList == null || ingredientInfoArrayList.isEmpty()) {
                     enableLoadOnScroll = true;
@@ -152,6 +161,7 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
 
         adminIngredientVM.ingredientCount.observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onChanged(Integer integer) {
                 binding.adminCurrentIngredientCountNumber.setText(String.valueOf(integer));
             }
@@ -159,6 +169,7 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
 
         adminIngredientVM.pendingIngredientCount.observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onChanged(Integer integer) {
                 binding.adminPendingCountNumber.setText(String.valueOf(integer));
             }
@@ -167,6 +178,7 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onStop() {
         super.onStop();
         if (adminIngredientVM.registration != null) {
@@ -175,8 +187,9 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onItemDelete(int position) {
-        // Thêm kiểm tra null và kiểm tra giới hạn để ngăn ngừa lỗi
+
         if (ingredientRecyclerViewAdapter.isSearchResult()) {
             ArrayList<IngredientInfo> searchList = adminIngredientVM.searchResultList.getValue();
             if (searchList != null && position >= 0 && position < searchList.size()) {
@@ -193,6 +206,7 @@ public class AdminIngredientFragment extends Fragment implements AdminIngredient
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onEditClick(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);

@@ -19,14 +19,17 @@ public class ProfileChangeNotiTimeVM extends ViewModel {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private NormalUser user = new NormalUser();
+// == Xác thực người dùng với FirebaseAuth ==
 
     public NormalUser getUser() {
         return user;
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public MutableLiveData<Boolean> getIsLoadingData() {
         return isLoadingData;
     }
+// == Xác thực người dùng với FirebaseAuth ==
     public void getUserLiveData() {
         isLoadingData.setValue(true);
         firestore.collection("users").whereEqualTo("email", firebaseAuth.getCurrentUser().getEmail()).get()

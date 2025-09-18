@@ -49,6 +49,7 @@ public class ReportRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ReportViewHolder reportViewHolder = (ReportViewHolder) holder;
         Report report = reportArrayList.get(position);
@@ -57,7 +58,7 @@ public class ReportRecyclerViewAdapter extends RecyclerView.Adapter {
 
         reportViewHolder.tvReportTitle.setText(report.getTitle());
         reportViewHolder.tvReportedUsername.setText(report.getAchievementUserName());
-//        reportViewHolder.tvNumberOfViolations
+
         reportViewHolder.tvDate.setText(new SimpleDateFormat("dd MMM yyyy").format(report.getAchievementCreatedTime()));
         reportViewHolder.tvCalories.setText(GlobalMethods.formatDoubleToString(report.getAchievementCalories()));
         reportViewHolder.tvSteps.setText(String.valueOf(report.getAchievementSteps()));
@@ -77,18 +78,21 @@ public class ReportRecyclerViewAdapter extends RecyclerView.Adapter {
         }
         reportViewHolder.approveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View v) {
                 approveItem(position);
             }
         });
         reportViewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View v) {
                 deleteItem(position);
             }
         });
         reportViewHolder.tvReportDetails.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View v) {
                 if(onItemDetailsListener!=null) {
                     onItemDetailsListener.onItemDetailsClick(position);
@@ -102,6 +106,7 @@ public class ReportRecyclerViewAdapter extends RecyclerView.Adapter {
             onItemApproveListener.onItemApprove(position);
         }
     }
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
 
     public void deleteItem(int position) {
         if(onItemDeleteListener != null) {
@@ -110,6 +115,7 @@ public class ReportRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public int getItemCount() {
         return reportArrayList == null ? 0 : reportArrayList.size();
     }
@@ -125,6 +131,7 @@ public class ReportRecyclerViewAdapter extends RecyclerView.Adapter {
     public interface OnItemDetailsListener {
         void onItemDetailsClick(int position);
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setReportArrayList(ArrayList<Report> reportArrayList) {
         this.reportArrayList = reportArrayList;

@@ -33,6 +33,7 @@ public class AdminWorkoutCategoriesAdapter extends RecyclerView.Adapter<AdminWor
         this.onCategoryDetailsClick = onCategoryDetailsClick;
         setHasStableIds(true);
     }
+// == Load ảnh bằng Glide và hiển thị ==
 
     public void setOnCategoryDetailsClick(OnCategoryDetailsClick listener) {
         this.onCategoryDetailsClick = listener;
@@ -40,12 +41,14 @@ public class AdminWorkoutCategoriesAdapter extends RecyclerView.Adapter<AdminWor
 
     @NonNull
     @Override
+// == Load ảnh bằng Glide và hiển thị ==
     public WorkoutCategoriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.workout_category_layout, parent, false);
         return new WorkoutCategoriesViewHolder(view);
     }
 
     @Override
+// == Load ảnh bằng Glide và hiển thị ==
     public void onBindViewHolder(@NonNull WorkoutCategoriesViewHolder holder, int position) {
         WorkoutCategory item = workoutCategories.get(position);
         holder.categoryNameTv.setText(item.getName() == null ? "" : item.getName());
@@ -98,6 +101,7 @@ public class AdminWorkoutCategoriesAdapter extends RecyclerView.Adapter<AdminWor
         if (newList != null) workoutCategories.addAll(newList);
         notifyDataSetChanged();
     }
+// == Cập nhật dữ liệu và UI liên quan ==
 
     public void addOrUpdate(@NonNull WorkoutCategory item) {
         int idx = indexOfId(item.getId());
@@ -109,6 +113,7 @@ public class AdminWorkoutCategoriesAdapter extends RecyclerView.Adapter<AdminWor
             notifyItemInserted(workoutCategories.size() - 1);
         }
     }
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
 
     public boolean removeById(String id) {
         int idx = indexOfId(id);

@@ -24,10 +24,12 @@ public class IngredientInfo {
         this.Lipid = Lipid;
         this.Protein = Protein;
     }
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
 
     public void setId(String id) {
         this.id = id;
     }
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
 
 
     public String getId() {
@@ -42,18 +44,22 @@ public class IngredientInfo {
     public IngredientInfo() {
 
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public String getShort_Description() {
         return Short_Description;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setShort_Description(String Short_Description) {
         this.Short_Description = Short_Description;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public double getCalories() {
         return Calories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setCalories(double Calories) {
         this.Calories = Calories;

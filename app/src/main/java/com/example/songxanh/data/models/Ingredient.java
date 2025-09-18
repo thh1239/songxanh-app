@@ -10,22 +10,27 @@ public class Ingredient {
 
     public Ingredient() {
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public String getName() {
         return name;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setName(String name) {
         this.name = name;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public double getWeight() {
         return weight;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setWeight(double weight) {
         this.weight = weight;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void updateWeight(double weight) {
         double oldWeight = this.weight;
@@ -37,10 +42,12 @@ public class Ingredient {
         this.carb = this.carb * weightRatio;
         this.lipid = this.lipid * weightRatio;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public double getCalories() {
         return calories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setCalories(double calories) {
         this.calories = calories;

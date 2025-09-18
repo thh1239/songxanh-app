@@ -36,6 +36,7 @@ public class ProfileChangePassFragment extends Fragment {
     private ProfileChangePassVM profileChangePassVM;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         profileChangePassVM = new ViewModelProvider(requireActivity()).get(ProfileChangePassVM.class);
@@ -43,6 +44,7 @@ public class ProfileChangePassFragment extends Fragment {
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -51,6 +53,7 @@ public class ProfileChangePassFragment extends Fragment {
         binding.setLifecycleOwner(getViewLifecycleOwner());
         binding.updatePassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 if (TextUtils.isEmpty(binding.currentPasswordEdt.getText().toString())) {
                     binding.currentPasswordEdt.setError("Please enter current password");
@@ -112,6 +115,7 @@ public class ProfileChangePassFragment extends Fragment {
         });
         binding.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavController navController = NavHostFragment.findNavController(ProfileChangePassFragment.this);
                 navController.popBackStack();

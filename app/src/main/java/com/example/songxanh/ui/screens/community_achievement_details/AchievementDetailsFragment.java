@@ -32,9 +32,10 @@ public class AchievementDetailsFragment extends Fragment {
     private AchievementExercisesAdapter exercisesAdapter;
 
     @Override
+// == Load ảnh bằng Glide và hiển thị ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentAchievementDetailsBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(AchievementDetailsVM.class);
         binding.setDetailsVM(viewModel);
@@ -63,6 +64,7 @@ public class AchievementDetailsFragment extends Fragment {
         binding.foodLst.setLayoutManager(new LinearLayoutManager(requireContext()));
         viewModel.getDishes().observe(getViewLifecycleOwner(), new Observer<ArrayList<Dish>>() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onChanged(ArrayList<Dish> dishArrayList) {
                 Log.d("dishes", "onChanged: " + dishArrayList);
                 dishRecycleViewAdapter.setDishes(dishArrayList);
@@ -78,6 +80,7 @@ public class AchievementDetailsFragment extends Fragment {
 
         viewModel.getExercises().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onChanged(List<Exercise> exercises) {
                 exercisesAdapter.addAll(exercises);
             }
@@ -87,6 +90,7 @@ public class AchievementDetailsFragment extends Fragment {
     private void setOnClick() {
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(AchievementDetailsFragment.this);
             }

@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class WorkoutVM extends ViewModel {
     private MutableLiveData<List<Exercise>> selectedExercises = new MutableLiveData<>(new ArrayList<>());
     private MutableLiveData<Integer> selectedTotalCalories = new MutableLiveData<Integer>(0);
-    //    private MutableLiveData<Workout> selectedExercises = new MutableLiveData<>();
+
     private MutableLiveData<String> addSelectedExercisesToDbMessage = new MutableLiveData<>(null);
     private MutableLiveData<Integer> exerciseCalories = new MutableLiveData<>(0);
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -43,14 +43,15 @@ public class WorkoutVM extends ViewModel {
             loadExercisesCalories();
         }
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
-    // Methods handle data on database
     public void loadSelectedExercises() {
         firestore.collection("users").document(auth.getCurrentUser().getUid())
                 .collection("daily_activities").document(GlobalMethods.convertDateToHyphenSplittingFormat(new Date()))
                 .collection("today_selected_exercises").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
+// == Tính toán và hiển thị tổng calo ==
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         List<Exercise> newList = new ArrayList<>();
                         for (QueryDocumentSnapshot doc : task.getResult()) {
@@ -63,11 +64,13 @@ public class WorkoutVM extends ViewModel {
                     }
                 });
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void loadExercisesCalories() {
         FirebaseConstants.dailyActivitiesRef.document(GlobalMethods.convertDateToHyphenSplittingFormat(new Date())).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
+// == Tính toán và hiển thị tổng calo ==
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot doc = task.getResult();
@@ -85,6 +88,7 @@ public class WorkoutVM extends ViewModel {
                     }
                 });
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void addExercisesToDb(List<Exercise> exercises) {
         WriteBatch batch = firestore.batch();
@@ -130,6 +134,7 @@ public class WorkoutVM extends ViewModel {
                 .collection("today_selected_exercises").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
+// == Tính toán và hiển thị tổng calo ==
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             int numberOfExercises = task.getResult().size();
@@ -138,6 +143,7 @@ public class WorkoutVM extends ViewModel {
                             for (DocumentSnapshot doc : task.getResult()) {
                                 doc.getReference().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
+// == Tính toán và hiển thị tổng calo ==
                                     public void onComplete(@NonNull Task<Void> task) {
                                         count.incrementAndGet();
                                         if (count.get() == numberOfExercises) {
@@ -153,6 +159,7 @@ public class WorkoutVM extends ViewModel {
                     }
                 });
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void updateExercisesCaloriesOnDb() {
         DocumentReference ref = firestore.collection("users").document(auth.getCurrentUser().getUid())
@@ -163,6 +170,7 @@ public class WorkoutVM extends ViewModel {
         batch.update(ref, "calories", FieldValue.increment(selectedTotalCalories.getValue()));
         batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     loadSelectedExercises();
@@ -173,20 +181,23 @@ public class WorkoutVM extends ViewModel {
             }
         });
     }
+// == Xóa dữ liệu hoặc item ==
 
     public void removeSelectedExercise(int position) {
         firestore.collection("users").document(auth.getCurrentUser().getUid())
                 .collection("daily_activities").document(GlobalMethods.convertDateToHyphenSplittingFormat(new Date()))
                 .collection("today_selected_exercises").document(selectedExercises.getValue().get(position).getId())
                 .delete();
-        // removing item in adapter will remove item in ViewModel concurrently, so we do not need remove item in ViewModel here
+
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void initDailyActivity() {
         firestore.collection("users").document(auth.getCurrentUser().getUid())
                 .collection("daily_activities").document(GlobalMethods.convertDateToHyphenSplittingFormat(new Date())).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
+// == Tính toán và hiển thị tổng calo ==
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot snapshot = task.getResult();
@@ -200,6 +211,7 @@ public class WorkoutVM extends ViewModel {
                                 snapshot.getReference().set(newDailyActivity)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
+// == Tính toán và hiển thị tổng calo ==
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
                                                     Log.i("Initial daily activity successfully", "");
@@ -213,12 +225,12 @@ public class WorkoutVM extends ViewModel {
                     }
                 });
     }
+// == Tính toán và hiển thị tổng calo ==
 
-
-    // Methods handle data in this view model
     public void recalculateSelectedExercisesCalories() {
         selectedTotalCalories.setValue(GlobalMethods.calculateTotalCalories(selectedExercises.getValue()));
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void moveTempListToSelectedList(List<Exercise> tempList) {
         addExercisesToDb(tempList);
@@ -237,28 +249,33 @@ public class WorkoutVM extends ViewModel {
             collection.add(exercise);
         }
     }
+// == Tính toán và hiển thị tổng calo ==
 
-    // Getters and Setters
     public MutableLiveData<Integer> getSelectedTotalCalories() {
         return selectedTotalCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public MutableLiveData<List<Exercise>> getSelectedExercises() {
         return selectedExercises;
     }
+// == Tính toán và hiển thị tổng calo ==
 
 
     public MutableLiveData<String> getAddSelectedExercisesToDbMessage() {
         return addSelectedExercisesToDbMessage;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setAddSelectedExercisesToDbMessage(String newMessage) {
         addSelectedExercisesToDbMessage.setValue(newMessage);
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getSelectedExerciseSize() {
         return selectedExercises.getValue().size();
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public MutableLiveData<Integer> getExerciseCalories() {
         return exerciseCalories;

@@ -21,16 +21,19 @@ public class OnboardingAdapter extends PagerAdapter {
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public int getCount() {
         return viewModel.getSize();
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public Object instantiateItem(ViewGroup container, int position) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.onboarding_slider_layout, container, false);

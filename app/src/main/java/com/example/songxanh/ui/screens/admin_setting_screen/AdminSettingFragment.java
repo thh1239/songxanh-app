@@ -20,15 +20,17 @@ public class AdminSettingFragment extends Fragment {
     FragmentAdminSettingBinding binding;
 
     public AdminSettingFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
+// == Lưu hoặc lấy dữ liệu từ SharedPreferences ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAdminSettingBinding.inflate(inflater, container, false);
         binding.logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Lưu hoặc lấy dữ liệu từ SharedPreferences ==
             public void onClick(View v) {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 mAuth.signOut();
@@ -40,6 +42,7 @@ public class AdminSettingFragment extends Fragment {
 
         binding.switchModeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Lưu hoặc lấy dữ liệu từ SharedPreferences ==
             public void onClick(View v) {
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeFragment.PREF_FILE_NAME, Context.MODE_PRIVATE);
                 boolean isDarkTheme = !sharedPreferences.getBoolean(HomeFragment.THEME_KEY, true);

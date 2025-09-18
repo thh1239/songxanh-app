@@ -26,6 +26,7 @@ public class Report {
     private String reportUserImageUrl;
     private String reportUserName;
     private String title;
+// == Tính toán và hiển thị tổng calo ==
     public void setId(String id) {
         this.id = id;
     }
@@ -34,37 +35,46 @@ public class Report {
         return (T) this;
     }
     @Exclude
+// == Tính toán và hiển thị tổng calo ==
     public String getId() {
         return id;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public double getAchievementCalories() {
         return achievementCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setAchievementCalories(double achievementCalories) {
         this.achievementCalories = achievementCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public Date getAchievementCreatedTime() {
         return achievementCreatedTime;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setAchievementCreatedTime(Date achievementCreatedTime) {
         this.achievementCreatedTime = achievementCreatedTime;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public double getAchievementExerciseCalories() {
         return achievementExerciseCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setAchievementExerciseCalories(double achievementExerciseCalories) {
         this.achievementExerciseCalories = achievementExerciseCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public double getAchievementFoodCalories() {
         return achievementFoodCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setAchievementFoodCalories(double achievementFoodCalories) {
         this.achievementFoodCalories = achievementFoodCalories;

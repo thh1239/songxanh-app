@@ -8,68 +8,81 @@ public class FollowingActivity {
     private int exerciseCalories;
     private int foodCalories;
     private int totalCalories;
+// == Tính toán và hiển thị tổng calo ==
 
-//    public FollowingActivity() {
-//        this.userId = "";
-//        this.userName = "";
-//        this.userAvatarUrl = null;
-//        this.steps = 0;
-//        this.exerciseCalories = 0;
-//        this.foodCalories = 0;
-//        this.totalCalories = 0;
-//    }
+
+
+
+
+
+
+
+
 
     public String getUserId() {
         return userId;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setUserId(String userId) {
         this.userId = userId;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public String getUserName() {
         return userName;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setUserName(String userName) {
         this.userName = userName;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public String getUserAvatarUrl() {
         return userAvatarUrl;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setUserAvatarUrl(String userAvatarUrl) {
         this.userAvatarUrl = userAvatarUrl;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getSteps() {
         return steps;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setSteps(int steps) {
         this.steps = steps;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getExerciseCalories() {
         return exerciseCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setExerciseCalories(int exerciseCalories) {
         this.exerciseCalories = exerciseCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getFoodCalories() {
         return foodCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setFoodCalories(int foodCalories) {
         this.foodCalories = foodCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getTotalCalories() {
         return totalCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setTotalCalories(int totalCalories) {
         this.totalCalories = totalCalories;

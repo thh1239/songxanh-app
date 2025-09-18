@@ -32,6 +32,7 @@ public class AdminAddWorkoutCategoryFragment extends Fragment {
 
     @Nullable
     @Override
+// == Load ảnh bằng Glide và hiển thị ==
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAdminAddWorkoutCategoryBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(requireActivity()).get(AdminWorkoutVM.class);

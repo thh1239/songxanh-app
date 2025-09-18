@@ -41,6 +41,7 @@ public class FillInTrackingInformationFragment extends Fragment {
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainVM = new ViewModelProvider(requireActivity()).get(MainVM.class);
@@ -48,9 +49,10 @@ public class FillInTrackingInformationFragment extends Fragment {
     }
 
     @Override
+// == Tạo hoặc xử lý Intent để chuyển màn hình ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentFillInTrackingInformationBinding.inflate(inflater, container, false);
 
         viewModel =  new ViewModelProvider(requireActivity()).get(FillInPersonalInformationVM.class);
@@ -62,6 +64,7 @@ public class FillInTrackingInformationFragment extends Fragment {
 
         viewModel.getIsSuccess().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
+// == Tạo hoặc xử lý Intent để chuyển màn hình ==
             public void onChanged(Boolean isSuccess) {
                 if (isSuccess == true) {
                     NavHostFragment.findNavController(FillInTrackingInformationFragment.this).navigate(R.id.homeFragment);
@@ -74,6 +77,7 @@ public class FillInTrackingInformationFragment extends Fragment {
 
         viewModel.getMessage().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onChanged(String s) {
                 if (s != null) {
                     Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
@@ -87,13 +91,15 @@ public class FillInTrackingInformationFragment extends Fragment {
     private void setOnClick() {
         binding.goalTimeEdt.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
                         requireContext(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-//                                binding.goalTimeEdt.setText(i2 + "/" + i1 + "/" + i);
+
                                 viewModel.setGoalTime(i2 + "/" + i1 + "/" + i);
                                 day = i2;
                                 month = i1;
@@ -107,6 +113,7 @@ public class FillInTrackingInformationFragment extends Fragment {
 
         binding.currentWeightEdt.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(FillInTrackingInformationFragment.this).navigate(R.id.currentWeightPickerBottomSheetFragment);
             }
@@ -114,6 +121,7 @@ public class FillInTrackingInformationFragment extends Fragment {
 
         binding.currentHeightEdt.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(FillInTrackingInformationFragment.this).navigate(R.id.currentHeightPickerBottomSheetFragment);
             }
@@ -121,6 +129,7 @@ public class FillInTrackingInformationFragment extends Fragment {
 
         binding.goalWeightEdt.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(FillInTrackingInformationFragment.this).navigate(R.id.goalWeightPickerBottomSheetFragment);
             }

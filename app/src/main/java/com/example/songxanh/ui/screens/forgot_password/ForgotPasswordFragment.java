@@ -25,14 +25,16 @@ public class ForgotPasswordFragment extends Fragment {
     private ForgotPasswordVM viewModel;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding =  FragmentForgotPasswordBinding.inflate(inflater, container, false);
 
         viewModel = new ViewModelProvider(this).get(ForgotPasswordVM.class);
@@ -49,6 +51,7 @@ public class ForgotPasswordFragment extends Fragment {
 
         binding.toolBarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(ForgotPasswordFragment.this);
             }
@@ -70,6 +73,7 @@ public class ForgotPasswordFragment extends Fragment {
         AppCompatButton cancelBtn = dialogLayout.findViewById(R.id.cancel_btn);
         doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 alertDialog.dismiss();
                 NavHostFragment.findNavController(ForgotPasswordFragment.this).navigate(R.id.signInFragment);
@@ -77,6 +81,7 @@ public class ForgotPasswordFragment extends Fragment {
         });
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 alertDialog.dismiss();
             }

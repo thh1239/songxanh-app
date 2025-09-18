@@ -33,9 +33,10 @@ public class WorkoutFavoriteFragment extends Fragment implements ActionOnExercis
     private NavController navController;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentWorkoutFavoriteBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(WorkoutFavoriteFragment.this).get(WorkoutFavoriteVM.class);
         binding.setViewModel(viewModel);
@@ -50,6 +51,7 @@ public class WorkoutFavoriteFragment extends Fragment implements ActionOnExercis
 
         viewModel.getFavoriteList().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onChanged(List<Exercise> exercises) {
                 adapter.setData(exercises);
                 adapter.notifyDataSetChanged();
@@ -64,6 +66,7 @@ public class WorkoutFavoriteFragment extends Fragment implements ActionOnExercis
     private void setOnClick() {
         binding.appBarLayout.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
+// == Điều hướng sang màn hình khác ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(WorkoutFavoriteFragment.this);
             }
@@ -71,15 +74,17 @@ public class WorkoutFavoriteFragment extends Fragment implements ActionOnExercis
     }
 
     @Override
+// == Điều hướng sang màn hình khác ==
     public void onInformationBtn(Exercise exercise) {
         WorkoutFavoriteFragmentDirections.ActionWorkoutFavoriteFragmentToWorkoutExerciseDetailsFragment action = WorkoutFavoriteFragmentDirections.actionWorkoutFavoriteFragmentToWorkoutExerciseDetailsFragment(exercise);
         navController.navigate(action);
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onDelete(int position) {
         viewModel.removeFavoriteExercise(position);
         adapter.removeItem(position);
-//        adapter.notifyDataSetChanged();
+
     }
 }

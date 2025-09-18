@@ -26,6 +26,7 @@ public class AchievementFoodsAdapter extends RecyclerView.Adapter<AchievementFoo
 
     @NonNull
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.achievement_food_item, parent, false);
 
@@ -33,6 +34,7 @@ public class AchievementFoodsAdapter extends RecyclerView.Adapter<AchievementFoo
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Dish dish = dishes.get(position);
         holder.nameTv.setText(dish.getName());
@@ -40,6 +42,7 @@ public class AchievementFoodsAdapter extends RecyclerView.Adapter<AchievementFoo
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public int getItemCount() {
         return dishes.size();
     }

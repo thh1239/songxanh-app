@@ -21,9 +21,10 @@ public class WorkoutExerciseDetailsFragment extends Fragment {
     private WorkoutExerciseDetailsVM viewModel;
 
     @Override
+// == Load ảnh bằng Glide và hiển thị ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding =  FragmentWorkoutExerciseDetailsBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(WorkoutExerciseDetailsFragment.this).get(WorkoutExerciseDetailsVM.class);
         binding.setExerciseDetailsVM(viewModel);
@@ -51,6 +52,7 @@ public class WorkoutExerciseDetailsFragment extends Fragment {
     private void setOnClick() {
         binding.appBarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(WorkoutExerciseDetailsFragment.this);
             }

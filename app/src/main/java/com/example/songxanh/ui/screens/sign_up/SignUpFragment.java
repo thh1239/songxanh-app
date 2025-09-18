@@ -50,6 +50,7 @@ public class SignUpFragment extends Fragment {
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     new ActivityResultCallback<ActivityResult>() {
                         @Override
+// == Xác thực người dùng với FirebaseAuth ==
                         public void onActivityResult(ActivityResult result) {
                             if (result.getResultCode() == Activity.RESULT_OK) {
                                 Intent data = result.getData();
@@ -72,9 +73,11 @@ public class SignUpFragment extends Fragment {
     public SignUpFragment() { }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSignUpBinding.inflate(inflater, container, false);
@@ -105,7 +108,7 @@ public class SignUpFragment extends Fragment {
 
         viewModel.getIsSuccessful().observe(getViewLifecycleOwner(), isSuccessful -> {
             if (Boolean.TRUE.equals(isSuccessful)) {
-                // Sau khi sign-up bằng email/password, điền thông tin
+
                 navigateToFillInfoIfNeeded();
             }
         });
@@ -146,6 +149,7 @@ public class SignUpFragment extends Fragment {
                         FirebaseConstants.usersRef.document(user.getUid()).get()
                                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
                                     public void onComplete(@NonNull Task<DocumentSnapshot> t) {
                                         viewModel.getIsLoading().setValue(false);
                                         if (!t.isSuccessful()) {
@@ -154,10 +158,10 @@ public class SignUpFragment extends Fragment {
                                         }
                                         DocumentSnapshot doc = t.getResult();
                                         if (doc != null && doc.exists()) {
-                                            // ĐÃ có hồ sơ -> vào thẳng Main
+
                                             startMain();
                                         } else {
-                                            // CHƯA có hồ sơ -> chuyển sang điền thông tin
+
                                             navigateToFillInfoIfNeeded();
                                         }
                                     }
@@ -181,7 +185,7 @@ public class SignUpFragment extends Fragment {
         if (navController.getCurrentDestination().getId() == R.id.fillInPersonalInformationFragment) return;
         try {
             navController.navigate(R.id.fillInPersonalInformationFragment);
-        } catch (IllegalArgumentException ignored) { /* safe */ }
+        } catch (IllegalArgumentException ignored) {  }
     }
 
     @Override

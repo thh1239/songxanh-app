@@ -13,6 +13,7 @@ public class OnboardingVM extends ViewModel {
     public OnboardingVM() {
         updateTitleAndSubtitle(0);
     }
+// == Cập nhật dữ liệu và UI liên quan ==
 
     public void updateTitleAndSubtitle(int position) {
         titleLiveData.setValue(getTitle(position));

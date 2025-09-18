@@ -19,6 +19,7 @@ public class SignInVM extends ViewModel {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private MutableLiveData<Boolean> signInSuccess = new MutableLiveData<>(false);
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void signInWithEmailAndPassword() {
         String emailInput = email.getValue();
@@ -99,6 +100,7 @@ public class SignInVM extends ViewModel {
     public MutableLiveData<Boolean> getSignInSuccess() {
         return signInSuccess;
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;

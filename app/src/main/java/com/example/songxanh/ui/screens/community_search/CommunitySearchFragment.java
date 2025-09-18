@@ -31,9 +31,10 @@ public class CommunitySearchFragment extends Fragment {
     private SearchUsersAdapter adapter;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding =  FragmentCommunitySearchBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(CommunitySearchVM.class);
         binding.setViewModel(viewModel);
@@ -48,6 +49,7 @@ public class CommunitySearchFragment extends Fragment {
     private void setOnClick() {
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(CommunitySearchFragment.this);
             }
@@ -55,6 +57,7 @@ public class CommunitySearchFragment extends Fragment {
 
         binding.searchEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
                     String keyword = binding.searchEdt.getText().toString().toLowerCase();
@@ -75,6 +78,7 @@ public class CommunitySearchFragment extends Fragment {
 
         viewModel.getResult().observe(getViewLifecycleOwner(), new Observer<List<NormalUser>>() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onChanged(List<NormalUser> users) {
                 adapter.setData(users);
             }

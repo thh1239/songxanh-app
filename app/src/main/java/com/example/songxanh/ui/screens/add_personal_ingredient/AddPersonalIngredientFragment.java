@@ -22,11 +22,12 @@ public class AddPersonalIngredientFragment extends Fragment {
     private FragmentAddPersonalIngredientBinding binding;
 
     public AddPersonalIngredientFragment() {
-        // Required empty public constructor
+
     }
 
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(requireActivity()).get(AddPersonalIngredientVM.class);
@@ -35,6 +36,7 @@ public class AddPersonalIngredientFragment extends Fragment {
         binding.setLifecycleOwner(getViewLifecycleOwner());
         binding.addNewIngredientBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onClick(View v) {
                 if (binding.etNewIngredientName.getText() == null || binding.etNewIngredientServingSize.getText() == null || binding.etNewIngredientCalories.getText() == null || binding.etNewIngredientProtein.getText() == null || binding.etNewIngredientLipid.getText() == null) {
                     return;
@@ -54,6 +56,7 @@ public class AddPersonalIngredientFragment extends Fragment {
                 binding.etNewIngredientLipid.setText("");
                 binding.createIngredientToolbar.setOnClickListener(new View.OnClickListener() {
                     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
                     public void onClick(View v) {
                         GlobalMethods.backToPreviousFragment(AddPersonalIngredientFragment.this);
                     }
@@ -65,6 +68,7 @@ public class AddPersonalIngredientFragment extends Fragment {
         });
         binding.appBar.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onClick(View v) {
                 GlobalMethods.backToPreviousFragment(AddPersonalIngredientFragment.this);
             }

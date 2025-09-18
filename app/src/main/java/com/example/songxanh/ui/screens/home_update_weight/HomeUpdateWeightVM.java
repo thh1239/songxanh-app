@@ -43,18 +43,22 @@ public class HomeUpdateWeightVM extends ViewModel {
     private HomeVM homeVM;
 
     List<CustomEntry> barEntries;
+// == Tương tác với dịch vụ Firebase ==
 
     public void setWeight(Integer weight) {
         this.weight = weight;
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public Integer getWeight() {
         return weight;
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public MutableLiveData<Boolean> getIsAddingValue() {
         return isAddingValue;
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void setIsAddingValue(MutableLiveData<Boolean> isAddingValue) {
         this.isAddingValue = isAddingValue;
@@ -68,14 +72,17 @@ public class HomeUpdateWeightVM extends ViewModel {
         loadDailyWeight();
         loadBarData();
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public List<CustomEntry> getBarEntries() {
         return barEntries;
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public MutableLiveData<Boolean> getIsLoadingData() {
         return isLoadingData;
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void loadBarData() {
         isLoadingData.setValue(true);
@@ -114,6 +121,7 @@ public class HomeUpdateWeightVM extends ViewModel {
                 });
 
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void loadDailyWeight() {
         firestore.collection("users")
@@ -129,12 +137,14 @@ public class HomeUpdateWeightVM extends ViewModel {
                 })
                 .addOnFailureListener(e -> Log.i("Lỗi", "Không thể tải cân nặng hôm nay"));
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void getUserLiveData() {
         isLoadingData.setValue(true);
         firestore.collection("users").whereEqualTo("email", firebaseAuth.getCurrentUser().getEmail()).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
+// == Tính toán và hiển thị tổng calo ==
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful() && !task.getResult().isEmpty()) {
                             user = task.getResult().getDocuments().get(0).toObject(NormalUser.class);
@@ -150,10 +160,9 @@ public class HomeUpdateWeightVM extends ViewModel {
                     Log.i("Error", e.getMessage());
                 });
     }
+// == Tính toán và hiển thị tổng calo ==
 
-    /**
-     * Lưu cân nặng hôm nay và TÍNH LẠI dailyCalories cho users/{uid}.
-     */
+    
     public void saveDailyWeight(Integer weight, Integer steps, Float exerciseCalories, Float calories, Float foodCalories) {
         Map<String, Object> dailyActivities = new HashMap<>();
         dailyActivities.put("weight", weight);
@@ -165,14 +174,16 @@ public class HomeUpdateWeightVM extends ViewModel {
                 .update(dailyActivities)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
+// == Tính toán và hiển thị tổng calo ==
                     public void onSuccess(Void aVoid) {
                         Log.i("success", "Lưu cân nặng thành công");
-                        // Sau khi lưu weight -> tính lại dailyCalories
+
                         recalcAndUpdateDailyCaloriesAfterWeightChange(weight != null ? weight : 0);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
+// == Tính toán và hiển thị tổng calo ==
                     public void onFailure(@NonNull Exception e) {
                         Log.i("fail", "Lưu cân nặng thất bại");
                         Log.i("bug", e.toString());
@@ -180,11 +191,7 @@ public class HomeUpdateWeightVM extends ViewModel {
                 });
     }
 
-    /**
-     * Đọc users/{uid}, tính lại dailyCalories theo cân nặng hiện tại.
-     * - Nếu đủ dữ liệu lộ trình (startDate/goalDate/goalWeight): dùng calculateDailyCalories (đã có sàn BMR).
-     * - Nếu thiếu: fallback = max(BMR, 90% TDEE).
-     */
+    
     private void recalcAndUpdateDailyCaloriesAfterWeightChange(int currentWeight) {
         final String uid = firebaseAuth.getCurrentUser().getUid();
 
@@ -211,12 +218,11 @@ public class HomeUpdateWeightVM extends ViewModel {
                     final double bmr  = GlobalMethods.bmrMifflin(isMale, currentWeight, height, ageL.intValue());
                     final double tdee = GlobalMethods.tdee(bmr, 1.375); // mức hoạt động mặc định: nhẹ
 
-                    // Tính dailyCalories tạm
                     double dailyTmp;
                     boolean hasRoadmap = (goalW != null && startDate != null && goalDate != null);
 
                     if (hasRoadmap) {
-                        // Dùng công thức đầy đủ (đã có sàn BMR bên trong)
+
                         dailyTmp = GlobalMethods.calculateDailyCalories(
                                 gender,
                                 currentWeight,
@@ -227,11 +233,10 @@ public class HomeUpdateWeightVM extends ViewModel {
                                 goalDate
                         );
                     } else {
-                        // Fallback: không có lộ trình -> đề xuất an toàn tối thiểu
+
                         dailyTmp = Math.max(bmr, tdee * 0.90); // 90% TDEE nhưng >= BMR
                     }
 
-                    // Giá trị cuối cùng (final) để dùng trong lambda lồng nhau
                     final long dailyRounded = Math.round(dailyTmp);
 
                     final Map<String, Object> upd = new HashMap<>();
@@ -244,7 +249,6 @@ public class HomeUpdateWeightVM extends ViewModel {
                 .addOnFailureListener(e -> Log.e("kcal", "Không đọc được users/{uid}", e));
     }
 
-    // Helper normalize local (độc lập với GlobalMethods.normalizeGender private)
     private static boolean normalizeGender(String gender) {
         if (gender == null) return true;
         String g = gender.trim().toLowerCase(java.util.Locale.ROOT);

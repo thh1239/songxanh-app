@@ -11,12 +11,13 @@ import com.example.songxanh.R;
 
 public class ReportDetailsFragment extends Fragment {
     public ReportDetailsFragment() {
-        // Required empty public constructor
+
     }
     @Override
+// == Khởi tạo và thiết lập ban đầu cho màn hình ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_report_details, container, false);
     }
 }

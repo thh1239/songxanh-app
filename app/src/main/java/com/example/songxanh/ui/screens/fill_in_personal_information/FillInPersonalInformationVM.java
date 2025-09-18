@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class FillInPersonalInformationVM extends ViewModel {
-    // ===== Trạng thái & khởi tạo =====
+
     private MutableLiveData<String> name = new MutableLiveData<>();
     private MutableLiveData<String> birthdate = new MutableLiveData<>("");
     private MutableLiveData<String> phone = new MutableLiveData<>();
@@ -36,7 +36,6 @@ public class FillInPersonalInformationVM extends ViewModel {
     private MutableLiveData<Boolean> isSuccess = new MutableLiveData<>(false);
     private MutableLiveData<String> message = new MutableLiveData<>(null);
 
-    // ===== Tiện ích chuyển đổi & chuẩn hóa =====
     private Integer toInt(String s) {
         try { return s == null ? null : Integer.valueOf(s.trim()); }
         catch (Exception e) { return null; }
@@ -61,7 +60,6 @@ public class FillInPersonalInformationVM extends ViewModel {
         return d != null && d.after(new Date());
     }
 
-    // ===== Đẩy dữ liệu người dùng lên Firestore =====
     public void pushUserDataToDB() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -171,7 +169,6 @@ public class FillInPersonalInformationVM extends ViewModel {
                 });
     }
 
-    // ===== Getter/Setter =====
     public MutableLiveData<String> getCurrentWeight() { return currentWeight; }
     public void setCurrentWeight(String currentWeight) { this.currentWeight.setValue(currentWeight); }
 
@@ -184,8 +181,10 @@ public class FillInPersonalInformationVM extends ViewModel {
 
     public MutableLiveData<String> getPhone() { return phone; }
     public void setPhone(String phone) { this.phone.setValue(phone); }
+// == Thêm mới dữ liệu hoặc item ==
 
     public MutableLiveData<String> getAddress() { return address; }
+// == Thêm mới dữ liệu hoặc item ==
     public void setAddress(String address) { this.address.setValue(address); }
 
     public MutableLiveData<String> getCurrentHeight() { return currentHeight; }

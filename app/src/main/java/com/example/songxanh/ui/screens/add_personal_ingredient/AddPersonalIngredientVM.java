@@ -22,16 +22,19 @@ import java.util.Map;
 public class AddPersonalIngredientVM extends ViewModel {
 
     private GlobalMethods globalMethods;
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public GlobalMethods getGlobalMethods() { return globalMethods; }
 
     private MutableLiveData<IngredientInfo> newIngredient = new MutableLiveData<>();
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public MutableLiveData<IngredientInfo> getNewIngredient() { return newIngredient; }
 
     public AddPersonalIngredientVM() { }
     public AddPersonalIngredientVM(MutableLiveData<IngredientInfo> newIngredient) { this.newIngredient = newIngredient; }
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public void setNewIngredient(MutableLiveData<IngredientInfo> newIngredient) { this.newIngredient = newIngredient; }
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
 
-    // ===== LƯU NGUYÊN LIỆU CÁ NHÂN =====
     public void addPersonalIngredient() {
         IngredientInfo ing = this.newIngredient.getValue();
         if (ing == null) {
@@ -70,8 +73,8 @@ public class AddPersonalIngredientVM extends ViewModel {
                     }
                 });
     }
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
 
-    // ===== THÊM NGUYÊN LIỆU VÀO PENDING =====
     public void addToPendingList() {
         IngredientInfo temp = this.newIngredient.getValue();
         if (temp == null) {

@@ -20,33 +20,34 @@ public class ProfileChangeGoalsVM extends ViewModel {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private MutableLiveData<User> user = new MutableLiveData<>();
+// == Tải dữ liệu và hiển thị lên UI ==
 
 
     public MutableLiveData<Boolean> getIsLoadingData() {
         return isLoadingData;
     }
-//    public void getUserLiveData() {
-//        isLoadingData.setValue(true);
-//        firestore.collection("users").whereEqualTo("email", firebaseAuth.getCurrentUser().getEmail()).get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            user = task.getResult().getDocuments().get(0).toObject(NormalUser.class);
-//                            isLoadingData.setValue(false);
-//
-//                        } else {
-//                            Log.d("Get user data error", "Error getting user documents: ", task.getException());
-//                            isLoadingData.setValue(false);
-//                        }
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.i("Error", e.getMessage());
-//                    }
-//                });
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public MutableLiveData<User> getUser() {
         return user;

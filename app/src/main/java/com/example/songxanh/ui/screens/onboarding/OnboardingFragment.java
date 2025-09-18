@@ -27,16 +27,15 @@ public class OnboardingFragment extends Fragment {
     private OnboardingAdapter onboardingAdapter;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the fragment layout using data binding
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_onboarding, container, false);
 
-        // Initialize the ViewModel
         viewModel = new OnboardingVM();
         binding.setOnboardingVM(viewModel);
 
-        // Set pager adapter for onboarding images
         onboardingAdapter = new OnboardingAdapter(requireContext(), viewModel);
         binding.onboardingViewPager.setAdapter(onboardingAdapter);
 
@@ -46,7 +45,6 @@ public class OnboardingFragment extends Fragment {
 
         binding.onboardingViewPager.addOnPageChangeListener(onPageChangeListener);
 
-        // Observe title and subtitle LiveData from ViewModel
         viewModel.getTitleLiveData().observe(getViewLifecycleOwner(), title -> binding.titleTxtView.setText(getString(title)));
         viewModel.getSubtitleLiveData().observe(getViewLifecycleOwner(), subtitle -> binding.subtitleTv.setText(getString(subtitle)));
 
@@ -81,11 +79,13 @@ public class OnboardingFragment extends Fragment {
 
     private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
+// == Quản lý dữ liệu bằng ViewModel ==
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            // Empty implementation
+
         }
 
         @Override
+// == Quản lý dữ liệu bằng ViewModel ==
         public void onPageSelected(int position) {
             setUpIndicatorIndex(position);
 
@@ -106,7 +106,7 @@ public class OnboardingFragment extends Fragment {
 
         @Override
         public void onPageScrollStateChanged(int state) {
-            // Empty implementation
+
         }
     };
 

@@ -18,6 +18,7 @@ import com.example.songxanh.utils.GlobalMethods;
 import java.util.ArrayList;
 
 public class AdminIngredientRecyclerViewAdapter extends RecyclerView.Adapter {
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public Context getContext() {
         return context;
     }
@@ -54,12 +55,14 @@ public class AdminIngredientRecyclerViewAdapter extends RecyclerView.Adapter {
            return new LoadingViewHolder(view);
         }
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void deleteItem(int position)  {
         if(onItemDeleteListener != null) {
             onItemDeleteListener.onItemDelete(position);
         }
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void updateItem(int position) {
         if(onItemEditListener != null) {
@@ -69,6 +72,7 @@ public class AdminIngredientRecyclerViewAdapter extends RecyclerView.Adapter {
 
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof IngredientViewHolder){
             IngredientViewHolder ingredientHolder = (IngredientViewHolder) holder;
@@ -79,36 +83,42 @@ public class AdminIngredientRecyclerViewAdapter extends RecyclerView.Adapter {
             ingredientHolder.tvCaloriesNumber.setText(GlobalMethods.formatDoubleToString(ingredientInfoArrayList.get(position).getCalories()));
             ingredientHolder.btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
                 public void onClick(View v) {
                     updateItem(position);
                 }
             });
         } else if (holder instanceof LoadingViewHolder) {
-            // Handle the loading ViewHolder
+
             ((LoadingViewHolder) holder).progressBar.setIndeterminate(true);
         }
     }
 
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public int getItemCount() {
         return ingredientInfoArrayList.size();
     }
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public int getItemViewType(int position) {
         return ingredientInfoArrayList.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
 
     public void setIngredientInfoArrayList(ArrayList<IngredientInfo> ingredientInfoArrayList, boolean isSearchResult) {
         this.ingredientInfoArrayList = ingredientInfoArrayList;
         this.isSearchResult = isSearchResult;
         notifyDataSetChanged();
     }
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
 
     public boolean isSearchResult() {
         return isSearchResult;
     }
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
 
     public void setSearchResult(boolean searchResult) {
         isSearchResult = searchResult;

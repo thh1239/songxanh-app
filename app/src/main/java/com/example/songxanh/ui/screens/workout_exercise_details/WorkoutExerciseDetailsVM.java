@@ -30,17 +30,18 @@ public class WorkoutExerciseDetailsVM extends ViewModel {
     public void setExercise(Exercise exercise) {
         this.exercise.setValue(exercise);
     }
+// == Thêm mới dữ liệu hoặc item ==
 
     public void addToFavorite() {
         CollectionReference collection = firestore.collection("users").document(auth.getCurrentUser().getUid())
                 .collection("favorite_exercises");
-        // Check if this exercise is already existed favorite list
+
         collection.whereEqualTo("id", exercise.getValue().getId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     if (task.getResult().isEmpty()) {
-                        // if is empty, add this exercise to favorite list
+
                         collection.add(exercise.getValue())
                                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                     @Override

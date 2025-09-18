@@ -62,14 +62,12 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private WorkoutVM workoutVM;
 
-    // Biểu đồ
     private PieChart pieChart;
     private LinearLayout legendLayout;
     private LineChart lineChart;
     private List<String> legendEntries;
     private List<Integer> legendValues;
 
-    // Cảm biến bước chân
     private SensorManager sensorManager;
     private Sensor stepSensor;
     private int stepCount = 0;
@@ -84,12 +82,14 @@ public class HomeFragment extends Fragment {
     private String todayMsg = "TỔNG KCAL HÔM NAY: ";
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("ON CREATE HOME FRAGMENT", "CREATING");
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         homeVM = new ViewModelProvider(requireActivity()).get(HomeVM.class);
@@ -99,6 +99,7 @@ public class HomeFragment extends Fragment {
         mainVM = new ViewModelProvider(requireActivity()).get(MainVM.class);
         mainVM.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onChanged(User user) {
                 if (user != null) {
                     homeVM.setUser(mainVM.getUser());
@@ -111,12 +112,10 @@ public class HomeFragment extends Fragment {
         workoutVM = new ViewModelProvider(requireActivity()).get(WorkoutVM.class);
         workoutVM.initDailyActivity();
 
-        // Liên kết view biểu đồ
         lineChart = binding.lineChart;
         pieChart = binding.pieChart;
         legendLayout = binding.legendLayout;
 
-        // Quan sát trạng thái tải
         homeVM.getIsLoadingDocument().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isLoadingDocument) {
@@ -135,7 +134,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // Điều hướng
         binding.updateWeightBtn.setOnClickListener(v ->
                 NavHostFragment.findNavController(HomeFragment.this)
                         .navigate(R.id.action_homeFragment_to_homeUpdateWeightFragment)
@@ -145,7 +143,6 @@ public class HomeFragment extends Fragment {
                         .navigate(R.id.action_homeFragment_to_excerciseDetail)
         );
 
-        // Cảm biến bước chân
         sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (stepSensor != null) {
@@ -154,14 +151,12 @@ public class HomeFragment extends Fragment {
             Toast.makeText(requireContext(), "Step counter is not available on your device", Toast.LENGTH_SHORT).show();
         }
 
-        // Tải số bước đã lưu trong ngày
         SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
         long previousDateMillis = sharedPreferences.getLong("previousDate", 0);
         previousDate = new Date(previousDateMillis);
         stepCount = sharedPreferences.getInt("stepCount", 0);
         binding.stepCountTextView.setText(String.valueOf(stepCount));
 
-        // Chuyển theme
         binding.setThemeButton.setOnClickListener(v -> {
             SharedPreferences sp = getActivity().getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
             boolean isDarkTheme = !sp.getBoolean(THEME_KEY, true);
@@ -172,7 +167,6 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
-    // Vẽ PieChart
     private void drawPie() {
         legendEntries = new ArrayList<>();
         legendEntries.add("Kcal cần nạp");
@@ -255,20 +249,16 @@ public class HomeFragment extends Fragment {
         pieChart.invalidate();
     }
 
-    // Cập nhật UI
     private void setLoading() {
         binding.userNameTv.setText(homeVM.getUser().getValue().getName());
 
-        // kcal
         binding.exerciseTv.setText(Math.round(homeVM.getExerciseCalories()) + " kcal");
         binding.dailyCalories.setText(GlobalMethods.formatDoubleToString(homeVM.getDailyCalories()) + " kcal");
 
-        // cân nặng
         binding.startWeight.setText(GlobalMethods.formatDoubleToString(homeVM.getStartWeight()) + " kg");
         binding.goalWeight.setText(GlobalMethods.formatDoubleToString(homeVM.getGoalWeight()) + " kg");
         binding.currentWeight.setText(GlobalMethods.formatDoubleToString(homeVM.getWeight()) + " kg");
 
-        // NEW: kcal tối thiểu theo mức vận động
         if (binding.lightCalories != null) {
             binding.lightCalories.setText(GlobalMethods.formatDoubleToString(homeVM.getActivityLight()) + " " + getString(R.string.kcal_suffix));
         }
@@ -279,7 +269,6 @@ public class HomeFragment extends Fragment {
             binding.heavyCalories.setText(GlobalMethods.formatDoubleToString(homeVM.getActivityHeavy()) + " " + getString(R.string.kcal_suffix));
         }
 
-        // avatar
         if (mainVM.getUserImageUrl() == null) {
             binding.userAvatar.setImageResource(R.drawable.default_profile_image);
         } else {
@@ -310,9 +299,10 @@ public class HomeFragment extends Fragment {
     };
 
     @Override
+// == Reset dữ liệu hằng ngày khi quay lại màn hình ==
     public void onResume() {
         super.onResume();
-        // Reload để bắt kịp cân nặng/dailyCalories mới nhất khi quay lại
+
         homeVM.loadDocument();
 
         SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
@@ -331,6 +321,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+// == Reset dữ liệu hằng ngày khi quay lại màn hình ==
     public void onPause() {
         super.onPause();
         SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);

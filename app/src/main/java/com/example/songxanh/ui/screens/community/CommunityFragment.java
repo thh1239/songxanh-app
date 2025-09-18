@@ -28,9 +28,10 @@ public class CommunityFragment extends Fragment implements ActionOnAchievementMe
     private AchievementsListAdapter adapter;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentCommunityBinding.inflate(inflater, container, false);
         binding.setCommunityVM(viewModel);
         viewModel = new ViewModelProvider(requireActivity()).get(CommunityVM.class);
@@ -42,6 +43,7 @@ public class CommunityFragment extends Fragment implements ActionOnAchievementMe
 
         viewModel.getAchievements().observe(getViewLifecycleOwner(), new Observer<List<Achievement>>() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onChanged(List<Achievement> achievements) {
                 adapter.setData(achievements);
             }
@@ -55,6 +57,7 @@ public class CommunityFragment extends Fragment implements ActionOnAchievementMe
     private void setOnClick() {
         binding.shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(CommunityFragment.this).navigate(R.id.action_communityFragment_to_workoutShareAchievementFragment);
             }
@@ -62,6 +65,7 @@ public class CommunityFragment extends Fragment implements ActionOnAchievementMe
 
         binding.followingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(CommunityFragment.this).navigate(R.id.action_communityFragment_to_communityFollowingFragment2);
             }
@@ -69,6 +73,7 @@ public class CommunityFragment extends Fragment implements ActionOnAchievementMe
 
         binding.searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(CommunityFragment.this).navigate(R.id.action_communityFragment_to_communitySearchFragment);
             }
@@ -81,6 +86,7 @@ public class CommunityFragment extends Fragment implements ActionOnAchievementMe
         popupMenu.inflate(R.menu.achievement_menu);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.achievement_menu_1:

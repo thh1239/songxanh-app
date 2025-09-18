@@ -50,6 +50,7 @@ public class SignInFragment extends Fragment {
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     new ActivityResultCallback<ActivityResult>() {
                         @Override
+// == Xác thực người dùng với FirebaseAuth ==
                         public void onActivityResult(ActivityResult result) {
                             if (result.getResultCode() == Activity.RESULT_OK) {
                                 Intent data = result.getData();
@@ -72,6 +73,7 @@ public class SignInFragment extends Fragment {
     public SignInFragment() { }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSignInBinding.inflate(inflater, container, false);
@@ -98,6 +100,7 @@ public class SignInFragment extends Fragment {
     private void setObservables() {
         viewModel.getToastMessage().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onChanged(String s) {
                 if (s != null) Toast.makeText(requireContext(), s, Toast.LENGTH_LONG).show();
             }
@@ -105,6 +108,7 @@ public class SignInFragment extends Fragment {
 
         viewModel.getSignInSuccess().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onChanged(Boolean signInSuccess) {
                 if (Boolean.TRUE.equals(signInSuccess)) {
                     startMain();
@@ -114,6 +118,7 @@ public class SignInFragment extends Fragment {
 
         viewModel.getIsLoading().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
+// == Tạo hoặc xử lý Intent để chuyển màn hình ==
             public void onChanged(Boolean isLoading) {
                 binding.loadingLayout.setVisibility(isLoading ? View.VISIBLE : View.GONE);
             }
@@ -155,6 +160,7 @@ public class SignInFragment extends Fragment {
                         FirebaseConstants.usersRef.document(user.getUid()).get()
                                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
                                     public void onComplete(@NonNull Task<DocumentSnapshot> t) {
                                         viewModel.getIsLoading().setValue(false);
                                         if (!t.isSuccessful()) {
@@ -163,11 +169,11 @@ public class SignInFragment extends Fragment {
                                         }
                                         DocumentSnapshot doc = t.getResult();
                                         if (doc != null && doc.exists()) {
-                                            // ĐÃ có hồ sơ -> tái sử dụng flow chung
+
                                             viewModel.getToastMessage().setValue("Đăng nhập thành công");
                                             viewModel.getSignInSuccess().setValue(true);
                                         } else {
-                                            // CHƯA có hồ sơ -> chuyển sang điền thông tin (safe navigate)
+
                                             navigateToFillInfoIfNeeded();
                                         }
                                     }
@@ -191,6 +197,6 @@ public class SignInFragment extends Fragment {
         if (navController.getCurrentDestination().getId() == R.id.fillInPersonalInformationFragment) return;
         try {
             navController.navigate(R.id.fillInPersonalInformationFragment);
-        } catch (IllegalArgumentException ignored) { /* safe */ }
+        } catch (IllegalArgumentException ignored) {  }
     }
 }

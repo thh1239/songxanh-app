@@ -12,10 +12,12 @@ public class Exercise implements Serializable {
     private int count;
     private double caloriesPerUnit;
     private String categoryId;
+// == Tính toán và hiển thị tổng calo ==
 
     public String getMuscleGroup() {
         return muscleGroup;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setMuscleGroup(String muscleGroup) {
         this.muscleGroup = muscleGroup;
@@ -64,51 +66,63 @@ public class Exercise implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public String getImageUrl() {
         return imageUrl;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public String getStartingPosition() {
         return startingPosition;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setStartingPosition(String startingPosition) {
         this.startingPosition = startingPosition;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public String getExecution() {
         return execution;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setExecution(String execution) {
         this.execution = execution;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public String getUnit() {
         return unit;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setUnit(String unit) {
         this.unit = unit;
     }
+// == Tính toán và hiển thị tổng calo ==
 
 
     public int getCount() {
         return count;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setCount(int count) {
         this.count = count;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public double getCaloriesPerUnit() {
         return caloriesPerUnit;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setCaloriesPerUnit(double caloriesPerUnit) {
         this.caloriesPerUnit = caloriesPerUnit;

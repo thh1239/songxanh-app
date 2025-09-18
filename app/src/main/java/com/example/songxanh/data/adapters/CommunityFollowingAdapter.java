@@ -31,6 +31,7 @@ public class CommunityFollowingAdapter extends RecyclerView.Adapter<CommunityFol
 
     @NonNull
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.following_today_activity_layout, parent, false);
 
@@ -38,6 +39,7 @@ public class CommunityFollowingAdapter extends RecyclerView.Adapter<CommunityFol
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FollowingActivity activity = activities.get(position);
         if (activity.getUserAvatarUrl() != null) {
@@ -52,6 +54,7 @@ public class CommunityFollowingAdapter extends RecyclerView.Adapter<CommunityFol
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public int getItemCount() {
         return activities.size();
     }
@@ -72,6 +75,7 @@ public class CommunityFollowingAdapter extends RecyclerView.Adapter<CommunityFol
             foodCaloriesTv  = itemView.findViewById(R.id.following_food_calories_tv);
         }
     }
+// == Thêm mới dữ liệu hoặc item ==
 
     public void addAll(List<FollowingActivity> newActivities) {
         activities.clear();

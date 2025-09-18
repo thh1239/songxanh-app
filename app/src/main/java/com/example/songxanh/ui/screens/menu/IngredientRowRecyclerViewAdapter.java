@@ -18,6 +18,7 @@ import java.util.List;
 
 public class IngredientRowRecyclerViewAdapter extends RecyclerView.Adapter<IngredientRowRecyclerViewAdapter.IngredientRowViewHolder> {
     Context context;
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void setIngredientArrayList(ArrayList<Ingredient> ingredientArrayList) {
         this.ingredientArrayList = ingredientArrayList;
@@ -39,6 +40,7 @@ public class IngredientRowRecyclerViewAdapter extends RecyclerView.Adapter<Ingre
     }
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public void onBindViewHolder(@NonNull IngredientRowRecyclerViewAdapter.IngredientRowViewHolder holder, int position) {
         holder.tvIngredientName.setText(ingredientArrayList.get(position).getName());
         holder.tvIngredientCalories.setText(GlobalMethods.formatDoubleToString(ingredientArrayList.get(position).getCalories()));
@@ -47,6 +49,7 @@ public class IngredientRowRecyclerViewAdapter extends RecyclerView.Adapter<Ingre
     }
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public int getItemCount() {
         return ingredientArrayList == null? 0 : ingredientArrayList.size();
     }

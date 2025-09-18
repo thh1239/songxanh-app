@@ -44,6 +44,7 @@ public class FindIngredientFragment extends Fragment implements
     public FindIngredientFragment() { }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
         findIngredientVM = provider.get(FindIngredientVM.class);            // 🔹 Share VM: nguồn dữ liệu tìm kiếm/ personal/ favorite
@@ -56,7 +57,6 @@ public class FindIngredientFragment extends Fragment implements
 
         operation = requireArguments().getString("operation");              // 🔹 Phân biệt flow "add" hay "edit" bữa ăn
 
-        // 🔹 Khởi tạo 2 RecyclerView: danh sách đề cử & danh sách cá nhân
         adapter = new IngredientNameRecyclerViewAdapter(
                 this.getContext(),
                 findIngredientVM.ingredientInfoArrayList.getValue(),
@@ -73,7 +73,6 @@ public class FindIngredientFragment extends Fragment implements
         binding.personalIngredientSearchResults.setLayoutManager(new LinearLayoutManager(this.getContext()));
         binding.personalIngredientSearchResults.setAdapter(personalIngredientAdapter);
 
-        // 🔹 Điều hướng
         binding.findIngredientBackButton.setOnClickListener(v ->
                 GlobalMethods.backToPreviousFragment(FindIngredientFragment.this)
         );
@@ -86,17 +85,17 @@ public class FindIngredientFragment extends Fragment implements
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // 🔹 Tải dữ liệu ban đầu: personal + đề cử + favorite (để fallback khi không có kết quả)
         findIngredientVM.loadAllPersonal();
         findIngredientVM.loadAllRecommended();
         findIngredientVM.fetchFavoriteIngredients();
 
-        // 🔹 Tìm kiếm khi nhấn enter trên ô search
         binding.findIngredientSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 String searchQuery = binding.findIngredientSearch.getText().toString();
                 findIngredientVM.searchBoth(searchQuery);
@@ -104,9 +103,9 @@ public class FindIngredientFragment extends Fragment implements
             }
         });
 
-        // 🔹 Lắng nghe dữ liệu danh sách đề cử để hiển thị
         findIngredientVM.getIngredientInfoArrayList().observe(getViewLifecycleOwner(), new Observer<ArrayList<IngredientInfo>>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onChanged(ArrayList<IngredientInfo> ingredientInfoArrayList) {
                 binding.searchResultsTv.setText("Nguyên liệu đề cử");
                 binding.ingredientSearchResults.setVisibility(View.VISIBLE);
@@ -115,9 +114,9 @@ public class FindIngredientFragment extends Fragment implements
             }
         });
 
-        // 🔹 Lắng nghe dữ liệu personal để hiển thị
         findIngredientVM.getPersonalIngredientInfoArrayList().observe(getViewLifecycleOwner(), new Observer<ArrayList<IngredientInfo>>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onChanged(ArrayList<IngredientInfo> ingredientInfoArrayList) {
                 binding.personalIngredientTv.setVisibility(View.VISIBLE);
                 binding.personalIngredientTv.setText("Nguyên liệu cá nhân");
@@ -127,9 +126,9 @@ public class FindIngredientFragment extends Fragment implements
             }
         });
 
-        // 🔹 Fallback: nếu danh sách đề cử đang rỗng thì hiển thị danh sách favorite đã fetch
         findIngredientVM.favoriteIngredient.observe(getViewLifecycleOwner(), new Observer<ArrayList<IngredientInfo>>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onChanged(ArrayList<IngredientInfo> ingredientInfoArrayList) {
                 if (findIngredientVM.ingredientInfoArrayList.getValue() == null
                         || findIngredientVM.ingredientInfoArrayList.getValue().isEmpty()) {
@@ -141,14 +140,15 @@ public class FindIngredientFragment extends Fragment implements
             }
         });
 
-        // 🔹 Vuốt-xóa trên danh sách personal (xác nhận trước khi xóa)
         ItemTouchHelper.SimpleCallback swipeToDeletePersonal =
                 new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
                     public boolean onMove(@NonNull RecyclerView rv, @NonNull RecyclerView.ViewHolder vh, @NonNull RecyclerView.ViewHolder target) {
                         return false;
                     }
                     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         int position = viewHolder.getAdapterPosition();
                         ArrayList<IngredientInfo> list = findIngredientVM.getPersonalIngredientInfoArrayList().getValue();
@@ -174,8 +174,9 @@ public class FindIngredientFragment extends Fragment implements
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onViewIngredientInfoClick(int position, int recyclerViewId) {
-        // 🔹 Mở màn chi tiết IngredientInfo; tại đó người dùng mới bấm "Thêm vào yêu thích" để lưu personal
+
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);
         if (recyclerViewId == binding.ingredientSearchResults.getId()) {
@@ -190,7 +191,7 @@ public class FindIngredientFragment extends Fragment implements
     }
 
     private void addToIngredients(Ingredient tempIngredient) {
-        // 🔹 Thêm nguyên liệu vào list nguyên liệu của bữa ăn (tùy theo flow add/edit)
+
         ArrayList<Ingredient> tempList;
         if ("add".equals(operation)) {
             tempList = addMealVM.getIngredients().getValue();
@@ -207,7 +208,7 @@ public class FindIngredientFragment extends Fragment implements
     }
 
     private Ingredient createTempIngredient(IngredientInfo selectedIngredientInfo) {
-        // 🔹 Tạo bản tạm 100g để cộng dinh dưỡng nhanh khi thêm vào bữa ăn
+
         String name = safeName(selectedIngredientInfo);
         Ingredient tempIngredient = new Ingredient();
         tempIngredient.setWeight(100);
@@ -220,8 +221,9 @@ public class FindIngredientFragment extends Fragment implements
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onIngredientInfoNameClick(int position, int recyclerViewId) {
-        // 🔹 Click vào tên trong list: CHỈ thêm vào bữa ăn (nếu đang add/edit), KHÔNG lưu vào personal
+
         IngredientInfo selectedIngredientInfo;
         if (recyclerViewId == binding.ingredientSearchResults.getId()) {
             if (findIngredientVM.ingredientInfoArrayList.getValue() == null
@@ -243,7 +245,7 @@ public class FindIngredientFragment extends Fragment implements
     }
 
     private void updateEmptyStates() {
-        // 🔹 Đảm bảo các section luôn hiện khi có dữ liệu
+
         binding.personalIngredientTv.setVisibility(View.VISIBLE);
         binding.personalIngredientSearchResults.setVisibility(View.VISIBLE);
         binding.searchResultsTv.setVisibility(View.VISIBLE);
@@ -251,7 +253,7 @@ public class FindIngredientFragment extends Fragment implements
     }
 
     private String safeName(IngredientInfo info) {
-        // 🔹 Tránh NPE khi lấy tên
+
         String name = info != null ? info.getShort_Description() : null;
         return name == null ? "" : name;
     }

@@ -22,35 +22,36 @@ public class ExercisePracticingPageAdapter extends PagerAdapter {
     private Context context;
     private List<Exercise> exercises;
     private ViewPager viewPager;
-//    private CountDownTimer timer;
+
 
     public ExercisePracticingPageAdapter(Context context,  List<Exercise> exercises) {
         this.context = context;
         this.exercises = exercises;
     }
+// == Load ảnh bằng Glide và hiển thị ==
     public void setViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
     }
 
     @NonNull
     @Override
+// == Load ảnh bằng Glide và hiển thị ==
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         Exercise exercise = exercises.get(position);
         LayoutInflater inflater = LayoutInflater.from(context);
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.workout_practicing_page_layout, container, false);
-        // Set data from exercise list into layout
+
         TextView name = layout.findViewById(R.id.exercise_practicing_name_tv);        ImageView image = layout.findViewById(R.id.exercise_practicing_image);
 
-//        TextView timeOrRep = layout.findViewById(R.id.exercise_practicing_time_or_rep_tv);
         TextView startingPosition = layout.findViewById(R.id.exercise_practicing_starting_position_tv);
         TextView execution = layout.findViewById(R.id.exercise_practicing_execution_tv);
         Glide.with(context).load(exercise.getImageUrl()).into(image);
         name.setText(exercise.getName().toUpperCase());
-//        if (exercise.getUnit().equals("reps")) {
-//            timeOrRep.setText(String.valueOf(exercise.getCount()));
-//        } else {
-//            timeOrRep.setText(GlobalMethods.convertTimeInSeconds(exercise.getCount()));
-//        }
+
+
+
+
+
         startingPosition.setText(exercise.getStartingPosition());
         execution.setText(exercise.getExecution());
 
@@ -60,7 +61,7 @@ public class ExercisePracticingPageAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-//        super.destroyItem(container, position, object);
+
         container.removeView((View) object);
     }
 

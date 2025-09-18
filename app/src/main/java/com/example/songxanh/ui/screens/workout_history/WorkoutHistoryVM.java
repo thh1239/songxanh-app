@@ -29,6 +29,7 @@ public class WorkoutHistoryVM extends ViewModel {
     public WorkoutHistoryVM() {
         loadExercisesFromDb();
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public void loadExercisesFromDb() {
         firestore.collection("users").document(auth.getCurrentUser().getUid())
@@ -49,8 +50,6 @@ public class WorkoutHistoryVM extends ViewModel {
                 });
     }
 
-
-    // GETTERS AND SETTERS
     public MutableLiveData<List<Exercise>> getExercisesToday() {
         return exercisesToday;
     }

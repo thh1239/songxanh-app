@@ -37,7 +37,6 @@ public class AdminCommunityVM extends ViewModel {
         fetchReportCount();
         query = db.collection("reports").limit(pageSize);
 
-//        loadMore();
 
     }
 
@@ -57,6 +56,7 @@ public class AdminCommunityVM extends ViewModel {
     public void setPendingReportList(MutableLiveData<ArrayList<Report>> pendingReportList) {
         this.pendingReportList = pendingReportList;
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public void fetchPendingReportList() {
         db.collection("reports").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -70,13 +70,14 @@ public class AdminCommunityVM extends ViewModel {
                     }
                     if (!tempList.isEmpty()) {
                         pendingReportList.postValue(tempList);
-                        // update lastVisibleDocument here
+
                         lastVisibleDocument = task.getResult().getDocuments().get(task.getResult().size() - 1);
                     }
                 }
             }
         });
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public void loadMore() {
         Query newQuery;
@@ -99,13 +100,14 @@ public class AdminCommunityVM extends ViewModel {
                         ArrayList<Report> currentList = pendingReportList.getValue();
                         currentList.addAll(tempList);
                         pendingReportList.postValue(currentList);
-                        // update lastVisibleDocument with the last DocumentSnapshot fetched
+
                         lastVisibleDocument = task.getResult().getDocuments().get(task.getResult().size() - 1);
                     }
                 }
             }
         });
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public void fetchReportCount() {
         db.collection("count").document("reports_count").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -148,6 +150,7 @@ public class AdminCommunityVM extends ViewModel {
         reportCount.postValue(temp - 1);
         db.collection("count").document("reports_count").update("count", temp - 1);
     }
+// == Xóa dữ liệu hoặc item ==
 
     public void deletePost(int position) {
         db.collection("achievements").document(pendingReportList.getValue().get(position).getAchievementId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -161,6 +164,7 @@ public class AdminCommunityVM extends ViewModel {
     public interface FetchDataCallback {
         void onCallback(Achievement achievement);
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public void fetchAchievementDetails(int position, FetchDataCallback callback) {
         String achievementId = pendingReportList.getValue().get(position).getAchievementId();

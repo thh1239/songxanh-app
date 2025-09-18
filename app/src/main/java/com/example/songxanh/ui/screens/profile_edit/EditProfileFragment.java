@@ -65,6 +65,7 @@ public class EditProfileFragment extends Fragment {
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -74,6 +75,7 @@ public class EditProfileFragment extends Fragment {
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false);
@@ -110,37 +112,37 @@ public class EditProfileFragment extends Fragment {
             }
 
         });
-//        binding.editemailEdt.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                String newEmail = binding.editemailEdt.getText().toString();
-//                if (!newEmail.equals(user.getEmail())) {
-//                    if (binding.editemailEdt.getText().toString().isEmpty()) {
-//                        binding.tickIcon2.setVisibility(View.GONE);
-//                        isValidEmail = false;
-//                    } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.editemailEdt.getText().toString()).matches()) {
-//                        binding.tickIcon2.setVisibility(View.GONE);
-//                        isValidEmail = false;
-//                    } else {
-//                        binding.tickIcon2.setVisibility(View.VISIBLE);
-//                        isValidEmail = true;
-//                    }
-//                } else {
-//                    binding.tickIcon2.setVisibility(View.GONE);
-//                    isValidEmail = true;
-//                }
-//
-//            }
-//        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         binding.editdateEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -236,9 +238,10 @@ public class EditProfileFragment extends Fragment {
 
         binding.editprofileSavebtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 if ((binding.tickIcon1.getVisibility() == View.GONE
-//                        && binding.tickIcon2.getVisibility() == View.GONE
+
                         && binding.tickIcon3.getVisibility() == View.GONE
                         && binding.tickIcon4.getVisibility() == View.GONE
                         && binding.tickIcon5.getVisibility() == View.GONE)) {
@@ -257,7 +260,7 @@ public class EditProfileFragment extends Fragment {
                     }
                     updateUserData(editProfileVM.getUser().getUid(),
                             binding.editnameEdt.getText().toString().trim(),
-//                            binding.editemailEdt.getText().toString().trim(),
+
                             date,
                             binding.editphoneEdt.getText().toString().trim(),
                             binding.editaddressEdt.getText().toString().trim());
@@ -271,6 +274,7 @@ public class EditProfileFragment extends Fragment {
 
         binding.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavController navController = NavHostFragment.findNavController(EditProfileFragment.this);
                 navController.popBackStack();
@@ -285,28 +289,29 @@ public class EditProfileFragment extends Fragment {
             public void onChanged(Boolean isLoadingData) {
                 if (isLoadingData != null && !isLoadingData) {
                     binding.editnameEdt.setText(editProfileVM.getUser().getName());
-//        binding.editemailEdt.setText(((NormalUser) user).getEmail());
+
                     String dateStr = formatter.format(editProfileVM.getUser().getDateOfBirth());
                     binding.editdateEdt.setText(dateStr);
                     binding.editphoneEdt.setText(editProfileVM.getUser().getPhone());
                     binding.editaddressEdt.setText(editProfileVM.getUser().getAddress());
                 } else {
-//                    binding.editnameEdt.setText("");
-////        binding.editemailEdt.setText(((NormalUser) user).getEmail());
-//                    String dateStr = formatter.format("");
-//                    binding.editdateEdt.setText(dateStr);
-//                    binding.editphoneEdt.setText("");
-//                    binding.editaddressEdt.setText("");
+
+
+
+
+
+
                 }
             }
         });
 
     }
+// == Cập nhật dữ liệu và UI liên quan ==
 
     public void updateUserData(String userId, String name, Date dateOfBirth, String phone, String address) {
         Map<String, Object> data = new HashMap<>();
         data.put("name", name);
-//        data.put("email", email);
+
         data.put("dateOfBirth", new Timestamp(dateOfBirth));
         data.put("phone", phone);
         data.put("address", address);
@@ -319,13 +324,14 @@ public class EditProfileFragment extends Fragment {
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getContext(), "User data updated successfully", Toast.LENGTH_SHORT).show();
                         binding.tickIcon1.setVisibility(View.GONE);
-//                        binding.tickIcon2.setVisibility(View.GONE);
+
                         binding.tickIcon3.setVisibility(View.GONE);
                         binding.tickIcon4.setVisibility(View.GONE);
                         binding.tickIcon5.setVisibility(View.GONE);
 
                         mainVM.loadUser(new MainVM.UserLoadCallback() {
                             @Override
+// == Tải dữ liệu và hiển thị lên UI ==
                             public void onUserLoaded(User user) {
 
                             }
@@ -340,40 +346,37 @@ public class EditProfileFragment extends Fragment {
                             mainVM.updateKeyword(name);
                         }
 
-//                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-//                        FirebaseUser user = mAuth.getCurrentUser();
 
 
-//                        UserInfo userInfo = (UserInfo) user.getProviderData();
-//
-//                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), userInfo.getEmail()); // Replace password with the user's current password
-//                        user.reauthenticate(credential)
-//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void aVoid) {
-//                                        // User is re-authenticated, can now update email
-//                                        user.updateEmail(binding.editemailEdt.getText().toString())
-//                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                                    @Override
-//                                                    public void onSuccess(Void aVoid) {
-//                                                        // Email update successful
-//                                                    }
-//                                                })
-//                                                .addOnFailureListener(new OnFailureListener() {
-//                                                    @Override
-//                                                    public void onFailure(@NonNull Exception e) {
-//                                                        // Handle email update failure
-//                                                    }
-//                                                });
-//                                    }
-//                                })
-//                                .addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        // Handle re-authentication failure
-//                                    }
-//                                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                     }
                 })

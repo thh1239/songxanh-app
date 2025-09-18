@@ -36,6 +36,7 @@ public class SearchUsersAdapter extends RecyclerView.Adapter<SearchUsersAdapter.
 
     @NonNull
     @Override
+// == Load ảnh bằng Glide và hiển thị ==
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.search_user_item, parent, false);
 
@@ -43,6 +44,7 @@ public class SearchUsersAdapter extends RecyclerView.Adapter<SearchUsersAdapter.
     }
 
     @Override
+// == Load ảnh bằng Glide và hiển thị ==
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (result.get(position).getImageUrl() == null || result.get(position).getImageUrl().isEmpty()) {
             holder.avatarImg.setImageResource(R.drawable.default_profile_image);
@@ -55,6 +57,7 @@ public class SearchUsersAdapter extends RecyclerView.Adapter<SearchUsersAdapter.
         }
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Điều hướng sang màn hình khác ==
             public void onClick(View view) {
                 CommunitySearchFragmentDirections.ActionCommunitySearchFragmentToCommunityUserProfileFragment action =
                         CommunitySearchFragmentDirections.actionCommunitySearchFragmentToCommunityUserProfileFragment(result.get(position).getUid());
@@ -64,6 +67,7 @@ public class SearchUsersAdapter extends RecyclerView.Adapter<SearchUsersAdapter.
     }
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public int getItemCount() {
         return result.size();
     }

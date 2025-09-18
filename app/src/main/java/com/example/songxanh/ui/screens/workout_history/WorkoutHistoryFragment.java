@@ -32,9 +32,10 @@ public class WorkoutHistoryFragment extends Fragment {
     private WorkoutHistoryExercisesAdapter adapter;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding =  FragmentWorkoutHistoryBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(WorkoutHistoryVM.class);
         binding.setWorkoutHistoryVM(viewModel);
@@ -49,6 +50,7 @@ public class WorkoutHistoryFragment extends Fragment {
 
         viewModel.getExercisesToday().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onChanged(List<Exercise> exercises) {
                 adapter.setNewData(exercises);
                 adapter.notifyDataSetChanged();
@@ -61,6 +63,7 @@ public class WorkoutHistoryFragment extends Fragment {
     private void setOnClick() {
         binding.appBar.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(WorkoutHistoryFragment.this);
             }
@@ -68,6 +71,7 @@ public class WorkoutHistoryFragment extends Fragment {
 
         binding.calendarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onClick(View view) {
                 final Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
@@ -78,6 +82,7 @@ public class WorkoutHistoryFragment extends Fragment {
                         requireContext(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
                             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                                 Date newDate = new GregorianCalendar(year, month, dayOfMonth).getTime();
                                 viewModel.setSelectedDate(newDate);

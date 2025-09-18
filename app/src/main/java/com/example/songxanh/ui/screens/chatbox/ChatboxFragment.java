@@ -43,6 +43,7 @@ public class ChatboxFragment extends Fragment {
     public ChatboxFragment() {}
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentChatboxBinding.inflate(inflater, container, false);
@@ -50,6 +51,7 @@ public class ChatboxFragment extends Fragment {
     }
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -196,6 +198,7 @@ public class ChatboxFragment extends Fragment {
                         }
 
                         @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
                         public void onError(String errorMessage) {
                             mainHandler.post(() -> {
                                 if (loadingIndex >= 0 && loadingIndex < messages.size()
@@ -224,6 +227,7 @@ public class ChatboxFragment extends Fragment {
 
             GeminiService.callGeminiAPI(message, new GeminiService.OnApiResponseListener() {
                 @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
                 public void onResponse(String response) {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
@@ -260,6 +264,7 @@ public class ChatboxFragment extends Fragment {
                 }
 
                 @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
                 public void onError(String errorMessage) {
                     mainHandler.post(() -> {
                         if (loadingIndex >= 0 && loadingIndex < messages.size()

@@ -35,6 +35,7 @@ public class SignUpVM extends ViewModel {
     private Pattern pattern = Pattern.compile(passwordRegex);
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void signUpWithEmailAndPassword() {
         validate();
@@ -86,7 +87,7 @@ public class SignUpVM extends ViewModel {
         if ( confirmPassword.getValue() == null || confirmPassword.getValue().isEmpty()) {
             confirmPasswordError.setValue("You must confirm password.");
         } else if (!confirmPassword.getValue().equals(password.getValue())) {
-//            Log.i("Password", confirmPassword.getValue())
+
             confirmPasswordError.setValue("Confirm password must same with password");
         } else {
             confirmPasswordError.setValue(null);
@@ -154,6 +155,7 @@ public class SignUpVM extends ViewModel {
     public MutableLiveData<String> getToastMessage() {
         return toastMessage;
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;

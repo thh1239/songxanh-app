@@ -36,17 +36,17 @@ public class AdminCommunityFragment extends Fragment implements
     private int lastVisibleItem, totalItemCount;
 
     public AdminCommunityFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
         adminCommunityVM = provider.get(AdminCommunityVM.class);
         binding = FragmentAdminCommunityBinding.inflate(inflater, container, false);
 
-        // [UI INIT] Đảm bảo adapter không nhận list null để tránh NPE khi set dữ liệu lần đầu
         ArrayList<Report> initial = adminCommunityVM.pendingReportList.getValue();
         if (initial == null) initial = new ArrayList<>();
         adapter = new ReportRecyclerViewAdapter(this.getContext(), initial, this, this, this);
@@ -59,6 +59,7 @@ public class AdminCommunityFragment extends Fragment implements
 
         binding.reportRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 totalItemCount = linearLayoutManager.getItemCount();
@@ -66,7 +67,6 @@ public class AdminCommunityFragment extends Fragment implements
                 Log.d("total item count", "totalItemCount: " + totalItemCount);
                 Log.d("last visible item", "lastVisibleItem: " + lastVisibleItem);
 
-                // [PAGINATION GUARD] Chặn load trùng khi đang loading
                 if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
                     Log.d("Scrolling", "onScrolled: loadMore is called");
                     loadMore();
@@ -83,6 +83,7 @@ public class AdminCommunityFragment extends Fragment implements
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void run() {
                 adminCommunityVM.loadMore();
                 isLoading = false;
@@ -91,13 +92,15 @@ public class AdminCommunityFragment extends Fragment implements
     }
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         adminCommunityVM.pendingReportList.observe(getViewLifecycleOwner(), new Observer<ArrayList<Report>>() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onChanged(ArrayList<Report> reportArrayList) {
-                // [UI BIND] Null-safe khi cập nhật list
+
                 if (reportArrayList == null) reportArrayList = new ArrayList<>();
                 adapter.setReportArrayList(reportArrayList);
             }
@@ -115,17 +118,19 @@ public class AdminCommunityFragment extends Fragment implements
 
     @Override
     public void onItemApprove(int position) {
-        // [ACTION] Admin duyệt bài → ViewModel sẽ tự giảm/pull dữ liệu, fragment chỉ chuyển sự kiện
+
         adminCommunityVM.approvePost(position);
     }
 
     @Override
+// == Xóa dữ liệu hoặc item ==
     public void onItemDelete(int position) {
-        // [ACTION] Admin xoá bài
+
         adminCommunityVM.deletePost(position);
     }
 
     @Override
+// == Xử lý sự kiện click từ người dùng ==
     public void onItemDetailsClick(int position) {
         adminCommunityVM.fetchAchievementDetails(position, new AdminCommunityVM.FetchDataCallback() {
             @Override

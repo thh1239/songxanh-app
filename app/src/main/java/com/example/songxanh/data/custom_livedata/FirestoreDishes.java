@@ -70,6 +70,7 @@ public class FirestoreDishes extends LiveData<ArrayList<Dish>> {
     }
 
     @Override
+// == Xác thực người dùng với FirebaseAuth ==
     protected void onActive() {
         super.onActive();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -135,6 +136,7 @@ public class FirestoreDishes extends LiveData<ArrayList<Dish>> {
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     protected void onInactive() {
         super.onInactive();
         if (listenerRegistration != null) {
@@ -142,6 +144,7 @@ public class FirestoreDishes extends LiveData<ArrayList<Dish>> {
             listenerRegistration = null;
         }
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void addDish(Dish newDish) {
         if (dailyActivityRef != null) {
@@ -166,6 +169,7 @@ public class FirestoreDishes extends LiveData<ArrayList<Dish>> {
             });
         }
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void deleteDish(Dish dishToDelete) {
         if (dailyActivityRef != null) {
@@ -184,6 +188,7 @@ public class FirestoreDishes extends LiveData<ArrayList<Dish>> {
             });
         }
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void updateDishes(List<Dish> newDishes) {
         if (dailyActivityRef != null) {

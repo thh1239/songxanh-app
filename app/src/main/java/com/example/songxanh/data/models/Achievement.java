@@ -31,34 +31,42 @@ public class Achievement implements Serializable {
         this.date = date;
         this.createdTime = createdTime;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getCalories() {
         return calories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setCalories(int calories) {
         this.calories = calories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getSteps() {
         return steps;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setSteps(int steps) {
         this.steps = steps;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getExerciseCalories() {
         return exerciseCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setExerciseCalories(int exerciseCalories) {
         this.exerciseCalories = exerciseCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getFoodCalories() {
         return foodCalories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setFoodCalories(int foodCalories) {
         this.foodCalories = foodCalories;

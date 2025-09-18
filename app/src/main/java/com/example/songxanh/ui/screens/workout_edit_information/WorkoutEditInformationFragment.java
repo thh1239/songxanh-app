@@ -30,6 +30,7 @@ public class WorkoutEditInformationFragment extends Fragment {
     private double defaultCalories = 0;
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(WorkoutEditInformationVM.class);
@@ -37,14 +38,14 @@ public class WorkoutEditInformationFragment extends Fragment {
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding =  FragmentWorkoutEditInformationBinding.inflate(inflater, container, false);
         binding.setWorkoutEditInformationVM(viewModel);
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
-        // Update default information
         exercise = new Exercise(WorkoutEditInformationFragmentArgs.fromBundle(getArguments()).getExercise());
         defaultCalories = exercise.getCaloriesPerUnit();
         defaultCount = exercise.getCount();
@@ -52,7 +53,6 @@ public class WorkoutEditInformationFragment extends Fragment {
         viewModel.setDefaultCalories(defaultCalories);
         viewModel.setDefaultCount(defaultCount);
 
-        // Display exercise information
         binding.exerciseNameTv.setText(exercise.getName().toUpperCase());
         Glide.with(this).load(exercise.getImageUrl()).into(binding.exerciseImage);
 
@@ -79,6 +79,7 @@ public class WorkoutEditInformationFragment extends Fragment {
 
         viewModel.getReps().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onChanged(String reps) {
                 if (reps != null) {
                     double newCalories = reps.isEmpty() ? 0 : Integer.parseInt(reps) / defaultCount * defaultCalories;
@@ -105,6 +106,7 @@ public class WorkoutEditInformationFragment extends Fragment {
 
         viewModel.getSeconds().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onChanged(String second) {
                 int hourInSecond = viewModel.getHours().getValue().isEmpty() ? 0 :  Integer.parseInt(viewModel.getHours().getValue()) * 3600;
                 int minuteInSecond = viewModel.getMinutes().getValue().isEmpty() ? 0 : Integer.parseInt(viewModel.getMinutes().getValue()) * 60;
@@ -117,6 +119,7 @@ public class WorkoutEditInformationFragment extends Fragment {
 
         viewModel.getMinutes().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onChanged(String minute) {
                 int hourInSecond = viewModel.getHours().getValue().isEmpty() ? 0 :  Integer.parseInt(viewModel.getHours().getValue()) * 3600;
                 int minuteInSecond = viewModel.getMinutes().getValue().isEmpty() ? 0 : Integer.parseInt(viewModel.getMinutes().getValue()) * 60;
@@ -129,6 +132,7 @@ public class WorkoutEditInformationFragment extends Fragment {
 
         viewModel.getHours().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onChanged(String hour) {
                 int hourInSecond = viewModel.getHours().getValue().isEmpty() ? 0 :  Integer.parseInt(viewModel.getHours().getValue()) * 3600;
                 int minuteInSecond = viewModel.getMinutes().getValue().isEmpty() ? 0 : Integer.parseInt(viewModel.getMinutes().getValue()) * 60;
@@ -143,6 +147,7 @@ public class WorkoutEditInformationFragment extends Fragment {
     private void setOnClick() {
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(WorkoutEditInformationFragment.this);
             }
@@ -151,9 +156,10 @@ public class WorkoutEditInformationFragment extends Fragment {
 
         binding.submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View view) {
                 if (viewModel.getCalories().getValue() != "0") {
-                    // update count and calories
+
                     int newCount = 0;
                     if (viewModel.getReps().getValue() != null) {
                         newCount = viewModel.getReps().getValue().isEmpty() ? 0 : Integer.parseInt(viewModel.getReps().getValue());
@@ -167,9 +173,8 @@ public class WorkoutEditInformationFragment extends Fragment {
                     exercise.setCount(newCount);
                     exercise.setCaloriesPerUnit(newCalories);
 
-                    // add to selected list
                     workoutCategoryExercisesVM.addExerciseToTempList(exercise);
-                    // back
+
                     GlobalMethods.backToPreviousFragment(WorkoutEditInformationFragment.this);
                 }
             }

@@ -20,21 +20,20 @@ public class NewIngredientAddedFragment extends Fragment {
     private AddPersonalIngredientVM viewModel;
 
     public NewIngredientAddedFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Khởi tạo ViewModel
+
         viewModel = new ViewModelProvider(requireActivity()).get(AddPersonalIngredientVM.class);
 
-        // Khởi tạo binding
         binding = FragmentNewIngredientAddedBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(getViewLifecycleOwner());
         binding.setViewModel(viewModel);
 
-        // Bind dữ liệu Ingredient nếu có
         if (viewModel.getNewIngredient().getValue() != null) {
             binding.calories.setText(
                     GlobalMethods.formatDoubleToString(viewModel.getNewIngredient().getValue().getCalories()));
@@ -46,18 +45,14 @@ public class NewIngredientAddedFragment extends Fragment {
                     GlobalMethods.formatDoubleToString(viewModel.getNewIngredient().getValue().getCarbs()));
         }
 
-        // Nút Back trên toolbar
         binding.newIngredientAddedToolbar.setOnClickListener(v -> exitScreen());
 
-        // Nút xác nhận
         binding.newIngredientConfirmButton.setOnClickListener(v -> exitScreen());
 
         return binding.getRoot();
     }
 
-    /**
-     * Thoát màn hình + nếu có chọn checkbox thì đẩy ingredient vào pending list
-     */
+    
     private void exitScreen() {
         if (binding.submitCheckbox.isChecked()) {
             viewModel.addToPendingList();

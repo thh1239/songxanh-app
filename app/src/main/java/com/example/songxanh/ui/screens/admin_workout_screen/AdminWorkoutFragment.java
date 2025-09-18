@@ -31,6 +31,7 @@ public class AdminWorkoutFragment extends Fragment implements AdminWorkoutCatego
     public AdminWorkoutFragment() {}
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(requireActivity()).get(AdminWorkoutVM.class);
@@ -45,10 +46,10 @@ public class AdminWorkoutFragment extends Fragment implements AdminWorkoutCatego
         binding.adminWorkoutMuscleCategory.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.adminWorkoutMuscleCategory.setAdapter(adapter);
 
-        // Attach swipe-to-delete
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public boolean onMove(@NonNull RecyclerView rv,
                                   @NonNull RecyclerView.ViewHolder vh,
                                   @NonNull RecyclerView.ViewHolder target) {
@@ -56,6 +57,7 @@ public class AdminWorkoutFragment extends Fragment implements AdminWorkoutCatego
             }
 
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onSwiped(@NonNull RecyclerView.ViewHolder vh, int direction) {
                 int pos = vh.getAdapterPosition();
                 List<WorkoutCategory> list = viewModel.getWorkoutCategories().getValue();
@@ -94,6 +96,7 @@ public class AdminWorkoutFragment extends Fragment implements AdminWorkoutCatego
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel.getWorkoutCategories().observe(getViewLifecycleOwner(), categories -> {
@@ -103,6 +106,7 @@ public class AdminWorkoutFragment extends Fragment implements AdminWorkoutCatego
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCategoryDetailsClick(int position) {
         List<WorkoutCategory> list = viewModel.getWorkoutCategories().getValue();
         if (list == null || position < 0 || position >= list.size()) return;
@@ -117,6 +121,7 @@ public class AdminWorkoutFragment extends Fragment implements AdminWorkoutCatego
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCategoryDeleteClick(int position, @NonNull WorkoutCategory category) {
         if (category.getId() == null || category.getId().isEmpty()) {
             Toast.makeText(requireContext(), "Danh mục chưa có ID – không thể xóa.", Toast.LENGTH_SHORT).show();

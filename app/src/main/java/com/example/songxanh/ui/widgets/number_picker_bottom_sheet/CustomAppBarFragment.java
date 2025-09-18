@@ -17,16 +17,18 @@ public class CustomAppBarFragment extends Fragment {
     private FragmentCustomAppBarBinding binding;
 
     @Override
+// == Khởi tạo và thiết lập ban đầu cho màn hình ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding =  FragmentCustomAppBarBinding.inflate(inflater, container, true);
-//        binding.setLifecycleOwner(this);
+
 
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
-//                NavHostFragment.findNavController(CustomAppBarFragment.this).popBackStack();
+
             }
         });
 

@@ -40,6 +40,7 @@ public class AchievementDetailsVM extends ViewModel {
 
         dailyActivityRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot = task.getResult();
@@ -115,8 +116,6 @@ public class AchievementDetailsVM extends ViewModel {
                 });
     }
 
-
-    // GETTER AND SETTERS
     public MutableLiveData<Achievement> getAchievement() {
         return achievement;
     }
@@ -134,10 +133,12 @@ public class AchievementDetailsVM extends ViewModel {
     public void setExercises(MutableLiveData<List<Exercise>> exercises) {
         this.exercises = exercises;
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public MutableLiveData<Boolean> getIsLoadingFoods() {
         return isLoadingFoods;
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public MutableLiveData<Boolean> getIsLoadingExercises() {
         return isLoadingExercises;

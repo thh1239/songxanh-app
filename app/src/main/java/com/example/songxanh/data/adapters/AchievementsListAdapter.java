@@ -35,6 +35,7 @@ public class AchievementsListAdapter extends RecyclerView.Adapter<AchievementsLi
 
     @NonNull
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.achievement_item, parent, false);
 
@@ -42,6 +43,7 @@ public class AchievementsListAdapter extends RecyclerView.Adapter<AchievementsLi
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Achievement achievement = achievements.get(position);
         holder.userNameTv.setText(achievement.getUserName());
@@ -59,6 +61,7 @@ public class AchievementsListAdapter extends RecyclerView.Adapter<AchievementsLi
 
         holder.detailsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Điều hướng sang màn hình khác ==
             public void onClick(View view) {
                 com.example.songxanh.ui.screens.community.CommunityFragmentDirections.ActionCommunityFragmentToAchievementDetailsFragment action =
                         CommunityFragmentDirections.actionCommunityFragmentToAchievementDetailsFragment(achievement);
@@ -68,6 +71,7 @@ public class AchievementsListAdapter extends RecyclerView.Adapter<AchievementsLi
 
         holder.menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View view) {
                 menuAction.showPopupMenu(achievement, holder.menuBtn);
             }
@@ -75,6 +79,7 @@ public class AchievementsListAdapter extends RecyclerView.Adapter<AchievementsLi
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public int getItemCount() {
         return achievements.size();
     }

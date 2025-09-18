@@ -24,10 +24,12 @@ public class WorkoutCategoriesVM extends ViewModel {
     public List<WorkoutCategory> getCategories() {
         return categories;
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public MutableLiveData<Boolean> getIsLoadingData() {
         return isLoadingData;
     }
+// == Thêm mới dữ liệu hoặc item ==
 
     public void loadData() {
         isLoadingData.setValue(true);
@@ -47,6 +49,6 @@ public class WorkoutCategoriesVM extends ViewModel {
                 }
             }
         });
-//        categories.add(new WorkoutCategory("1", "Chest", "https://firebasestorage.googleapis.com/v0/b/android-healthify.appspot.com/o/Barbell%20Bench%20Press.webp?alt=media&token=f7de1185-b59b-4600-858a-79410a460209"));
+
     }
 }

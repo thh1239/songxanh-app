@@ -41,19 +41,21 @@ public class WorkoutFragment extends Fragment implements ActionOnExerciseItem {
     private NavController navController;
 
     public WorkoutFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(WorkoutVM.class);
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding =  FragmentWorkoutBinding.inflate(inflater, container, false);
         binding.setWorkoutVM(viewModel);
         binding.setLifecycleOwner(getViewLifecycleOwner());
@@ -64,10 +66,7 @@ public class WorkoutFragment extends Fragment implements ActionOnExerciseItem {
         setOnClick();
 
 
-//        adapter = new WorkoutPageAdapter(this);
-//        binding.viewPager.setAdapter(adapter);
 
-//        setUpTabLayoutWithViewPager();
 
         return binding.getRoot();
     }
@@ -80,6 +79,7 @@ public class WorkoutFragment extends Fragment implements ActionOnExerciseItem {
 
         viewModel.getSelectedExercises().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onChanged(List<Exercise> exercises) {
                 if (!exercises.isEmpty()) {
                     adapter.setData(exercises);
@@ -91,6 +91,7 @@ public class WorkoutFragment extends Fragment implements ActionOnExerciseItem {
     private void setOnClick() {
         binding.addExerciseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(WorkoutFragment.this).navigate(R.id.action_workoutFragment_to_workoutCategoriesFragment);
             }
@@ -98,6 +99,7 @@ public class WorkoutFragment extends Fragment implements ActionOnExerciseItem {
 
         binding.startExercisesBtn.setOnClick(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(WorkoutFragment.this).navigate(R.id.action_workoutFragment_to_workoutExercisePracticingFragment);
             }
@@ -105,6 +107,7 @@ public class WorkoutFragment extends Fragment implements ActionOnExerciseItem {
 
         binding.favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(WorkoutFragment.this).navigate(R.id.action_workoutFragment_to_workoutFavoriteFragment);
             }
@@ -112,6 +115,7 @@ public class WorkoutFragment extends Fragment implements ActionOnExerciseItem {
 
         binding.historyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(WorkoutFragment.this).navigate(R.id.action_workoutFragment_to_workoutHistoryFragment);
             }
@@ -119,6 +123,7 @@ public class WorkoutFragment extends Fragment implements ActionOnExerciseItem {
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onInformationBtn(Exercise exercise) {
         com.example.songxanh.ui.screens.workout.WorkoutFragmentDirections.ActionWorkoutFragmentToWorkoutExerciseDetailsFragment action =
                 WorkoutFragmentDirections.actionWorkoutFragmentToWorkoutExerciseDetailsFragment(exercise);
@@ -126,26 +131,26 @@ public class WorkoutFragment extends Fragment implements ActionOnExerciseItem {
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onDelete(int position) {
         viewModel.removeSelectedExercise(position);
         adapter.removeItem(position);
         viewModel.recalculateSelectedExercisesCalories();
     }
 
-//    private void setUpTabLayoutWithViewPager() {
-//        new TabLayoutMediator(binding.tabLayout, binding.viewPager,  (tab, position) ->
-//            tab.setText(tabTitles[position])
-//        ).attach();
-//
-//        for (int i = 0; i < 3; i++) {
-//            RelativeLayout tabView = (RelativeLayout) LayoutInflater.from(requireContext()).inflate(R.layout.workout_tab_title, null);
-//
-//            TabLayout.Tab  tab = binding.tabLayout.getTabAt(i);
-//            if (tab != null) {
-//                tabView.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//                tabView.setPadding(0, 0, 0, 0);
-//                tab.setCustomView(tabView);
-//            }
-//        }
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

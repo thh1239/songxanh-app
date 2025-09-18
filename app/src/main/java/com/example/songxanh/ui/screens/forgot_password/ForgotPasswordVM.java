@@ -14,6 +14,7 @@ public class ForgotPasswordVM extends ViewModel {
     private MutableLiveData<String> email = new MutableLiveData<>("");
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private MutableLiveData<Boolean> isSent = new MutableLiveData<>(false);
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void sendResetPasswordEmail() {
         if (!email.getValue().isEmpty()) {

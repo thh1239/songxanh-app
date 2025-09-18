@@ -30,6 +30,7 @@ public class AdminPendingIngredientsFragment extends Fragment implements Pending
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
@@ -43,6 +44,7 @@ public class AdminPendingIngredientsFragment extends Fragment implements Pending
         binding.setViewModel(adminIngredientVM);
         binding.appBar.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onClick(View v) {
                 GlobalMethods.backToPreviousFragment(AdminPendingIngredientsFragment.this);
             }
@@ -54,16 +56,19 @@ public class AdminPendingIngredientsFragment extends Fragment implements Pending
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         adminIngredientVM.pendingIngredientList.observe(getViewLifecycleOwner(), new Observer<ArrayList<IngredientInfo>>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onChanged(ArrayList<IngredientInfo> ingredientInfoArrayList) {
                 adapter.setIngredientInfoArrayList(ingredientInfoArrayList);
             }
         });
         adminIngredientVM.pendingIngredientCount.observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onChanged(Integer integer) {
                 binding.unverifiedCount.setText(String.valueOf(integer));
             }
@@ -71,18 +76,20 @@ public class AdminPendingIngredientsFragment extends Fragment implements Pending
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onItemApprove(int position) {
         ArrayList<IngredientInfo> pendingList = adminIngredientVM.getPendingIngredientList().getValue();
-        // Thêm kiểm tra null và kiểm tra giới hạn để ngăn ngừa lỗi
+
         if (pendingList != null && position >= 0 && position < pendingList.size()) {
             adminIngredientVM.approveIngredient(position);
         }
     }
 
     @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void onItemDelete(int position) {
         ArrayList<IngredientInfo> pendingList = adminIngredientVM.getPendingIngredientList().getValue();
-        // Thêm kiểm tra null và kiểm tra giới hạn để ngăn ngừa lỗi
+
         if (pendingList != null && position >= 0 && position < pendingList.size()) {
             adminIngredientVM.deleteFromPendingList(position);
         }

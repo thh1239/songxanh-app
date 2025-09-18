@@ -33,6 +33,7 @@ public class AddExerciseFragment extends Fragment {
     public AddExerciseFragment() {}
 
     @Override
+// == Load ảnh bằng Glide và hiển thị ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         operation = requireArguments().getString("operation");
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());

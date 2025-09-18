@@ -27,6 +27,7 @@ public class ExerciseDetailVM extends ViewModel {
     public ExerciseDetailVM() {
         loadDataFromFb();
     }
+// == Tương tác với dịch vụ Firebase ==
 
     public void loadDataFromFb() {
         FirebaseConstants.dailyActivitiesRef.document(GlobalMethods.convertDateToHyphenSplittingFormat(new Date())).get()
@@ -38,6 +39,7 @@ public class ExerciseDetailVM extends ViewModel {
                             task.getResult().getReference().collection("workouts").get()
                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
+// == Tương tác với dịch vụ Firebase ==
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                             if (task.isSuccessful()) {
                                                 List<Exercise> temp = new ArrayList<>();
@@ -74,6 +76,7 @@ public class ExerciseDetailVM extends ViewModel {
     public MutableLiveData<List<Exercise>> getWorkouts() {
         return workouts;
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public MutableLiveData<Boolean> getIsLoaded() {
         return isLoaded;

@@ -54,11 +54,12 @@ public class ProfileChangeGoalsFragment extends Fragment {
     private MainVM mainVM;
 
     public ProfileChangeGoalsFragment() {
-        // Required empty public constructor
+
     }
 
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         profileChangeGoalsVM = new ViewModelProvider(requireActivity()).get(ProfileChangeGoalsVM.class);
@@ -67,6 +68,7 @@ public class ProfileChangeGoalsFragment extends Fragment {
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentProfileChangeGoalsBinding.inflate(inflater,container,false);
@@ -77,6 +79,7 @@ public class ProfileChangeGoalsFragment extends Fragment {
 
         binding.updateGoalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View view) {
                 Map<String, Object> data = new HashMap<>();
                 String dateString = binding.timeGoalEdt.getText().toString().trim();
@@ -102,6 +105,7 @@ public class ProfileChangeGoalsFragment extends Fragment {
                                 Toast.makeText(getContext(), "User data updated successfully", Toast.LENGTH_SHORT).show();
                                 mainVM.loadUser(new MainVM.UserLoadCallback() {
                                     @Override
+// == Tải dữ liệu và hiển thị lên UI ==
                                     public void onUserLoaded(User user) {
 
                                     }
@@ -125,6 +129,7 @@ public class ProfileChangeGoalsFragment extends Fragment {
 
         binding.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavController navController = NavHostFragment.findNavController(ProfileChangeGoalsFragment.this);
                 navController.popBackStack();
@@ -133,6 +138,7 @@ public class ProfileChangeGoalsFragment extends Fragment {
 
         binding.timeGoalEdt.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
 

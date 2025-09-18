@@ -23,6 +23,7 @@ public class WorkoutCategoriesFragment extends Fragment {
     private WorkoutCategoriesAdapter adapter;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(WorkoutCategoriesVM.class);
@@ -30,9 +31,10 @@ public class WorkoutCategoriesFragment extends Fragment {
     }
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentWorkoutCategoriesBinding.inflate(inflater, container, false);
         binding.setWorkoutCategoriesVM(viewModel);
         binding.setLifecycleOwner(getViewLifecycleOwner());
@@ -47,6 +49,7 @@ public class WorkoutCategoriesFragment extends Fragment {
     private void setOnClick() {
         binding.appBarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(WorkoutCategoriesFragment.this);
             }
@@ -56,6 +59,7 @@ public class WorkoutCategoriesFragment extends Fragment {
     private void setLoading() {
         viewModel.getIsLoadingData().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onChanged(Boolean isLoadingData) {
                 if (isLoadingData != null && !isLoadingData) {
                     binding.progressBarCyclic.setVisibility(View.GONE);

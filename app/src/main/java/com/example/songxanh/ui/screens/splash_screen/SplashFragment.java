@@ -35,6 +35,7 @@ public class SplashFragment extends Fragment {
     }
 
     @Override
+// == Khởi tạo và thiết lập ban đầu cho màn hình ==
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -44,6 +45,7 @@ public class SplashFragment extends Fragment {
     }
 
     @Override
+// == Khởi tạo và thiết lập ban đầu cho màn hình ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 

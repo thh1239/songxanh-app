@@ -66,11 +66,10 @@ public class MainActivity extends AppCompatActivity {
     private static final int NOTIFICATION_WORKOUT_ID = 1;
     private static final int REQUEST_CODE = 123;
 
-//    private static final String CHANNEL_MEAL_ID = "my_channel";
-//    private static final String CHANNEL_MEAL_NAME = "My Channel";
-//    private static final String CHANNEL_MEAL_DESC = "This is my notification channel";
-//    private static final int NOTIFICATION_MEAL_ID = 2;
-//    private static final int REQUEST_CODE_MEAL = 123;
+
+
+
+
 
     private NotificationManager notificationManager;
     private AlarmManager alarmManager;
@@ -78,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
+// == Lưu hoặc lấy dữ liệu từ SharedPreferences ==
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainVM.class);
         binding.setMainVM(viewModel);
 
-        // Hide navbar
         binding.navBar.setVisibility(View.GONE);
         binding.adminNavBar.setVisibility(View.GONE);
 
@@ -108,10 +107,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             viewModel.loadUser(new MainVM.UserLoadCallback() {
                 @Override
+// == Điều hướng sang màn hình khác ==
                 public void onUserLoaded(User user) {
                 }
 
                 @Override
+// == Điều hướng sang màn hình khác ==
                 public void onUserNotHaveInformation() {
                 }
             });
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel.getState().observe(this, new Observer<UserState>() {
             @Override
+// == Điều hướng sang màn hình khác ==
             public void onChanged(UserState userState) {
                 switch (userState) {
                     case loaded:
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case loading:
                         navController.navigate(R.id.splashFragment);
-//                        hideNavBar();
+
                         break;
                     case notHaveInformation:
                         navController.navigate(R.id.fillInPersonalInformationFragment);
@@ -164,13 +166,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void scheduleWorkoutNotification(int hour, int minute, int second) {
-        // Set the desired time for the notification
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour); // Hour in 24-hour format
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, second);
 
-        // Create an explicit intent for the notification receiver
         Intent intent = new Intent(this, workoutNotificationReceiver.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             notificationIntent = PendingIntent.getBroadcast(this, REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
@@ -178,18 +179,16 @@ public class MainActivity extends AppCompatActivity {
             notificationIntent = PendingIntent.getBroadcast(this, REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
-        // Schedule the notification
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), notificationIntent);
     }
 
     private void scheduleMealNotification(int hour, int minute, int second) {
-        // Set the desired time for the notification
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour); // Hour in 24-hour format
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, second);
 
-        // Create an explicit intent for the notification receiver
         Intent intent = new Intent(this, mealNotificationReceiver.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             notificationIntent = PendingIntent.getBroadcast(this, REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
@@ -197,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
             notificationIntent = PendingIntent.getBroadcast(this, REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
-        // Schedule the notification
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), notificationIntent);
     }
 
@@ -259,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
                     showPermissiongDialog("Notification Permission");
                 }
             });
+// == Tạo hoặc xử lý Intent để chuyển màn hình ==
 
     public void showPermissiongDialog(String permissiong_desc) {
         new AlertDialog.Builder(
@@ -266,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
         ).setTitle("Alert for Permission")
                 .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
                     @Override
+// == Tạo hoặc xử lý Intent để chuyển màn hình ==
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent rintent = new Intent();
                         rintent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -277,6 +277,7 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
                     @Override
+// == Xử lý sự kiện click từ người dùng ==
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
                     }
@@ -347,6 +348,7 @@ public class MainActivity extends AppCompatActivity {
         });
         binding.navBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
+// == Điều hướng sang màn hình khác ==
             public void onItemSelected(int i) {
                 switch (i) {
                     case R.id.nav_home:
@@ -370,6 +372,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.adminNavBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onItemSelected(int i) {
                 switch (i) {
                     case R.id.nav_ingredient_admin:

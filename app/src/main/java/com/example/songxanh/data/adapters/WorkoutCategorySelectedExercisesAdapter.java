@@ -24,13 +24,13 @@ import java.util.List;
 public class WorkoutCategorySelectedExercisesAdapter extends RecyclerView.Adapter<WorkoutCategorySelectedExercisesAdapter.ViewHolder> {
     private List<Exercise> selectedExercises;
     private Context context;
-//    private NavController navController;
+
     private ActionOnExerciseItem action;
 
     public WorkoutCategorySelectedExercisesAdapter(Context context, List<Exercise> selectedExercises, ActionOnExerciseItem actionOnExerciseItem) {
         this.selectedExercises = selectedExercises;
         this.context = context;
-//        this.navController = navController;
+
         this.action = actionOnExerciseItem;
     }
 
@@ -56,6 +56,7 @@ public class WorkoutCategorySelectedExercisesAdapter extends RecyclerView.Adapte
 
     @NonNull
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.exercise_list_item_layout, parent, false);
@@ -63,6 +64,7 @@ public class WorkoutCategorySelectedExercisesAdapter extends RecyclerView.Adapte
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Exercise exercise = selectedExercises.get(position);
 
@@ -72,12 +74,14 @@ public class WorkoutCategorySelectedExercisesAdapter extends RecyclerView.Adapte
         holder.calories.setText(String.valueOf(exercise.getCaloriesPerUnit()) + " cal");
         holder.informationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 action.onInformationBtn(exercise);
             }
         });
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 action.onDelete(position);
             }
@@ -92,6 +96,7 @@ public class WorkoutCategorySelectedExercisesAdapter extends RecyclerView.Adapte
     public void setData(List<Exercise> exercises) {
         selectedExercises = exercises;
     }
+// == Xóa dữ liệu hoặc item ==
 
     public void removeItem(int position) {
         selectedExercises.remove(position);

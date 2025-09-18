@@ -32,9 +32,10 @@ public class CommunityShareAchievementFragment extends Fragment {
     private MainVM mainVM;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentCommunityShareAchievementBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(WorkoutShareAchievementVM.class);
         mainVM = new ViewModelProvider(requireActivity()).get(MainVM.class);
@@ -54,15 +55,18 @@ public class CommunityShareAchievementFragment extends Fragment {
 
         viewModel.getWarningDialogMessage().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onChanged(String s) {
                 if (!s.equals("")) {
                     PracticingOnBackDialogInterface action = new PracticingOnBackDialogInterface() {
                         @Override
+// == Quản lý dữ liệu bằng ViewModel ==
                         public void onPositiveButton() {
 
                         }
 
                         @Override
+// == Quản lý dữ liệu bằng ViewModel ==
                         public void onNegativeButton() {
 
                         }
@@ -83,7 +87,6 @@ public class CommunityShareAchievementFragment extends Fragment {
             }
         });
 
-        // hide detail button
         binding.achievementLayout.detailsBtn.setVisibility(View.GONE);
 
         setOnClick();
@@ -94,6 +97,7 @@ public class CommunityShareAchievementFragment extends Fragment {
     private void setOnClick() {
         binding.appBar.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(CommunityShareAchievementFragment.this);
             }
@@ -101,6 +105,7 @@ public class CommunityShareAchievementFragment extends Fragment {
 
         binding.submitBtn.setOnClick(new View.OnClickListener() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onClick(View view) {
                 viewModel.addAchievementToDb(mainVM.getUser().getValue());
             }

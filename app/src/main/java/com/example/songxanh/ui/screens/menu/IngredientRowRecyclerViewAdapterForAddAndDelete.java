@@ -26,10 +26,12 @@ public class IngredientRowRecyclerViewAdapterForAddAndDelete extends RecyclerVie
     private RemoveIngredientClickListener removeIngredientClickListener;
 
     private OnWeightChangedListener onWeightChangedListener;
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void setOnWeightChangedListener(OnWeightChangedListener listener) {
         this.onWeightChangedListener = listener;
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
     public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
         notifyDataSetChanged();
@@ -44,6 +46,7 @@ public class IngredientRowRecyclerViewAdapterForAddAndDelete extends RecyclerVie
 
     @NonNull
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public IngredientRowForAddAndDeleteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.ingredient_row_layout_for_add_and_edit, parent, false);
@@ -51,12 +54,14 @@ public class IngredientRowRecyclerViewAdapterForAddAndDelete extends RecyclerVie
     }
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public void onBindViewHolder(@NonNull IngredientRowForAddAndDeleteViewHolder holder, int position) {
         holder.tvIngredientName.setText(ingredients.get(position).getName());
         holder.tvIngredientCalories.setText(GlobalMethods.formatDoubleToString(ingredients.get(position).getCalories()));
         holder.etIngredientWeight.setText(GlobalMethods.formatDoubleToString(ingredients.get(position).getWeight()));
         holder.btnRemoveIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public void onClick(View v) {
                 if(removeIngredientClickListener != null) {
                     removeIngredientClickListener.onRemoveIngredientClick(position);
@@ -66,6 +71,7 @@ public class IngredientRowRecyclerViewAdapterForAddAndDelete extends RecyclerVie
         });
         holder.etIngredientWeight.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 try {
                     double newWeight = Double.parseDouble(v.getText().toString());
@@ -85,6 +91,7 @@ public class IngredientRowRecyclerViewAdapterForAddAndDelete extends RecyclerVie
     }
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public int getItemCount() {
         return ingredients == null ? 0 : ingredients.size();
     }

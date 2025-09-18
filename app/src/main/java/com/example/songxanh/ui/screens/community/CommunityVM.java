@@ -24,6 +24,7 @@ public class CommunityVM extends ViewModel {
     public CommunityVM() {
         loadAchievements();
     }
+// == Tương tác với dịch vụ Firebase ==
 
     public void loadAchievements() {
         isLoadingAchievements.setValue(true);
@@ -48,11 +49,11 @@ public class CommunityVM extends ViewModel {
                 });
     }
 
-    // GETTERS AND SETTERS
 
     public MutableLiveData<List<Achievement>> getAchievements() {
         return achievements;
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public MutableLiveData<Boolean> getIsLoadingAchievements() {
         return isLoadingAchievements;

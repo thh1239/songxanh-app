@@ -36,6 +36,7 @@ public class WorkoutCategoryExercisesFragment extends Fragment implements MoveTe
     private NavController navController;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(WorkoutCategoryExercisesVM.class);
@@ -46,9 +47,10 @@ public class WorkoutCategoryExercisesFragment extends Fragment implements MoveTe
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding =  FragmentWorkoutCategoryExercisesBinding.inflate(inflater, container, false);
         binding.setCategoryExerciseVM(viewModel);
         binding.setWorkoutVM(workoutVM);
@@ -65,6 +67,7 @@ public class WorkoutCategoryExercisesFragment extends Fragment implements MoveTe
 
         workoutVM.getSelectedTotalCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onChanged(Integer total) {
                 binding.totalCaloriesTv.setText(String.valueOf(total) + " cal");
             }
@@ -81,6 +84,7 @@ public class WorkoutCategoryExercisesFragment extends Fragment implements MoveTe
 
         viewModel.getSelectedTempList().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onChanged(List<Exercise> exercises) {
                 selectedExercisesAdapter.setData(exercises);
                 selectedExercisesAdapter.notifyDataSetChanged();
@@ -91,6 +95,7 @@ public class WorkoutCategoryExercisesFragment extends Fragment implements MoveTe
     private void setUpCategoryExercisesRecyclerView() {
         viewModel.getExercises().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onChanged(List<Exercise> exercises) {
                 if (!exercises.isEmpty()) {
                     adapter = new WorkoutCategoryExercisesAdapter(requireContext(), viewModel.getExercises().getValue(), navController, WorkoutCategoryExercisesFragment.this);
@@ -104,6 +109,7 @@ public class WorkoutCategoryExercisesFragment extends Fragment implements MoveTe
     private void setUpToastObserver() {
         workoutVM.getAddSelectedExercisesToDbMessage().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onChanged(String message) {
                 if (message != null) {
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
@@ -116,6 +122,7 @@ public class WorkoutCategoryExercisesFragment extends Fragment implements MoveTe
     private void setOnClick() {
         binding.appBar.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Quản lý dữ liệu bằng ViewModel ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(WorkoutCategoryExercisesFragment.this);
             }
@@ -123,6 +130,7 @@ public class WorkoutCategoryExercisesFragment extends Fragment implements MoveTe
 
         binding.addToSelectedListBtn.setOnClick(new View.OnClickListener() {
             @Override
+// == Điều hướng sang màn hình khác ==
             public void onClick(View view) {
                 workoutVM.moveTempListToSelectedList(viewModel.getSelectedTempList().getValue());
                 viewModel.clearTempList();
@@ -131,11 +139,13 @@ public class WorkoutCategoryExercisesFragment extends Fragment implements MoveTe
     }
 
     @Override
+// == Điều hướng sang màn hình khác ==
     public void addExerciseToTempList(Exercise exercise) {
         viewModel.addExerciseToTempList(exercise);
     }
 
     @Override
+// == Điều hướng sang màn hình khác ==
     public void onInformationBtn(Exercise exercise) {
         com.example.songxanh.ui.screens.workout_categories_exercises.WorkoutCategoryExercisesFragmentDirections.ActionWorkoutCategoryExercisesFragmentToWorkoutExerciseDetailsFragment action =
                 com.example.songxanh.ui.screens.workout_categories_exercises.WorkoutCategoryExercisesFragmentDirections.actionWorkoutCategoryExercisesFragmentToWorkoutExerciseDetailsFragment(exercise);
@@ -143,6 +153,7 @@ public class WorkoutCategoryExercisesFragment extends Fragment implements MoveTe
     }
 
     @Override
+// == Xóa dữ liệu hoặc item ==
     public void onDelete(int position) {
 
     }

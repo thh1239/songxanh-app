@@ -33,9 +33,10 @@ public class AdminEditExercisesFragment extends Fragment implements AdminExercis
 
 
     public AdminEditExercisesFragment() {
-        // Required empty public constructor
+
     }
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
@@ -49,6 +50,7 @@ public class AdminEditExercisesFragment extends Fragment implements AdminExercis
         binding.setLifecycleOwner(getViewLifecycleOwner());
         binding.appBar.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View v) {
                 adminWorkoutVM.clearExerciseList();
 
@@ -58,6 +60,7 @@ public class AdminEditExercisesFragment extends Fragment implements AdminExercis
 
         binding.addExerciseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("operation", "add");
@@ -68,10 +71,12 @@ public class AdminEditExercisesFragment extends Fragment implements AdminExercis
     }
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         adminWorkoutVM.getExercises().observe(getViewLifecycleOwner(), new Observer<ArrayList<Exercise>>() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onChanged(ArrayList<Exercise> exercises) {
                 adapter.setExerciseArrayList(exercises);
             }
@@ -79,23 +84,24 @@ public class AdminEditExercisesFragment extends Fragment implements AdminExercis
     }
 
     @Override
+// == Xóa dữ liệu hoặc item ==
     public void onDelete(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext()); // 'this' refers to Context (your Activity or Application)
         builder.setTitle("Confirmation");
         builder.setMessage("Are you sure you want to delete this exercise?");
 
-        // If user says, YES
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(DialogInterface dialog, int which) {
-                // Call your ViewModel to delete
+
                 adminWorkoutVM.deleteExercise(adminWorkoutVM.getExercises().getValue().get(position).getId(), position);
             }
         });
 
-        // If user says, NO
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(DialogInterface dialog, int which) {
-                // Do nothing
+
             }
         });
 

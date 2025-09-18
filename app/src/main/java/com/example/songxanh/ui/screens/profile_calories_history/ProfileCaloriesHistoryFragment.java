@@ -40,11 +40,12 @@ public class ProfileCaloriesHistoryFragment extends Fragment {
     private LineChart lineChart;
 
     public ProfileCaloriesHistoryFragment() {
-        // Required empty public constructor
+
     }
 
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         profileCaloriesHistoryVM = new ViewModelProvider(requireActivity()).get(ProfileCaloriesHistoryVM.class);
@@ -52,9 +53,10 @@ public class ProfileCaloriesHistoryFragment extends Fragment {
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentProfileCaloriesHistoryBinding.inflate(inflater,container,false);
         binding.setViewModel(profileCaloriesHistoryVM);
         binding.setLifecycleOwner(getViewLifecycleOwner());
@@ -62,6 +64,7 @@ public class ProfileCaloriesHistoryFragment extends Fragment {
         lineChart = binding.lineChart;
         profileCaloriesHistoryVM.getIsLoadingLine().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onChanged(Boolean isLoadingLine) {
                 if (isLoadingLine != null && !isLoadingLine) {
                     drawLine();
@@ -70,6 +73,7 @@ public class ProfileCaloriesHistoryFragment extends Fragment {
         });
         binding.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View view) {
                 NavController navController = NavHostFragment.findNavController(ProfileCaloriesHistoryFragment.this);
                 navController.popBackStack();
@@ -96,7 +100,6 @@ public class ProfileCaloriesHistoryFragment extends Fragment {
             labels[i] = entries.get(i).getDate();
         }
 
-        // cái này để hiển thị ngày ở cột có giá trị
         IndexAxisValueFormatter xAxisFormatter = new IndexAxisValueFormatter(labels);
 
         XAxis xAxis = lineChart.getXAxis();

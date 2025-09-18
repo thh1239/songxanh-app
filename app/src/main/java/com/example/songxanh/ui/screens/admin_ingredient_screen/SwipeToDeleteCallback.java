@@ -29,6 +29,7 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     }
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
 
@@ -61,16 +62,19 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     }
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
         return false;
     }
 
     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         AlertDialog.Builder builder = new AlertDialog.Builder(viewHolder.itemView.getContext())
                 .setMessage("Are you sure you want to delete this item?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
                     public void onClick(DialogInterface dialog, int which) {
                         int position = viewHolder.getAdapterPosition();
                         adapter.deleteItem(position);
@@ -78,6 +82,7 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
                     public void onClick(DialogInterface dialog, int which) {
                         adapter.notifyItemChanged(viewHolder.getAdapterPosition());
                     }
@@ -87,6 +92,7 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onDismiss(DialogInterface dialogInterface) {
                 adapter.notifyItemChanged(viewHolder.getAdapterPosition());
             }

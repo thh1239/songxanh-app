@@ -11,6 +11,7 @@ public class DailyActivity {
    private double exerciseTime;
    private double weight;
    private double step;
+// == Tính toán và hiển thị tổng calo ==
 
    public void setDate(Timestamp date) {
       this.date = date;
@@ -28,31 +29,38 @@ public class DailyActivity {
    public DailyActivity(Timestamp date) {
       this.date = date;
    }
+// == Tính toán và hiển thị tổng calo ==
 
 
    public Timestamp getDate() {
       return date;
    }
+// == Tính toán và hiển thị tổng calo ==
 
    public double getCalories() {
       return calories;
    }
+// == Tính toán và hiển thị tổng calo ==
 
    public void setCalories(double calories) {
       this.calories = calories;
    }
+// == Tính toán và hiển thị tổng calo ==
 
    public double getFoodCalories() {
       return foodCalories;
    }
+// == Tính toán và hiển thị tổng calo ==
 
    public void setFoodCalories(double foodCalories) {
       this.foodCalories = foodCalories;
    }
+// == Tính toán và hiển thị tổng calo ==
 
    public double getExerciseCalories() {
       return exerciseCalories;
    }
+// == Tính toán và hiển thị tổng calo ==
 
    public void setExerciseCalories(double exerciseCalories) {
       this.exerciseCalories = exerciseCalories;

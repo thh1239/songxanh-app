@@ -25,21 +25,25 @@ public class HomeStatisticsCategoryAdapter extends BaseAdapter {
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public int getCount() {
         return categories.size();
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public Object getItem(int i) {
         return null;
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public long getItemId(int i) {
         return 0;
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = LayoutInflater.from(context).inflate(R.layout.home_statistics_category_item, viewGroup, false);
         TextView caloriesTv = view.findViewById(R.id.category_burned_calories_tv);

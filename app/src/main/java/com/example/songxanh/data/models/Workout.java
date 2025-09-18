@@ -18,13 +18,16 @@ public class Workout {
          this.date = null;
          this.exercises.setValue(new ArrayList<>());
     }
+// == Tính toán và hiển thị tổng calo ==
     public String getId() {
         return id;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public int getCalories() {
         return calories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setCalories(int calories) {
         this.calories = calories;

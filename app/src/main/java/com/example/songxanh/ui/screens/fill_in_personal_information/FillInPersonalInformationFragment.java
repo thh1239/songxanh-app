@@ -24,9 +24,10 @@ public class FillInPersonalInformationFragment extends Fragment {
     private int year = 2000;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentFillInPersonalInformationBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(requireActivity()).get(FillInPersonalInformationVM.class);
         binding.setPersonalInformationVM(viewModel);
@@ -41,6 +42,7 @@ public class FillInPersonalInformationFragment extends Fragment {
     private void setOnClick() {
         binding.birthdateEdt.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
 
@@ -63,6 +65,7 @@ public class FillInPersonalInformationFragment extends Fragment {
 
         binding.nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 NavHostFragment.findNavController(FillInPersonalInformationFragment.this).navigate(R.id.fillInTrackingInformationFragment);
             }

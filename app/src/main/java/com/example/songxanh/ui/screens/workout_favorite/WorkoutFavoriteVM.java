@@ -46,6 +46,7 @@ public class WorkoutFavoriteVM extends ViewModel {
                     }
                 });
     }
+// == Xóa dữ liệu hoặc item ==
 
     public void removeFavoriteExercise(int position) {
         firestore.collection("users").document(auth.getCurrentUser().getUid())

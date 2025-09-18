@@ -27,10 +27,12 @@ public class DishRecycleViewAdapter extends RecyclerView.Adapter<DishRecycleView
 
     private MealOptionDialogListener mealOptionDialogListener;
     private boolean allowOperation;
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void setMealOptionDialogListener(MealOptionDialogListener listener) {
         this.mealOptionDialogListener = listener;
     }
+// == Xử lý dữ liệu nguyên liệu trong món ăn ==
 
     public void setDishes(ArrayList<Dish> dishes) {
         this.dishes = dishes;
@@ -51,6 +53,7 @@ public class DishRecycleViewAdapter extends RecyclerView.Adapter<DishRecycleView
 
     @NonNull
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.meal_layout, parent, false);
@@ -58,6 +61,7 @@ public class DishRecycleViewAdapter extends RecyclerView.Adapter<DishRecycleView
     }
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
         holder.tvDishName.setText(dishes.get(position).getName());
         holder.tvMealCalories.setText(GlobalMethods.formatDoubleToString(dishes.get(position).getCalories()));
@@ -70,6 +74,7 @@ public class DishRecycleViewAdapter extends RecyclerView.Adapter<DishRecycleView
         }
         holder.btnMealOption.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View v) {
                 showDialog(context, position);
             }
@@ -107,6 +112,7 @@ public class DishRecycleViewAdapter extends RecyclerView.Adapter<DishRecycleView
 
         editMeal.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View v) {
                 if (mealOptionDialogListener != null) {
                     mealOptionDialogListener.onEditMealClick(position);
@@ -117,6 +123,7 @@ public class DishRecycleViewAdapter extends RecyclerView.Adapter<DishRecycleView
 
         deleteMeal.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onClick(View v) {
                 if (mealOptionDialogListener != null) {
                     mealOptionDialogListener.onDeleteMealClick(position);
@@ -127,6 +134,7 @@ public class DishRecycleViewAdapter extends RecyclerView.Adapter<DishRecycleView
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
             public void onClick(View v) {
                 if(mealOptionDialogListener != null) {
                     dialog.dismiss();
@@ -137,6 +145,7 @@ public class DishRecycleViewAdapter extends RecyclerView.Adapter<DishRecycleView
 
 
     @Override
+// == Cập nhật nguyên liệu và tính lại tổng calo ==
     public int getItemCount() {
         return dishes == null ? 0 : dishes.size();
     }

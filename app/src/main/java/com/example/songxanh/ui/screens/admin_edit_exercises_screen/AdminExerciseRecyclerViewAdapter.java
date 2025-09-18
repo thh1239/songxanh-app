@@ -43,6 +43,7 @@ public class AdminExerciseRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+// == Load ảnh bằng Glide và hiển thị ==
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         AdminExerciseRecyclerViewAdapterViewHolder viewHolder = (AdminExerciseRecyclerViewAdapterViewHolder) holder;
         Exercise temp = exerciseArrayList.get(position);
@@ -50,6 +51,7 @@ public class AdminExerciseRecyclerViewAdapter extends RecyclerView.Adapter {
 
         viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View v) {
                 if(onDeleteClick != null) {
                     onDeleteClick.onDelete(position);
@@ -58,6 +60,7 @@ public class AdminExerciseRecyclerViewAdapter extends RecyclerView.Adapter {
         });
         viewHolder.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Tính toán và hiển thị tổng calo ==
             public void onClick(View v) {
                 if(onEditClick!= null) {
                     onEditClick.onEdit(position);
@@ -74,6 +77,7 @@ public class AdminExerciseRecyclerViewAdapter extends RecyclerView.Adapter {
         viewHolder.exerciseNumberTv.setText(tempString);
         viewHolder.exerciseCaloriesTv.setText(GlobalMethods.formatDoubleToString(temp.getCaloriesPerUnit()));
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setExerciseArrayList(ArrayList<Exercise> exercises) {
         this.exerciseArrayList = exercises;
@@ -81,6 +85,7 @@ public class AdminExerciseRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public int getItemCount() {
         return exerciseArrayList == null ? 0 : exerciseArrayList.size();
     }

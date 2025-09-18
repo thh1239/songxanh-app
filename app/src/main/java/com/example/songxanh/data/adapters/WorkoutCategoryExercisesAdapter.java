@@ -54,6 +54,7 @@ private MoveTempListToSelectedExerciseList addSelectedExercise;
 
     @NonNull
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.exercise_list_item_layout, parent, false);
@@ -61,6 +62,7 @@ private MoveTempListToSelectedExerciseList addSelectedExercise;
     }
 
     @Override
+// == Tính toán và hiển thị tổng calo ==
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Exercise exercise = exercises.get(position);
 
@@ -70,6 +72,7 @@ private MoveTempListToSelectedExerciseList addSelectedExercise;
         holder.calories.setText(String.valueOf(exercise.getCaloriesPerUnit()) + " cal");
         holder.informationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Điều hướng sang màn hình khác ==
             public void onClick(View view) {
                 WorkoutCategoryExercisesFragmentDirections.ActionWorkoutCategoryExercisesFragmentToWorkoutExerciseDetailsFragment action =
                         WorkoutCategoryExercisesFragmentDirections.actionWorkoutCategoryExercisesFragmentToWorkoutExerciseDetailsFragment(exercise);
@@ -78,8 +81,9 @@ private MoveTempListToSelectedExerciseList addSelectedExercise;
         });
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Điều hướng sang màn hình khác ==
             public void onClick(View view) {
-                // Navigate to fragment edit information screen
+
                 com.example.songxanh.ui.screens.workout_categories_exercises.WorkoutCategoryExercisesFragmentDirections.ActionWorkoutCategoryExercisesFragmentToWorkoutEditInformationFragment action =
                         WorkoutCategoryExercisesFragmentDirections.actionWorkoutCategoryExercisesFragmentToWorkoutEditInformationFragment(exercise);
                 navController.navigate(action);

@@ -32,10 +32,12 @@ public class AdminWorkoutVM extends ViewModel {
     public AdminWorkoutVM() {
         fetchWorkoutCategories();
     }
+// == Tương tác với dịch vụ Firebase ==
 
     public MutableLiveData<ArrayList<WorkoutCategory>> getWorkoutCategories() {
         return workoutCategories;
     }
+// == Tương tác với dịch vụ Firebase ==
 
     public MutableLiveData<ArrayList<Exercise>> getExercises() {
         return exercises;
@@ -44,6 +46,7 @@ public class AdminWorkoutVM extends ViewModel {
     public FirebaseFirestore getDb() {
         return db;
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public void fetchWorkoutCategories() {
         db.collection("workout_categories").get().addOnSuccessListener(snap -> {
@@ -57,10 +60,12 @@ public class AdminWorkoutVM extends ViewModel {
             workoutCategories.postValue(temp);
         });
     }
+// == Tương tác với dịch vụ Firebase ==
 
     public void addNewCategory(String name, Uri imageUri) {
         addNewCategory(name, imageUri, null, null);
     }
+// == Tương tác với dịch vụ Firebase ==
 
     public void addNewCategory(String name, Uri imageUri, @Nullable Runnable onSuccess, @Nullable OnError onError) {
         if (name == null || name.trim().isEmpty() || imageUri == null) {
@@ -90,6 +95,7 @@ public class AdminWorkoutVM extends ViewModel {
             if (onError != null) onError.onError(e.getMessage());
         });
     }
+// == Xóa dữ liệu hoặc item ==
 
     public void deleteCategoryById(String categoryId, Runnable onSuccess, @Nullable OnError onError) {
         if (categoryId == null || categoryId.isEmpty()) {
@@ -120,6 +126,7 @@ public class AdminWorkoutVM extends ViewModel {
             if (onError != null) onError.onError(e.getMessage());
         });
     }
+// == Tải dữ liệu và hiển thị lên UI ==
 
     public void fetchExercisesInCategory(String id) {
         currentCategoryId = id;
@@ -139,6 +146,7 @@ public class AdminWorkoutVM extends ViewModel {
     public void clearExerciseList() {
         exercises.postValue(new ArrayList<>());
     }
+// == Xóa dữ liệu hoặc item ==
 
     public void deleteExercise(String id, int position) {
         if (currentCategoryId == null || id == null) return;
@@ -153,6 +161,7 @@ public class AdminWorkoutVM extends ViewModel {
             }
         });
     }
+// == Tương tác với dịch vụ Firebase ==
 
     public void addNewExercise(Exercise exercise, Uri imageUri) {
         if (currentCategoryId == null || exercise == null || imageUri == null) return;
@@ -170,6 +179,7 @@ public class AdminWorkoutVM extends ViewModel {
                 })
         );
     }
+// == Tương tác với dịch vụ Firebase ==
 
     public void updateExercise(Exercise exercise, Uri newImageUri) {
         if (exercise == null || exercise.getCategoryId() == null || exercise.getId() == null) return;

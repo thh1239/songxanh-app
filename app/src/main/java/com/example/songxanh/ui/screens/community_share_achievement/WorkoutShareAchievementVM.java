@@ -30,6 +30,7 @@ public class WorkoutShareAchievementVM extends ViewModel {
     public WorkoutShareAchievementVM() {
         loadTodayAchievement();
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void loadTodayAchievement() {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -55,6 +56,7 @@ public class WorkoutShareAchievementVM extends ViewModel {
                     }
                 });
     }
+// == Xác thực người dùng với FirebaseAuth ==
 
     public void addAchievementToDb(User user) {
         Achievement achievementData = todayAchievement.getValue();
@@ -123,6 +125,7 @@ public class WorkoutShareAchievementVM extends ViewModel {
     public MutableLiveData<String> getWarningDialogMessage() {
         return warningDialogMessage;
     }
+// == Thêm mới dữ liệu hoặc item ==
 
     public MutableLiveData<Boolean> getIsAddedSuccessfully() {
         return isAddedSuccessfully;

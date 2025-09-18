@@ -31,9 +31,10 @@ public class CommunityUserProfileFragment extends Fragment implements ActionOnAc
     private AchievementsListAdapter adapter;
 
     @Override
+// == Quản lý dữ liệu bằng ViewModel ==
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentCommunityUserProfileBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(CommunityUserProfileVM.class);
         binding.setViewModel(viewModel);
@@ -43,9 +44,9 @@ public class CommunityUserProfileFragment extends Fragment implements ActionOnAc
         viewModel.loadUser(uidFromPreviousFragment);
         viewModel.loadAchievements(uidFromPreviousFragment);
 
-        // Set up user avatar: if user already has avatar, use Glide to load it, else display default image
         viewModel.getUser().observe(getViewLifecycleOwner(), new Observer<NormalUser>() {
             @Override
+// == Load ảnh bằng Glide và hiển thị ==
             public void onChanged(NormalUser user) {
                 if (user != null) {
                     if (user.getImageUrl() == null || user.getImageUrl().isEmpty()) {
@@ -63,13 +64,13 @@ public class CommunityUserProfileFragment extends Fragment implements ActionOnAc
             }
         });
 
-        // Set up achievement list
         adapter = new AchievementsListAdapter(requireContext(), new ArrayList<>(), NavHostFragment.findNavController(this), this);
         binding.profileUserAchievementLst.setAdapter(adapter);
         binding.profileUserAchievementLst.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         viewModel.getAchievements().observe(getViewLifecycleOwner(), new Observer<List<Achievement>>() {
             @Override
+// == Hiển thị danh sách bằng RecyclerView/Adapter ==
             public void onChanged(List<Achievement> achievements) {
                 adapter.setData(achievements);
             }
@@ -83,6 +84,7 @@ public class CommunityUserProfileFragment extends Fragment implements ActionOnAc
     private void setOnClick() {
         binding.appBar.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+// == Xử lý sự kiện click từ người dùng ==
             public void onClick(View view) {
                 GlobalMethods.backToPreviousFragment(CommunityUserProfileFragment.this);
             }

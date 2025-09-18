@@ -14,6 +14,7 @@ public class WorkoutEditInformationVM extends ViewModel {
     private MutableLiveData<String> seconds = new MutableLiveData<>();
     private MutableLiveData<String> calories = new MutableLiveData<>();
     private MutableLiveData<String> reps = new MutableLiveData<>();
+// == Tính toán và hiển thị tổng calo ==
 
 
     public void setDefaultCount(int defaultCount) {
@@ -29,39 +30,49 @@ public class WorkoutEditInformationVM extends ViewModel {
             seconds.setValue(String.valueOf(second));
         }
     }
+// == Tính toán và hiển thị tổng calo ==
     public void setDefaultCalories(double defaultCalories) {
         this.defaultCalories = defaultCalories;
         this.calories.setValue(String.valueOf(defaultCalories));
     }
+// == Tính toán và hiển thị tổng calo ==
     public void setUnit(String unit) {
         this.unit = unit;
     }
+// == Tính toán và hiển thị tổng calo ==
     public MutableLiveData<String> getHours() {
         return hours;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setHours(String hours) {
         this.hours.setValue(hours);
     }
+// == Tính toán và hiển thị tổng calo ==
     public MutableLiveData<String> getMinutes() {
         return minutes;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setMinutes(String minutes) {
         this.minutes.setValue(minutes);
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public MutableLiveData<String> getSeconds() {
         return seconds;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setSeconds(String seconds) {
         this.seconds.setValue(seconds);
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public MutableLiveData<String> getCalories() {
         return calories;
     }
+// == Tính toán và hiển thị tổng calo ==
 
     public void setCalories(String calories) {
         this.calories.setValue(calories);
