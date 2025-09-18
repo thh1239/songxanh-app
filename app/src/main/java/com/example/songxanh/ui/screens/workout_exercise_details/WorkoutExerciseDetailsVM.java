@@ -15,7 +15,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.ktx.Firebase;
+
 
 public class WorkoutExerciseDetailsVM extends ViewModel {
     private MutableLiveData<Exercise> exercise = new MutableLiveData<>();
