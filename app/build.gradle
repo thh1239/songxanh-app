@@ -37,7 +37,7 @@ android {
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility   JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -46,12 +46,16 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:34.2.0")
     implementation "com.google.firebase:firebase-analytics"
     implementation "com.google.firebase:firebase-firestore"
-    implementation "com.google.firebase:firebase-firestore-ktx:24.10.0"
     implementation "com.google.firebase:firebase-database"
     implementation "com.google.firebase:firebase-auth"
     implementation "com.google.firebase:firebase-storage"
 
-    // Google sign-in & Credentials
+    // App Check
+    implementation "com.google.firebase:firebase-appcheck"
+    implementation "com.google.firebase:firebase-appcheck-playintegrity"
+    debugImplementation "com.google.firebase:firebase-appcheck-debug"
+
+    // Google Sign-In & Credentials
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
     implementation 'androidx.credentials:credentials:1.5.0'
     implementation 'androidx.credentials:credentials-play-services-auth:1.5.0'
@@ -61,17 +65,15 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    // Glide (khớp version glide & compiler)
+    // Glide
     implementation 'com.github.bumptech.glide:glide:4.15.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
 
-    // Core
-    implementation "androidx.core:core-ktx:1.6.0"
-
-    // Navigation (đồng bộ với SafeArgs 2.7.7)
+    // Core/Navigation
+    implementation "androidx.core:core-ktx:1.13.1"
     def nav_version = "2.7.7"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
@@ -86,7 +88,7 @@ dependencies {
     implementation "com.google.guava:guava:31.0.1-android"
     implementation "org.reactivestreams:reactive-streams:1.0.4"
 
-    // Gemini AI (OkHttp + JSON)
+    // Gemini AI
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation 'org.json:json:20231013'
 

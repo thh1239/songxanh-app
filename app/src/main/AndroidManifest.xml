@@ -16,6 +16,7 @@
     </queries>
 
     <application
+        android:name=".app_check.AppCheck"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -23,7 +24,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:enableOnBackInvokedCallback="true"
-        android:theme="@style/Theme.JavaHealthify"
+        android:theme="@style/Theme.SongXanh"
         tools:targetApi="33">
 
         <!-- Receiver thông báo Workout -->
