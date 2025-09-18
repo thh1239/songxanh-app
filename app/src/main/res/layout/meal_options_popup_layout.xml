@@ -17,7 +17,7 @@
         android:textColor="@color/primaryTextColor"
 
         android:paddingVertical="9dp"
-        android:text="Edit meal"
+        android:text="Sửa bữa ăn"
         android:textSize="14sp" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -30,7 +30,7 @@
         android:fontFamily="@font/poppins_semi_bold"
         android:includeFontPadding="false"
         android:paddingVertical="9dp"
-        android:text="Delete this meal"
+        android:text="Xóa bữa ăn này"
         android:textColor="@color/primaryTextColor"
         android:textSize="14sp" />
 
@@ -46,6 +46,6 @@
         android:fontFamily="@font/poppins_semi_bold"
         android:includeFontPadding="false"
         android:paddingVertical="9dp"
-        android:text="Cancel"
+        android:text="Thoát"
         android:textSize="14sp" />
 </LinearLayout>
